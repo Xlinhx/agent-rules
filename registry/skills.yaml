@@ -197,6 +197,12 @@ skills:
   trust_basis: licensed Apache-2.0; exact-pinned by content hash 665c585455de
   network: read
   side_effects: []
+  excludes:
+  - presentation
+  - pptx
+  - powerpoint
+  - slide
+  - deck
   update_policy: manual_review
 - id: expo-router
   origin: upstream
@@ -574,11 +580,17 @@ skills:
     tree: a6d128e53b4ec0238baee751dde33bf707adb5ec
     license: MIT
     license_evidence: LICENSE
-    content_hash: 7a6cee6a6679c84d9607bc68706cc76b44a26478325448b1c37a276edfb53611
+    content_hash: 32134157d57314d41e794e71014c853b24f16f20e396944e47ccc76f96fa01b0
   trust_tier: pinned-upstream
-  trust_basis: licensed MIT; exact-pinned by content hash 7a6cee6a6679
+  trust_basis: licensed MIT; exact-pinned by content hash 32134157d573
   network: read
   side_effects: []
+  excludes:
+  - presentation
+  - pptx
+  - powerpoint
+  - slide
+  - deck
   update_policy: manual_review
 - id: react-best-practices
   origin: upstream
@@ -637,3 +649,50 @@ skills:
   network: read
   side_effects: []
   update_policy: manual_review
+- id: slides
+  origin: upstream
+  role: domain
+  activation: implicit
+  compatibility: {}
+  lifecycle: active
+  upstream:
+    repository: https://github.com/openai/skills
+    source_path: skills/.curated/slides
+    commit: e6afb0d74cc75d220df2faf3dd6c635c2dc6a108
+    tree: d27336ee4ce4fa5705a3fe4472dd005104dd315e
+    license: Apache-2.0
+    license_evidence: skills/slides/LICENSE.txt (Apache-2.0, same-commit review)
+    content_hash: 86484fd3a98d9940aec0b98b9e7c21767136488e689bfeefc829c90de42e6d07
+  trust_tier: pinned-upstream
+  trust_basis: licensed Apache-2.0; exact-pinned by content hash 86484fd3a98d
+  network: read
+  side_effects:
+  - filesystem.write
+  update_policy: manual_review
+  signals:
+  - powerpoint
+  - pptx
+  - slides
+  - slide deck
+  - presentation
+  - làm slide
+  - bài thuyết trình
+  - tạo slide
+  - pitch deck
+  failure_target: presentation generation without editable PPTX verification or overflow checks
+  removal_condition: replace when a superior native presentation workflow proves higher fidelity at equal context cost
+- id: presentation-design-contract
+  origin: internal
+  role: design
+  activation: implicit
+  compatibility: {}
+  lifecycle: active
+  trust_tier: owner-approved
+  trust_basis: canonical internal procedure, owner-approved
+  network: none
+  side_effects: []
+  update_policy: manual_review
+  requires:
+  - slides
+  failure_target: generic AI presentation slop, card-grid layouts, and decorative clutter on slide decks
+  removal_condition: remove when host-native presentation design contracts are enforceable and portable across all hosts

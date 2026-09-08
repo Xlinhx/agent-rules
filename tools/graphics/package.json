@@ -1,0 +1,18 @@
+{
+  "name": "@initforge/agent-rules-tools-graphics",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Optional workstation graphics layout toolchain for agent-rules (Dagre, ELK.js, Vega-Lite)",
+  "type": "module",
+  "bin": {
+    "ar-dagre-layout": "./bin/dagre-layout.mjs",
+    "ar-elk-layout": "./bin/elk-layout.mjs",
+    "ar-vega-svg": "./bin/vega-svg.mjs"
+  },
+  "dependencies": {
+    "@dagrejs/dagre": "^1.1.4",
+    "elkjs": "^0.9.3",
+    "vega": "^5.30.0",
+    "vega-lite": "^5.21.0"
+  }
+}

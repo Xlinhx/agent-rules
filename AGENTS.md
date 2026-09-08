@@ -22,6 +22,9 @@ mirrors are projections; never edit them by hand.
    A missing optional surface is `NOT_APPLICABLE`, not a fake failure.
 8. Do not commit, push, deploy, create credentials, or install absent third-party
    hosts unless the user explicitly requests it.
+9. Upstream skills are immutable vendor artifacts. The harness governs their
+   projection, mounting, filtering, and routing, but never alters, trims, or
+   refactors third-party skill content or descriptions.
 
 ## Repository map
 

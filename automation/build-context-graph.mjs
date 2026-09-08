@@ -138,6 +138,9 @@ function addSkills(base, profile = '') {
       : {};
     const routing = {
       ...resolved.routing,
+      signals: registryEntry?.signals ?? resolved.routing.signals,
+      excludes: registryEntry?.excludes ?? resolved.routing.excludes,
+      priority: registryEntry?.priority ?? resolved.routing.priority,
       requires: registryEntry?.requires ?? resolved.routing.requires,
       supports: registryEntry?.supports ?? resolved.routing.supports,
       compatibility: registryEntry?.compatibility ?? {},

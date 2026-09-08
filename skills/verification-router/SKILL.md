@@ -55,10 +55,12 @@ A canonical component or service existing in source is not adoption proof; the
 active import, route, consumer or runtime must use it. Deletion proof includes
 operational capability and public/internal contracts, not only compile success.
 UI geometry or interaction acceptance requires browser/visual proof, but source
-checks remain required before a runtime gate. Bind blocker evidence to exact
-acceptance: runtime proof blocked while independent source work is pending is
-PARTIAL, not BLOCKED. Material-risk review may be required, but the harness does
-not choose the reviewer or model.
+checks remain required before a runtime gate. Presentation (.pptx) deliverables
+require layout validation (overflow check) and visual inspection (rendered
+slide/contact-sheet review); raw file write success is never sufficient completion
+proof. Bind blocker evidence to exact acceptance: runtime proof blocked while
+independent source work is pending is PARTIAL, not BLOCKED. Material-risk review
+may be required, but the harness does not choose the reviewer or model.
 
 ## Provider routing
 

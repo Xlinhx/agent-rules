@@ -5,11 +5,11 @@
   "files": [
     {
       "path": "generated/context-graph.json",
-      "sha256": "afacec1133855cf442a5ec960d04e28ded5c140c91203ea98fd5ce97f71967f1"
+      "sha256": "cec3398cfc73a15eda12fb4f623280a82bce7a2330ba12e25ce5a42b58822bd3"
     },
     {
       "path": "generated/runtime-build/antigravity/manifest.json",
-      "sha256": "9fdec0c2804917ceb5f1a055b483789fa8eb355605f8f480c5e410059dcbcefb"
+      "sha256": "ca59168df1d2fc833a881a0ad07aa9125b0025aa9bf3c8ca3ae39b4669e0a662"
     },
     {
       "path": "generated/runtime-build/antigravity/rules/00-intent-scope-safety.md",
@@ -25,7 +25,7 @@
     },
     {
       "path": "generated/runtime-build/antigravity/rules/30-context-skill-mcp.md",
-      "sha256": "0e4c912821cd8949d7e26028eae91789de0869e6e2b86da67f17bb1fc8eb18f1"
+      "sha256": "9ae0f5e540c09fdc848eb9ddbb3cbed3d331906c97b5fbb0d572e7b282636d88"
     },
     {
       "path": "generated/runtime-build/antigravity/rules/40-maintainer.md",
@@ -49,7 +49,7 @@
     },
     {
       "path": "generated/runtime-build/claude/manifest.json",
-      "sha256": "fdc10216afef29b3ba46fa7c8e77fd89bd0613502705fa5a5e7d0bbdf0f91337"
+      "sha256": "d8f5d1e76e37b010e4f1e89825dc78168ae21eb362c0d16e1d19f24fb6f9f273"
     },
     {
       "path": "generated/runtime-build/claude/rules/00-intent-scope-safety.md",
@@ -65,7 +65,7 @@
     },
     {
       "path": "generated/runtime-build/claude/rules/30-context-skill-mcp.md",
-      "sha256": "0e4c912821cd8949d7e26028eae91789de0869e6e2b86da67f17bb1fc8eb18f1"
+      "sha256": "9ae0f5e540c09fdc848eb9ddbb3cbed3d331906c97b5fbb0d572e7b282636d88"
     },
     {
       "path": "generated/runtime-build/claude/rules/40-maintainer.md",
@@ -89,7 +89,7 @@
     },
     {
       "path": "generated/runtime-build/codex/manifest.json",
-      "sha256": "b4722ee4d5fa23441cbdeb5ff4d2e72247e8a1e10b47d98c66479b8e9a4f5e9e"
+      "sha256": "937a0db1ad8693b69202d08e7407069b10d58fa6846571aa3b02fac125925caf"
     },
     {
       "path": "generated/runtime-build/codex/rules/00-intent-scope-safety.md",
@@ -105,7 +105,7 @@
     },
     {
       "path": "generated/runtime-build/codex/rules/30-context-skill-mcp.md",
-      "sha256": "0e4c912821cd8949d7e26028eae91789de0869e6e2b86da67f17bb1fc8eb18f1"
+      "sha256": "9ae0f5e540c09fdc848eb9ddbb3cbed3d331906c97b5fbb0d572e7b282636d88"
     },
     {
       "path": "generated/runtime-build/codex/rules/40-maintainer.md",
@@ -129,7 +129,7 @@
     },
     {
       "path": "generated/runtime-build/command-code/manifest.json",
-      "sha256": "92954dd44a3b117aedbacd7cb55df69474cddadc26ba69889e3b184f6d5dca74"
+      "sha256": "105fc5c843b8a6547fe9bb4d13358233dd52c61c159aad110f7aca56390df0eb"
     },
     {
       "path": "generated/runtime-build/command-code/rules/00-intent-scope-safety.md",
@@ -145,7 +145,7 @@
     },
     {
       "path": "generated/runtime-build/command-code/rules/30-context-skill-mcp.md",
-      "sha256": "0e4c912821cd8949d7e26028eae91789de0869e6e2b86da67f17bb1fc8eb18f1"
+      "sha256": "9ae0f5e540c09fdc848eb9ddbb3cbed3d331906c97b5fbb0d572e7b282636d88"
     },
     {
       "path": "generated/runtime-build/command-code/rules/40-maintainer.md",
@@ -165,7 +165,7 @@
     },
     {
       "path": "generated/runtime-build/cursor/manifest.json",
-      "sha256": "d284ba249ed128afcb940f38e712eca5f6a220b212da70c0d1129abbe0123312"
+      "sha256": "5fe94149f81dfbb3e84f3253370dd8e5e4937146e9a6499538ee7e2ccaa93c5a"
     },
     {
       "path": "generated/runtime-build/cursor/rules/00-intent-scope-safety.md",
@@ -181,7 +181,7 @@
     },
     {
       "path": "generated/runtime-build/cursor/rules/30-context-skill-mcp.md",
-      "sha256": "0e4c912821cd8949d7e26028eae91789de0869e6e2b86da67f17bb1fc8eb18f1"
+      "sha256": "9ae0f5e540c09fdc848eb9ddbb3cbed3d331906c97b5fbb0d572e7b282636d88"
     },
     {
       "path": "generated/runtime-build/cursor/rules/40-maintainer.md",
@@ -205,7 +205,7 @@
     },
     {
       "path": "generated/runtime-build/deepseek-harness/manifest.json",
-      "sha256": "f46e7e793bcc4960dec03390875578d96c6849c6d0a7e9bc5b441a8028569c4e"
+      "sha256": "bdb778df74c8375216949007ee8b68cdc6163f7fe8a39f67565b9241b3511ddd"
     },
     {
       "path": "generated/runtime-build/deepseek-harness/rules/00-intent-scope-safety.md",
@@ -221,7 +221,7 @@
     },
     {
       "path": "generated/runtime-build/deepseek-harness/rules/30-context-skill-mcp.md",
-      "sha256": "0e4c912821cd8949d7e26028eae91789de0869e6e2b86da67f17bb1fc8eb18f1"
+      "sha256": "9ae0f5e540c09fdc848eb9ddbb3cbed3d331906c97b5fbb0d572e7b282636d88"
     },
     {
       "path": "generated/runtime-build/deepseek-harness/rules/40-maintainer.md",
@@ -241,7 +241,7 @@
     },
     {
       "path": "generated/runtime-build/grok/manifest.json",
-      "sha256": "b367d57c065245c2707c7205823e7c671a5c3d626343f93a06cce2103e89f4f5"
+      "sha256": "afb836a7d08dd0ec490102cb886bde3923c24c6c47c53e4898e29444df0c04da"
     },
     {
       "path": "generated/runtime-build/grok/rules/00-intent-scope-safety.md",
@@ -257,7 +257,7 @@
     },
     {
       "path": "generated/runtime-build/grok/rules/30-context-skill-mcp.md",
-      "sha256": "0e4c912821cd8949d7e26028eae91789de0869e6e2b86da67f17bb1fc8eb18f1"
+      "sha256": "9ae0f5e540c09fdc848eb9ddbb3cbed3d331906c97b5fbb0d572e7b282636d88"
     },
     {
       "path": "generated/runtime-build/grok/rules/40-maintainer.md",
@@ -281,7 +281,7 @@
     },
     {
       "path": "generated/runtime-build/omp/manifest.json",
-      "sha256": "328bbca315cf55b2fc59cf580d708ad5062f233db2a8e3f48f1c77096ceceb53"
+      "sha256": "50e0e562e5a13820f8015fa0168ed4ce98f536e7bdcc244530f38f2ea1302df7"
     },
     {
       "path": "generated/runtime-build/omp/rules/00-intent-scope-safety.md",
@@ -297,7 +297,7 @@
     },
     {
       "path": "generated/runtime-build/omp/rules/30-context-skill-mcp.md",
-      "sha256": "0e4c912821cd8949d7e26028eae91789de0869e6e2b86da67f17bb1fc8eb18f1"
+      "sha256": "9ae0f5e540c09fdc848eb9ddbb3cbed3d331906c97b5fbb0d572e7b282636d88"
     },
     {
       "path": "generated/runtime-build/omp/rules/40-maintainer.md",
@@ -321,7 +321,7 @@
     },
     {
       "path": "generated/runtime-build/opencode/manifest.json",
-      "sha256": "0bf8e8f49038b2fe2ab7d01017794cfbebb399ba11c7470b0c4d59870ec1bd60"
+      "sha256": "859b9386f43e347859f5e7132920fd145cb77ace0d2905203f5ea668d0d2e039"
     },
     {
       "path": "generated/runtime-build/opencode/rules/00-intent-scope-safety.md",
@@ -337,7 +337,7 @@
     },
     {
       "path": "generated/runtime-build/opencode/rules/30-context-skill-mcp.md",
-      "sha256": "0e4c912821cd8949d7e26028eae91789de0869e6e2b86da67f17bb1fc8eb18f1"
+      "sha256": "9ae0f5e540c09fdc848eb9ddbb3cbed3d331906c97b5fbb0d572e7b282636d88"
     },
     {
       "path": "generated/runtime-build/opencode/rules/40-maintainer.md",
@@ -857,7 +857,7 @@
     },
     {
       "path": "packages/kernel/dist/northstar/routing.js",
-      "sha256": "af8a06b700905d8d2d237337deea73f6adf9abb700ff0edfc875a8693b00a141"
+      "sha256": "754f3b175865536893e848325176162ccd3c74e40568237d6d529fb1fb6ab9e6"
     },
     {
       "path": "packages/kernel/dist/northstar/rule-enforcement.js",
@@ -865,7 +865,7 @@
     },
     {
       "path": "packages/kernel/dist/northstar/skill-registry.js",
-      "sha256": "9faf62d78945998898fcc7ea51bed8ad1113bc706a88a7dd84d24103c0e3fea0"
+      "sha256": "edb63506f395c0fec2297055a682da1cce6eb049958d67f7e5b8ef53d431ca59"
     },
     {
       "path": "packages/kernel/dist/northstar/task-state.js",
@@ -3189,7 +3189,7 @@
     },
     {
       "path": "registry/skills.yaml",
-      "sha256": "21525fa79fcf1abbd4e645df1ce059a07f48c12d9982199eaec07db632a61c01"
+      "sha256": "fe98a43a290f62e652e9b16e3297bb16b441699dc48102a738c5f4abd678827f"
     },
     {
       "path": "rules/00-intent-scope-safety.md",
@@ -3205,7 +3205,7 @@
     },
     {
       "path": "rules/30-context-skill-mcp.md",
-      "sha256": "0e4c912821cd8949d7e26028eae91789de0869e6e2b86da67f17bb1fc8eb18f1"
+      "sha256": "9ae0f5e540c09fdc848eb9ddbb3cbed3d331906c97b5fbb0d572e7b282636d88"
     },
     {
       "path": "rules/40-maintainer.md",
@@ -3300,20 +3300,8 @@
       "sha256": "ea9127bd07acf4b84ac6cd2df010b1f244aba24a318d19c705c84d64c8f3808c"
     },
     {
-      "path": "skills/design-taste-frontend/references/design-engineering-directives.md",
-      "sha256": "bfd00724372f4888487f7710478a9fde3730b9b9cbb55ca560b12a4dde56fbbb"
-    },
-    {
-      "path": "skills/design-taste-frontend/references/patterns-and-blocks.md",
-      "sha256": "74c513b12aa47e537351f53e079bbf6b0e5d421ad884d22d40f8f904bc5f2555"
-    },
-    {
-      "path": "skills/design-taste-frontend/references/systems-and-appendices.md",
-      "sha256": "af747f1849b3d66c13eda1cfe746ac4553f8c4794253060d98e6a5cd178a1095"
-    },
-    {
       "path": "skills/design-taste-frontend/SKILL.md",
-      "sha256": "275021752821a2dcefa470795d5e167ee8bab6780004bed1e9f7d5ec973e67e7"
+      "sha256": "aa194351b246b8b4799099d4ed7b033d29eab6e6e3d58d8d2172978be7b3ec89"
     },
     {
       "path": "skills/differential-review/adversarial.md",
@@ -4160,6 +4148,10 @@
       "sha256": "1a609c93bff3eea9ab99fed93c0334c851fdc39fb6ac5335551bfb87c171d57c"
     },
     {
+      "path": "skills/presentation-design-contract/SKILL.md",
+      "sha256": "a3d8bbdc6ebf14a8784818b3e21136d3c253707264705ce057e514b6415d8473"
+    },
+    {
       "path": "skills/prisma-cli/references/agent-safety.md",
       "sha256": "66f06b408c2d4a7d0e950a4dd23565c0227f58acd80751f18d7dfbffc9685526"
     },
@@ -4860,6 +4852,86 @@
       "sha256": "343df01f7be7667377f402cb0fff50c69c2dc209a84abd004eb2e2889bdb07e6"
     },
     {
+      "path": "skills/slides/agents/openai.yaml",
+      "sha256": "26718abc16e4a94ab643d46ffaace471a2d7e3bbc1d74208bc0ed4d3c1251bb7"
+    },
+    {
+      "path": "skills/slides/assets/pptxgenjs_helpers/code.js",
+      "sha256": "07d696214bd4a1e8140f848d0f3095350ba095faac3a9114ab377f5a02281a6d"
+    },
+    {
+      "path": "skills/slides/assets/pptxgenjs_helpers/image.js",
+      "sha256": "e1cb8e362a17e94a5d46ea750b9be980c8cd52b856452d8e985158d8e18cc25f"
+    },
+    {
+      "path": "skills/slides/assets/pptxgenjs_helpers/index.js",
+      "sha256": "d8f10280cb833de507a07775ebcc0b6feaf3a18fa392b3f99b44590af7c851fc"
+    },
+    {
+      "path": "skills/slides/assets/pptxgenjs_helpers/latex.js",
+      "sha256": "239ba29b6b373252d1aa3abe3d1d1de3c46bc8ad2d131cdbc3c496dfe9be0b3b"
+    },
+    {
+      "path": "skills/slides/assets/pptxgenjs_helpers/layout_builders.js",
+      "sha256": "8aa685290d9df7011071436a8dcbebae3a0532a78589c658c201d6e285ab4aa4"
+    },
+    {
+      "path": "skills/slides/assets/pptxgenjs_helpers/layout.js",
+      "sha256": "83bbe8cb93354ab97ba5bfa7b467d8867d2b983f4670f7077eaaf493576f988e"
+    },
+    {
+      "path": "skills/slides/assets/pptxgenjs_helpers/svg.js",
+      "sha256": "2765d04f97bdfc4b1ce65a4c329ee4438bf62867bdd51d7d9cc3819c2311a091"
+    },
+    {
+      "path": "skills/slides/assets/pptxgenjs_helpers/text.js",
+      "sha256": "aaf822ad2ce1d35a50f5f8a6780d4bdf632cf83bc7fecb9eaeb7b01f0751b7d2"
+    },
+    {
+      "path": "skills/slides/assets/pptxgenjs_helpers/util.js",
+      "sha256": "9a73d719dcb35c92d99f4861b2c73604cc530dad8edbe9f7086c07647002188a"
+    },
+    {
+      "path": "skills/slides/assets/slides-small.svg",
+      "sha256": "5ac075fb19d448b5f73a87a8de978c858aef9fe4cbb8965e0e3eab69609b0bcf"
+    },
+    {
+      "path": "skills/slides/assets/slides.png",
+      "sha256": "879c4ff68c3930ea609b4d9f018a91756a785fb263c30994b05ac53c6f1ca6a8"
+    },
+    {
+      "path": "skills/slides/LICENSE.txt",
+      "sha256": "9a7110fc2d2f964038e5dc49128f908f29f47a574c961cba16085914e879cbda"
+    },
+    {
+      "path": "skills/slides/references/pptxgenjs-helpers.md",
+      "sha256": "9a7c9cd981b410b2015e3c38a3f2fbb058d735e97ff35c008650611ef4acb29b"
+    },
+    {
+      "path": "skills/slides/scripts/create_montage.py",
+      "sha256": "2b6318233173b3c2a04fa983acfbfd6db462744deeb0eac42f83785a23253b71"
+    },
+    {
+      "path": "skills/slides/scripts/detect_font.py",
+      "sha256": "e9b7b6a9f81bad64988bc57da756936cbdf331341b11a592cb9ab8ba7e515078"
+    },
+    {
+      "path": "skills/slides/scripts/ensure_raster_image.py",
+      "sha256": "56e05dbead25918f5bf28fd9375898e3f2508b635147ded61cabeb379d7079df"
+    },
+    {
+      "path": "skills/slides/scripts/render_slides.py",
+      "sha256": "74d2f7fe758920b610d8252a7fec631ea23a8948ca0d5875d67719d6c660eb0a"
+    },
+    {
+      "path": "skills/slides/scripts/slides_test.py",
+      "sha256": "620d4990df52157d033f5ad3c85bba1703ec9cc5fa441cf83ce6bff89581477b"
+    },
+    {
+      "path": "skills/slides/SKILL.md",
+      "sha256": "dc52ad40ed0c5b863de845eed0ac98a4f6da82a1b3db212a13db0b812bc61d23"
+    },
+    {
       "path": "skills/source-lock-policy.json",
       "sha256": "d64213d18b3f6d0c4fedacdb913cb0a4fe2ea79d6f3a5850d47d93d0a54f36c8"
     },
@@ -5141,12 +5213,12 @@
     },
     {
       "path": "skills/verification-router/SKILL.md",
-      "sha256": "210afcf7f60e61278b83a3536f0c204b476ea296a67ed62422cae02be60b87e4"
+      "sha256": "269edd3f8c257a395c3fe1f072bd0efa4fdbabed8aa8273fc6eb68d75a39e3c5"
     },
     {
       "path": "skills/web-design-guidelines/SKILL.md",
       "sha256": "17e48da905f83a19c174079b50760a98c069527ba50079239b3c187236627c29"
     }
   ],
-  "manifest_sha256": "ed8815956f4d139746467cbb449c44d58720c98308a057edeb83b35f1559d712"
+  "manifest_sha256": "5a3ade96790a1a6f067cf86bd1a09285454a38cc99c6906a12c1e2dd5babde6f"
 }

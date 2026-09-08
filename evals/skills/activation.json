@@ -576,6 +576,38 @@
       "kind": "positive",
       "language": "vi",
       "prompt": "Kiểm tra giao diện web theo tiêu chuẩn Web Design Guidelines về a11y và layout."
+    },
+    {
+      "skill": "slides",
+      "kind": "positive",
+      "prompt": "Create a PowerPoint presentation deck using PptxGenJS and verify slide layouts."
+    },
+    {
+      "skill": "slides",
+      "kind": "hard_negative",
+      "prompt": "Write a pure backend node script with no presentation or PowerPoint files."
+    },
+    {
+      "skill": "slides",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Tạo file trình chiếu PowerPoint pptx với các biểu đồ và hình khối native có thể chỉnh sửa được."
+    },
+    {
+      "skill": "presentation-design-contract",
+      "kind": "positive",
+      "prompt": "Design an executive pitch deck with strong narrative hierarchy and anti-slop visual standards."
+    },
+    {
+      "skill": "presentation-design-contract",
+      "kind": "hard_negative",
+      "prompt": "Design a web landing page in Tailwind CSS with hero typography."
+    },
+    {
+      "skill": "presentation-design-contract",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Thiết kế bài thuyết trình slide deck cho ban giám đốc theo chuẩn narrative rõ ràng, không dùng card grid AI."
     }
   ]
 }

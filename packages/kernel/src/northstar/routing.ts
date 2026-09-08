@@ -105,16 +105,20 @@ export function routeSkills(input: NativeRouteInput, root: string): SkillRoute[]
       if (requested.has(slug)) return true; // explicit skill wins
       if (modeSkill === slug) return true;  // requested mode is deterministic
       if ((mode === 'plan' && slug === 'verification-router') || (mode === 'qa' && slug === 'plan-and-handoff')) return false;
-      // Deterministic signals only: project/profile compatibility and
-      // affected-scope compatibility. No natural-language implicit selection:
-      // implicit semantic activation belongs to the host-native model reading
-      // the exact skill name/description, never to a runtime phrase classifier.
       const projectMatch = Boolean(node.routing.project_scope && node.routing.project_scope === input.activeProjectScope);
       if (node.routing.project_scope && !projectMatch) return false;
       if (projectMatch) return true;
       return node.routing.default === true && compatibilityFilter(node, input);
     })
-    .sort((a, b) => Number(requested.has(b.slug)) - Number(requested.has(a.slug)) || Number(modeSkill === b.slug) - Number(modeSkill === a.slug) || (b.node.routing.priority ?? 0) - (a.node.routing.priority ?? 0) || a.slug.localeCompare(b.slug));
+    .sort((a, b) => {
+      const aExplicit = Number(requested.has(a.slug));
+      const bExplicit = Number(requested.has(b.slug));
+      if (aExplicit !== bExplicit) return bExplicit - aExplicit;
+      const aMode = Number(modeSkill === a.slug);
+      const bMode = Number(modeSkill === b.slug);
+      if (aMode !== bMode) return bMode - aMode;
+      return (b.node.routing.priority ?? 0) - (a.node.routing.priority ?? 0) || a.slug.localeCompare(b.slug);
+    });
 
   const bySlug = new Map(graph.nodes.filter((node) => node.id.startsWith('skill:')).map((node) => [node.id.slice(6), node]));
   const selected = new Map<string, { node: GraphNode; reason: string }>();
@@ -129,7 +133,8 @@ export function routeSkills(input: NativeRouteInput, root: string): SkillRoute[]
         throw new Error(`skill conflict: ${slug} conflicts with ${selectedSlug}`);
       }
       if (node.exclusive_group && selectedNode?.exclusive_group === node.exclusive_group) {
-        throw new Error(`skill exclusive group conflict (${node.exclusive_group}): ${slug}, ${selectedSlug}`);
+        if (visiting.length === 0) return;
+        throw new Error(`skill exclusive group conflict (${node.exclusive_group}): ${slug} (required by ${visiting.at(-1)}) conflicts with already selected ${selectedSlug}`);
       }
     }
     selected.set(slug, { node, reason });

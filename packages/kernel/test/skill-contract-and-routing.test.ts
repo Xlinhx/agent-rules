@@ -30,6 +30,35 @@ describe('native skill routing', () => {
     return root;
   }
 
+  function fixtureGraphWithExclusive(nodesSpec: Array<{ slug: string; priority: number; exclusiveGroup?: string; requires?: string[] }>): string {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-rules-routing-ex-'));
+    temporaryRoots.push(root);
+    const nodes = nodesSpec.map((spec) => {
+      const source = `skills/${spec.slug}/SKILL.md`;
+      const file = path.join(root, ...source.split('/'));
+      const body = `---\nname: ${spec.slug}\ndescription: fixture\n---\n# ${spec.slug}\n`;
+      fs.mkdirSync(path.dirname(file), { recursive: true });
+      fs.writeFileSync(file, body);
+      const hash = createHash('sha256').update(body).digest('hex');
+      return {
+        id: `skill:${spec.slug}`,
+        layer: 'skills',
+        role: 'domain',
+        source,
+        source_hash: hash,
+        routing_source: source,
+        routing_hash: hash,
+        exclusive_group: spec.exclusiveGroup,
+        routing: {
+          priority: spec.priority,
+          requires: spec.requires ?? [],
+        },
+      };
+    });
+    fs.mkdirSync(path.join(root, 'generated'), { recursive: true });
+    fs.writeFileSync(path.join(root, 'generated', 'context-graph.json'), JSON.stringify({ version: 3, nodes }));
+    return root;
+  }
   // ── explicit-routing fixtures: deterministic, no phraseHit-as-semantic ──
   it('routes explicit skill IDs deterministically', () => {
     const routes = routeSkills({ prompt: '', explicitSkills: ['security-review'] }, repoRoot);
@@ -129,5 +158,35 @@ describe('native skill routing', () => {
     // explicit skill still wins
     const explicit = routeSkills({ prompt: 'Prisma database work', explicitSkills: ['prisma-client-api'], affectedScope: { stacks: ['prisma'] } }, repoRoot).map((r) => r.id);
     expect(explicit).toContain('prisma-client-api');
+  });
+
+  it('exclusive group conflict selects the higher-priority winner and suppresses duplicate candidates without crashing', () => {
+    // 1. Synthetic fixture testing deterministic priority resolution in exclusive group
+    const fixtureRoot = fixtureGraphWithExclusive([
+      { slug: 'low-prio', priority: 10, exclusiveGroup: 'editor' },
+      { slug: 'high-prio', priority: 20, exclusiveGroup: 'editor' },
+    ]);
+    const routed = routeSkills({ prompt: '', explicitSkills: ['low-prio', 'high-prio'] }, fixtureRoot);
+    expect(routed.map((r) => r.id)).toEqual(['high-prio']);
+
+    // 2. Production exclusive group: requesting both frontend-design and design-taste-frontend resolves to exactly one winner without crashing
+    const explicitBoth = routeSkills({ prompt: '', explicitSkills: ['frontend-design', 'design-taste-frontend'] }, repoRoot).map((r) => r.id);
+    expect(explicitBoth.filter((id) => id === 'frontend-design' || id === 'design-taste-frontend')).toHaveLength(1);
+  });
+
+  it('routes explicit presentation skills and handles dependency requirements deterministically', () => {
+    // 1. Explicit slides routes slides alone
+    const basicIds = routeSkills({ prompt: '', explicitSkills: ['slides'] }, repoRoot).map((r) => r.id);
+    expect(basicIds).toEqual(['slides']);
+
+    // 2. Explicit presentation-design-contract automatically pulls slides as declared dependency
+    const designIds = routeSkills({ prompt: '', explicitSkills: ['presentation-design-contract'] }, repoRoot).map((r) => r.id);
+    expect(designIds).toContain('presentation-design-contract');
+    expect(designIds).toContain('slides');
+
+    // 3. Neutral prompt without explicit selection routes no presentation skills (Lock 1)
+    const neutralIds = routeSkills({ prompt: 'Create a PowerPoint presentation' }, repoRoot).map((r) => r.id);
+    expect(neutralIds).not.toContain('slides');
+    expect(neutralIds).not.toContain('presentation-design-contract');
   });
 });

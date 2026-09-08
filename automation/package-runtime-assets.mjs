@@ -46,7 +46,7 @@ const files = [
   ...copyTree('schemas'),
   ...copyTree('platforms', (src) => {
     const rel = path.relative(path.join(root, 'platforms'), src).split(path.sep).join('/');
-    return !/\.test\.ts$|\/coordinator-adapter\.ts$|\/native-session-adapter\.ts$/.test(rel);
+    return !/\.test\.ts$|\/coordinator-adapter\.ts$|\/native-session-adapter\.ts$|\/agent-rules-extension\.ts$|\/scripts\//.test(rel);
   }),
   ...copyTree('profiles'),
   ...copyTree('integrations'),

@@ -1,0 +1,153 @@
+{
+  "schema": "agent-rules/pptx-benchmark-cases/v1",
+  "families": [
+    {
+      "id": "greenfield-technical",
+      "name": "Greenfield Technical Lecture",
+      "prompt": "Create a 15-slide technical lecture for CS2004 on 'Network Layer Models and Socket Architecture', detailing OSI vs TCP/IP decomposition, socket lifecycles, and packet encapsulation.",
+      "required_slides": 15,
+      "hard_gates": ["zero_overflow", "native_editable_text", "no_flattened_images"],
+      "rubric": {
+        "technical_fidelity": 30,
+        "visual_semantics": 25,
+        "narrative_flow": 20,
+        "anti_slop_compliance": 15,
+        "notes_completeness": 10
+      }
+    },
+    {
+      "id": "executive-briefing",
+      "name": "Executive Board Presentation",
+      "prompt": "Author an 8-slide executive briefing on Q3 cloud infrastructure reliability and incident downtime impact for the board of directors.",
+      "required_slides": 8,
+      "hard_gates": ["zero_overflow", "two_tier_or_action_titles"],
+      "rubric": {
+        "action_titles": 35,
+        "whitespace_management": 25,
+        "kpi_dominance": 25,
+        "editorial_polish": 15
+      }
+    },
+    {
+      "id": "data-dense",
+      "name": "Data-Dense Analytical Deck",
+      "prompt": "Build a 10-slide machine learning performance readout for an anti-fraud classifier, presenting confusion matrices, ROC curves, latency distribution, and precision-recall trade-offs.",
+      "required_slides": 10,
+      "hard_gates": ["native_charts_or_svg", "zero_overflow"],
+      "rubric": {
+        "data_density_organization": 35,
+        "dominant_chart_hierarchy": 30,
+        "annotation_clarity": 20,
+        "truthful_metrics": 15
+      }
+    },
+    {
+      "id": "editorial-keynote",
+      "name": "Editorial Keynote Presentation",
+      "prompt": "Design a 7-slide keynote deck on 'The Autonomous Agent Paradigm', using cinematic pacing, high-contrast typography, single-idea slides, and expansive negative space.",
+      "required_slides": 7,
+      "hard_gates": ["zero_overflow", "minimal_prose_under_30_words"],
+      "rubric": {
+        "typographic_dominance": 40,
+        "pacing_and_tension": 30,
+        "negative_space_composition": 30
+      }
+    },
+    {
+      "id": "dense-slidedoc",
+      "name": "Self-Guided Technical Slidedoc",
+      "prompt": "Author a 12-slide comprehensive technical architecture slidedoc for a distributed consensus protocol, designed to be read standalone without a presenter while maintaining clean scannability.",
+      "required_slides": 12,
+      "hard_gates": ["zero_overflow", "scannable_phrases_not_prose"],
+      "rubric": {
+        "multi_vector_hierarchy": 35,
+        "unboxed_grouping": 35,
+        "information_completeness": 30
+      }
+    },
+    {
+      "id": "existing-deck-edit",
+      "name": "Existing Template Style-Preserving Edit",
+      "prompt": "Open template.pptx, add 2 new slides presenting edge computing deployment metrics while strictly preserving the corporate font, palette, and divider line geometry.",
+      "required_slides": 2,
+      "hard_gates": ["unrelated_slides_preserved", "design_dna_match"],
+      "rubric": {
+        "composition_dna_fidelity": 40,
+        "token_reuse": 30,
+        "zero_layout_breakage": 30
+      }
+    },
+    {
+      "id": "template-driven",
+      "name": "Branded POTX Template Authoring",
+      "prompt": "Using corporate-brand.potx master layouts, generate a 6-slide quarterly project review strictly inheriting slide masters, color tokens, and header positions.",
+      "required_slides": 6,
+      "hard_gates": ["master_layout_inherited", "no_custom_override_drift"],
+      "rubric": {
+        "template_fidelity": 50,
+        "content_alignment": 30,
+        "branding_compliance": 20
+      }
+    },
+    {
+      "id": "reference-recreation",
+      "name": "High-Fidelity Reference Recreation",
+      "prompt": "Recreate a slide deck from the provided PDF reference pages, matching spatial grid proportions, typography scale, and chart layouts faithfully.",
+      "required_slides": 4,
+      "hard_gates": ["zero_overflow", "spatial_proportions_matched"],
+      "rubric": {
+        "layout_fidelity": 45,
+        "typographic_match": 35,
+        "native_object_parity": 20
+      }
+    },
+    {
+      "id": "chart-heavy",
+      "name": "Multi-Series Quantitative Charts",
+      "prompt": "Build an 8-slide financial performance report containing multi-series clustered column charts, stacked bar charts, and annotated trend lines using native editable PptxGenJS charts.",
+      "required_slides": 8,
+      "hard_gates": ["native_charts_only", "chart_labels_unclipped"],
+      "rubric": {
+        "chart_legibility": 40,
+        "takeaway_annotation": 35,
+        "color_signaling": 25
+      }
+    },
+    {
+      "id": "diagram-heavy",
+      "name": "Network Diagram & Architecture Flow",
+      "prompt": "Create a 6-slide system architecture presentation showing an end-to-end event-driven message pipeline spanning Kafka, microservices, Postgres, and Redis cache.",
+      "required_slides": 6,
+      "hard_gates": ["unboxed_flow_geometry", "connected_nodes"],
+      "rubric": {
+        "semantic_geometry": 40,
+        "clarity_of_flow": 30,
+        "minimal_card_boxes": 30
+      }
+    },
+    {
+      "id": "image-integrated",
+      "name": "Layout-First Editorial Imagery",
+      "prompt": "Produce a 5-slide editorial keynote on 'Deep Sea Fiber Infrastructure', integrating high-resolution photography with text contrast scrims and deliberate negative space placement.",
+      "required_slides": 5,
+      "hard_gates": ["scrim_contrast_legibility", "no_flat_raster_slides"],
+      "rubric": {
+        "visual_storytelling": 40,
+        "text_contrast_compliance": 35,
+        "layout_integration": 25
+      }
+    },
+    {
+      "id": "multilingual-vietnamese",
+      "name": "Vietnamese Academic Deck",
+      "prompt": "Soạn bài thuyết trình 10 slide bằng tiếng Việt về 'Mô hình phân tầng TCP/IP và Lập trình Socket', đảm bảo dấu tiếng Việt chuẩn và thuật ngữ chuyên ngành chuẩn xác.",
+      "required_slides": 10,
+      "hard_gates": ["vietnamese_diacritics_intact", "font_fallback_clean"],
+      "rubric": {
+        "vietnamese_typography": 35,
+        "technical_accuracy": 35,
+        "scannable_hierarchy": 30
+      }
+    }
+  ]
+}

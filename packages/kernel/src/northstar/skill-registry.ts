@@ -59,6 +59,8 @@ export interface SkillRegistryEntry {
   readonly supersedes?: readonly string[];
   readonly superseded_by?: readonly string[];
   readonly exclusive_group?: string;
+  readonly signals?: readonly string[];
+  readonly excludes?: readonly string[];
   readonly lifecycle: SkillLifecycle;
   readonly upstream?: UpstreamPin;
   readonly trust_tier: TrustTier;
@@ -155,12 +157,13 @@ export function validateSkillRegistry(value: unknown): SkillRegistryValidation {
     if (!Array.isArray(e.side_effects)) add('side_effects must be an array');
     if (e.update_policy !== 'manual_review') add('update_policy must be manual_review');
 
-    for (const listField of ['requires', 'supports', 'conflicts', 'supersedes', 'superseded_by', 'side_effects'] as const) {
+    const edgeFields = ['requires', 'supports', 'conflicts', 'supersedes', 'superseded_by'] as const;
+    for (const listField of [...edgeFields, 'side_effects', 'signals', 'excludes'] as const) {
       if (e[listField] !== undefined && (!Array.isArray(e[listField]) || (e[listField] as unknown[]).some((x) => typeof x !== 'string'))) add(`${listField} must be an array of strings`);
       else if (Array.isArray(e[listField])) {
         const values = e[listField] as string[];
-        if (new Set(values).size !== values.length) add(`${listField} contains duplicate edges`);
-        if (values.includes(String(e.id))) add(`${listField} must not self-reference ${String(e.id)}`);
+        if (new Set(values).size !== values.length) add(`${listField} contains duplicate entries`);
+        if ((edgeFields as readonly string[]).includes(listField) && values.includes(String(e.id))) add(`${listField} must not self-reference ${String(e.id)}`);
       }
     }
     if (e.exclusive_group !== undefined && (typeof e.exclusive_group !== 'string' || !e.exclusive_group)) add('exclusive_group must be a non-empty string');
