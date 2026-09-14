@@ -3,6 +3,17 @@
 Load the smallest matching capability and never infer domain authority from words alone.
 Keep living context cohesive, imperative, and useful to the current turn.
 
+Skill Dependency Graph và nguyên lý phân định ranh giới:
+- Nguyên lý tối thượng: "Same decision boundary → merge. Verification boundary → split."
+  * GỘP trong cùng turn (Orthogonal Composite): Khi các kỹ năng cùng tham gia một quyết định sáng tác (cùng artifact, cùng pha compose, thẩm quyền trực giao, quyết định ràng buộc lẫn nhau). Ví dụ: bố cục (layout) + không gian 3D + công thức màu (OKLCH) + interaction feel.
+  * TÁCH turn tuần tự (Phased Pipeline): Khi tồn tại trạng thái trung gian cần kiểm chứng bằng dữ liệu/mã nguồn thực tế (Evidence Gate). Các kỹ năng reviewer/auditor (như impeccable, review-animations, web-design-guidelines) bắt buộc nằm sau ranh giới kiểm chứng, không bao giờ gộp vào lượt tạo mới ban đầu.
+- 5 Hard Gates ưu tiên tách turn:
+  1. Authority Conflict Gate: Hai kỹ năng cùng tranh chấp một thẩm quyền quyết định (ví dụ 2 Art Director) → dùng exclusive_group để chọn đúng 1 đại diện.
+  2. Evidence Gate: Kỹ năng sau cần nhìn thấy output/DOM thật của kỹ năng trước để đánh giá (Create → Critique / Motion → Motion QA).
+  3. Verification Gate: Tồn tại phép đo trung gian có thể thay đổi hướng đi kỹ thuật (WebGL scene → GPU profile → optimize).
+  4. Context Saturation Gate: Tổng context của các kỹ năng vượt ngân sách an toàn → cắt tỉa hoặc tách chặng.
+  5. Blast-Radius Gate: Tránh gộp tái cấu trúc kiến trúc diện rộng với vi chỉnh chi tiết cục bộ trong cùng một lượt sửa đổi.
+
 SKILL.md owns exact skill content, name and description. `registry/skills.yaml`
 owns provenance, role, activation, dependencies, conflicts and lifecycle.
 Upstream skills are immutable vendor artifacts: pinned to upstream commit,

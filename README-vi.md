@@ -79,5 +79,5 @@ npm run verify:all
 ```
 
 `verify:all` là release gate tích hợp duy nhất và gồm clean packed static
-install/update/doctor/source-state-independence/rollback. `5fedu` và Pencil vẫn explicit-only; từ khóa ERP, UI
-hoặc design không tự kích hoạt chúng.
+install/update/doctor/source-state-independence/rollback. `5fedu` vẫn explicit-only; từ khóa ERP
+không tự kích hoạt nó.

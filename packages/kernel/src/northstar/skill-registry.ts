@@ -59,6 +59,7 @@ export interface SkillRegistryEntry {
   readonly supersedes?: readonly string[];
   readonly superseded_by?: readonly string[];
   readonly exclusive_group?: string;
+  readonly priority?: number;
   readonly signals?: readonly string[];
   readonly excludes?: readonly string[];
   readonly lifecycle: SkillLifecycle;
@@ -167,6 +168,7 @@ export function validateSkillRegistry(value: unknown): SkillRegistryValidation {
       }
     }
     if (e.exclusive_group !== undefined && (typeof e.exclusive_group !== 'string' || !e.exclusive_group)) add('exclusive_group must be a non-empty string');
+    if (e.priority !== undefined && (typeof e.priority !== 'number' || !Number.isFinite(e.priority))) add('priority must be a finite number');
     lifecycleContradictions(e, add);
 
     if (e.origin === 'upstream') {

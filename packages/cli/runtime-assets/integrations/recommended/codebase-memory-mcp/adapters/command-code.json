@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "codebase-memory": {
-      "command": "${COMMAND_CODE_CODEBASE_MEMORY_BIN}",
-      "args": []
-    }
-  }
-}

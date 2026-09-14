@@ -187,17 +187,14 @@ export function resolveCodebaseMemoryBin(env: NodeJS.ProcessEnv = process.env): 
  * generic MCP config files on their own.
  */
 export function getStandardMcpServers(_home: string): Record<string, { command: string; args: string[]; env?: Record<string, string> }> {
-  const codebaseMemory = resolveCodebaseMemoryBin() ?? 'codebase-memory-mcp';
   const npx = (args: string[]): { command: string; args: string[] } => process.platform === 'win32'
     ? { command: 'cmd.exe', args: ['/d', '/s', '/c', 'npx', ...args] }
     : { command: 'npx', args };
+  const serenaCmd = process.platform === 'win32' ? 'serena.exe' : 'serena';
   return {
-    "codebase-memory": {
-      command: codebaseMemory,
-      args: [],
-    },
-    playwright: {
-      ...npx(["-y", "@playwright/mcp@0.0.78", "--isolated"]),
+    serena: {
+      command: serenaCmd,
+      args: ['start-mcp-server'],
     },
     "chrome-devtools": {
       ...npx(["-y", "chrome-devtools-mcp@1.7.0", "--isolated"]),
@@ -207,8 +204,7 @@ export function getStandardMcpServers(_home: string): Record<string, { command: 
       },
     },
     context7: {
-      command: "cmd.exe",
-      args: ["/d", "/s", "/c", "npx", "-y", "@upstash/context7-mcp@3.2.5"],
+      ...npx(["-y", "@upstash/context7-mcp@3.2.5"]),
     },
   };
 }
@@ -223,9 +219,6 @@ export function expandPlaceholders(host: HostName, body: string, env: NodeJS.Pro
     expanded = expanded
       .replaceAll("${COMMAND_CODE_CODEBASE_MEMORY_BIN}", codebaseBin.replaceAll("\\", "\\\\"));
   }
-  const root = repoRoot ?? path.resolve('P:/agent-rules');
-  const launcherPath = path.resolve(root, 'integrations', 'optional', 'pencil-mcp', 'launch.mjs');
-  expanded = expanded.replaceAll('__AGENT_RULES_PENCIL_LAUNCHER__', host === 'codex' ? launcherPath.replaceAll('\\', '/') : launcherPath.replaceAll('\\', '\\\\'));
   // Canonical adapter files remain portable (`npx …`) so they can be consumed
   // by Linux/macOS runners and headless task overlays. Windows native clients
   // need an explicit cmd wrapper because npm shims are not reliably spawnable
@@ -347,6 +340,7 @@ export function isCompatibleProviderOverride(serverName: string, body: string): 
     playwright: "@playwright/mcp",
     "chrome-devtools": "chrome-devtools-mcp",
     "codebase-memory": "codebase-memory-mcp",
+    serena: "serena",
   };
   const signature = signatures[serverName];
   return Boolean(signature) && body.includes(signature);

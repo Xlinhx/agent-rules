@@ -23,7 +23,7 @@ describe('native skill routing', () => {
       fs.mkdirSync(path.dirname(file), { recursive: true });
       fs.writeFileSync(file, body);
       const hash = createHash('sha256').update(body).digest('hex');
-      return { id: `skill:${slug}`, layer: 'skills', source, source_hash: hash, routing_source: source, routing_hash: hash, routing: { signals: [slug], requires: dependencies } };
+      return { id: `skill:${slug}`, layer: 'skills', role: 'domain', source, source_hash: hash, routing_source: source, routing_hash: hash, routing: { signals: [slug], requires: dependencies } };
     });
     fs.mkdirSync(path.join(root, 'generated'), { recursive: true });
     fs.writeFileSync(path.join(root, 'generated', 'context-graph.json'), JSON.stringify({ version: 3, nodes }));
@@ -94,8 +94,8 @@ describe('native skill routing', () => {
   });
 
   it('does not auto-load supports and requires explicit project scope for 5fedu', () => {
-    const supported = routeSkills({ prompt: 'Run the requested check', explicitSkills: ['parity-verification'] }, repoRoot).map((route) => route.id);
-    expect(supported).toContain('parity-verification');
+    const supported = routeSkills({ prompt: 'Run the requested check', explicitSkills: ['agent-browser'] }, repoRoot).map((route) => route.id);
+    expect(supported).toContain('agent-browser');
 
     expect(routeSkills({ prompt: 'Audit 5fedu module parity' }, repoRoot).map((route) => route.id)).not.toContain('5fedu-module-parity');
     expect(routeSkills({ prompt: 'Audit 5fedu module parity', activeProjectScope: '5fedu' }, repoRoot).map((route) => route.id)).toContain('5fedu-module-parity');
@@ -134,7 +134,7 @@ describe('native skill routing', () => {
   });
 
   it('renamed skills keep their canonical folder and frontmatter name', () => {
-    for (const [folder, id] of [['skill-source-governance', 'skill-source-governance'], ['backend-change-boundaries', 'backend-change-boundaries']]) {
+    for (const [folder, id] of [['skill-source-governance', 'skill-source-governance'], ['context-evolution-protocol', 'context-evolution-protocol']]) {
       const skillFile = path.join(repoRoot, 'skills', folder, 'SKILL.md');
       expect(fs.existsSync(skillFile)).toBe(true);
       const body = fs.readFileSync(skillFile, 'utf8');
@@ -169,9 +169,15 @@ describe('native skill routing', () => {
     const routed = routeSkills({ prompt: '', explicitSkills: ['low-prio', 'high-prio'] }, fixtureRoot);
     expect(routed.map((r) => r.id)).toEqual(['high-prio']);
 
-    // 2. Production exclusive group: requesting both frontend-design and design-taste-frontend resolves to exactly one winner without crashing
-    const explicitBoth = routeSkills({ prompt: '', explicitSkills: ['frontend-design', 'design-taste-frontend'] }, repoRoot).map((r) => r.id);
-    expect(explicitBoth.filter((id) => id === 'frontend-design' || id === 'design-taste-frontend')).toHaveLength(1);
+    // 2. Production exclusive group: requesting frontend-design, apple-design and design-taste-frontend resolves to exactly one winner without crashing
+    const explicitAll = routeSkills({ prompt: '', explicitSkills: ['frontend-design', 'apple-design', 'design-taste-frontend'] }, repoRoot).map((r) => r.id);
+    const artGroupSelected = explicitAll.filter((id) => ['frontend-design', 'apple-design', 'design-taste-frontend'].includes(id));
+    expect(artGroupSelected).toEqual(['frontend-design']);
+
+    // 3. Requesting apple-design and design-taste-frontend selects apple-design (priority 5 > 0)
+    const explicitAppleAndTaste = routeSkills({ prompt: '', explicitSkills: ['apple-design', 'design-taste-frontend'] }, repoRoot).map((r) => r.id);
+    const appleVsTaste = explicitAppleAndTaste.filter((id) => ['apple-design', 'design-taste-frontend'].includes(id));
+    expect(appleVsTaste).toEqual(['apple-design']);
   });
 
   it('routes explicit presentation skills and handles dependency requirements deterministically', () => {
@@ -179,14 +185,14 @@ describe('native skill routing', () => {
     const basicIds = routeSkills({ prompt: '', explicitSkills: ['slides'] }, repoRoot).map((r) => r.id);
     expect(basicIds).toEqual(['slides']);
 
-    // 2. Explicit presentation-design-contract automatically pulls slides as declared dependency
-    const designIds = routeSkills({ prompt: '', explicitSkills: ['presentation-design-contract'] }, repoRoot).map((r) => r.id);
-    expect(designIds).toContain('presentation-design-contract');
-    expect(designIds).toContain('slides');
+    // 2. Synthetic fixture testing dependency pulling
+    const fixtureRoot = fixtureGraph({ 'parent-skill': ['child-skill'], 'child-skill': [] });
+    const depIds = routeSkills({ prompt: '', explicitSkills: ['parent-skill'] }, fixtureRoot).map((r) => r.id);
+    expect(depIds).toContain('parent-skill');
+    expect(depIds).toContain('child-skill');
 
     // 3. Neutral prompt without explicit selection routes no presentation skills (Lock 1)
     const neutralIds = routeSkills({ prompt: 'Create a PowerPoint presentation' }, repoRoot).map((r) => r.id);
     expect(neutralIds).not.toContain('slides');
-    expect(neutralIds).not.toContain('presentation-design-contract');
   });
 });

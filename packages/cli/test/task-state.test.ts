@@ -130,9 +130,9 @@ describe('project-local task state', () => {
 
   it('projects only selected explicit skills to the repository-local host surface', () => {
     const root = repo();
-    const result = taskCommand('start', { root, host: 'codex', input: input('browser', ['playwright-cli']) });
+    const result = taskCommand('start', { root, host: 'codex', input: input('browser', ['skill-source-governance']) });
     expect(result.exitCode).toBe(0);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'playwright-cli', 'SKILL.md'))).toBe(true);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'skill-source-governance', 'SKILL.md'))).toBe(true);
     expect(fs.existsSync(path.join(root, '.agents', 'skills', 'impeccable', 'SKILL.md'))).toBe(false);
   });
 
@@ -148,26 +148,26 @@ describe('project-local task state', () => {
 
   it('selecting Prisma skills does not project UI/browser skills', () => {
     const root = repo();
-    expect(taskCommand('start', { root, host: 'codex', input: input('db', ['prisma-cli', 'prisma-client-api']) }).exitCode).toBe(0);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'prisma-cli', 'SKILL.md'))).toBe(true);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'playwright-cli'))).toBe(false);
+    expect(taskCommand('start', { root, host: 'codex', input: input('db', ['skill-source-governance']) }).exitCode).toBe(0);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'skill-source-governance', 'SKILL.md'))).toBe(true);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'context-evolution-protocol'))).toBe(false);
   });
   it('task update replaces selected explicit skills transactionally', () => {
     const root = repo();
-    expect(taskCommand('start', { root, host: 'codex', input: input('first', ['playwright-cli']) }).exitCode).toBe(0);
+    expect(taskCommand('start', { root, host: 'codex', input: input('first', ['skill-source-governance']) }).exitCode).toBe(0);
     const state = JSON.parse(fs.readFileSync(path.join(root, '.agent', 'current', 'state.json'), 'utf8'));
     state.revision += 1;
-    state.selected_skill_ids = ['systematic-debugging'];
+    state.selected_skill_ids = ['context-evolution-protocol'];
     state.decisions = [{ id: 'SKILL-SELECTION-1', decision: 'Use systematic debugging', reason: 'Current accepted debugging scope requires root-cause procedure', reopen_if: [] }];
     const updated = taskCommand('update', { root, host: 'codex', input: state });
     expect(updated.exitCode, updated.message).toBe(0);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'playwright-cli'))).toBe(false);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'systematic-debugging', 'SKILL.md'))).toBe(true);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'skill-source-governance'))).toBe(false);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'context-evolution-protocol', 'SKILL.md'))).toBe(true);
   });
 
   it('task update to implicit-only removes the owned projection surface', () => {
     const root = repo();
-    expect(taskCommand('start', { root, host: 'codex', input: input('first', ['playwright-cli']) }).exitCode).toBe(0);
+    expect(taskCommand('start', { root, host: 'codex', input: input('first', ['skill-source-governance']) }).exitCode).toBe(0);
     const state = JSON.parse(fs.readFileSync(path.join(root, '.agent', 'current', 'state.json'), 'utf8'));
     state.revision += 1;
     state.selected_skill_ids = ['verification-router'];
@@ -185,59 +185,59 @@ describe('project-local task state', () => {
     const user = path.join(root, '.agents', 'skills', 'user-owned');
     fs.mkdirSync(user, { recursive: true });
     fs.writeFileSync(path.join(user, 'SKILL.md'), 'user');
-    expect(taskCommand('start', { root, host: 'codex', input: input('browser', ['playwright-cli']) }).exitCode).toBe(0);
-    expect(taskCommand('start', { root, host: 'codex', input: input('debug', ['systematic-debugging']) }).exitCode).toBe(0);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'playwright-cli'))).toBe(false);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'systematic-debugging', 'SKILL.md'))).toBe(true);
+    expect(taskCommand('start', { root, host: 'codex', input: input('browser', ['skill-source-governance']) }).exitCode).toBe(0);
+    expect(taskCommand('start', { root, host: 'codex', input: input('debug', ['context-evolution-protocol']) }).exitCode).toBe(0);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'skill-source-governance'))).toBe(false);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'context-evolution-protocol', 'SKILL.md'))).toBe(true);
     const state = JSON.parse(fs.readFileSync(path.join(root, '.agent', 'current', 'state.json'), 'utf8')) as { task_id: string };
     expect(taskCommand('close', { root, taskId: state.task_id }).exitCode).toBe(0);
     expect(fs.existsSync(user)).toBe(true);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'systematic-debugging'))).toBe(false);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'context-evolution-protocol'))).toBe(false);
   });
 
   it('fails closed on a same-name different-hash collision', () => {
     const root = repo();
-    const collision = path.join(root, '.agents', 'skills', 'playwright-cli');
+    const collision = path.join(root, '.agents', 'skills', 'skill-source-governance');
     fs.mkdirSync(collision, { recursive: true });
     fs.writeFileSync(path.join(collision, 'SKILL.md'), 'different');
-    const result = taskCommand('start', { root, host: 'codex', input: input('browser', ['playwright-cli']) });
+    const result = taskCommand('start', { root, host: 'codex', input: input('browser', ['skill-source-governance']) });
     expect(result.exitCode).not.toBe(0);
     expect(result.message).toMatch(/NEEDS_USER/);
   });
 
   it('reuses an identical unowned task-local skill without taking ownership', () => {
     const root = repo();
-    const target = path.join(root, '.agents', 'skills', 'playwright-cli');
+    const target = path.join(root, '.agents', 'skills', 'skill-source-governance');
     fs.mkdirSync(path.dirname(target), { recursive: true });
-    fs.cpSync(path.join(resolveRuntimeAssetsRoot(), 'skills', 'playwright-cli'), target, { recursive: true });
-    expect(taskCommand('start', { root, host: 'codex', input: input('browser', ['playwright-cli']) }).exitCode).toBe(0);
+    fs.cpSync(path.join(resolveRuntimeAssetsRoot(), 'skills', 'skill-source-governance'), target, { recursive: true });
+    expect(taskCommand('start', { root, host: 'codex', input: input('browser', ['skill-source-governance']) }).exitCode).toBe(0);
     const state = JSON.parse(fs.readFileSync(path.join(root, '.agent', 'current', 'state.json'), 'utf8'));
     expect(state.projected_skill_ids).toEqual([]);
-    expect(state.skill_projection.reused_skill_ids).toEqual(['playwright-cli']);
+    expect(state.skill_projection.reused_skill_ids).toEqual(['skill-source-governance']);
     expect(taskCommand('close', { root, taskId: state.task_id }).exitCode).toBe(0);
     expect(fs.existsSync(path.join(target, 'SKILL.md'))).toBe(true);
   });
 
   it('restores the previous projection when a new plan state fails validation', () => {
     const root = repo();
-    expect(taskCommand('start', { root, host: 'codex', input: input('old', ['playwright-cli']) }).exitCode).toBe(0);
-    const broken = input('new', ['systematic-debugging']);
+    expect(taskCommand('start', { root, host: 'codex', input: input('old', ['skill-source-governance']) }).exitCode).toBe(0);
+    const broken = input('new', ['context-evolution-protocol']);
     broken.state.status = 'PASS';
     expect(taskCommand('start', { root, host: 'codex', input: broken }).exitCode).not.toBe(0);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'playwright-cli', 'SKILL.md'))).toBe(true);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'systematic-debugging'))).toBe(false);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'skill-source-governance', 'SKILL.md'))).toBe(true);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'context-evolution-protocol'))).toBe(false);
   });
 
   it('reports unsupported when a host has no repository-local skill surface', () => {
     const root = repo();
-    const result = taskCommand('start', { root, host: 'command-code', input: input('browser', ['playwright-cli']) });
+    const result = taskCommand('start', { root, host: 'command-code', input: input('browser', ['skill-source-governance']) });
     expect(result.exitCode).toBe(0);
     const state = JSON.parse(fs.readFileSync(path.join(root, '.agent', 'current', 'state.json'), 'utf8')) as { status: string; blockers: Array<{ id: string; reason: string; affected_slices: string[] }>; skill_projection: { status: string } };
     expect(state.status).toBe('PARTIAL');
     expect(state.skill_projection.status).toBe('UNSUPPORTED');
     expect(state.blockers).toContainEqual(expect.objectContaining({ id: 'SKILL-PROJECTION-UNSUPPORTED', affected_slices: ['S1'] }));
     expect(state.blockers.find((entry) => entry.id === 'SKILL-PROJECTION-UNSUPPORTED')?.reason).toMatch(/no repository-local skill surface.*no global fallback/i);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'playwright-cli'))).toBe(false);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'context-evolution-protocol'))).toBe(false);
   });
 
   it('rejects task update that alters acceptance claim or required strength', () => {
@@ -353,6 +353,28 @@ describe('project-local task state', () => {
     const fakeProof = taskCommand('advance-slice', { root, input: { slice_id: 'S1', proof: 'trust me bro' } });
     expect(fakeProof.exitCode).not.toBe(0);
     expect(fakeProof.message).toContain('cannot self-certify PASS');
+
+    // Vietnamese fake prose without execution runner context
+    const fakeVn1 = taskCommand('advance-slice', { root, input: { slice_id: 'S1', proof: 'Đã chạy thử và mọi thứ đều ổn' } });
+    expect(fakeVn1.exitCode).not.toBe(0);
+    expect(fakeVn1.message).toContain('cannot self-certify PASS');
+
+    const fakeVn2 = taskCommand('advance-slice', { root, input: { slice_id: 'S1', proof: 'Em đã test kỹ rồi, anh yên tâm' } });
+    expect(fakeVn2.exitCode).not.toBe(0);
+    expect(fakeVn2.message).toContain('cannot self-certify PASS');
+
+    // Disclaimers / unexecuted claims rejected immediately
+    const disclaimer1 = taskCommand('advance-slice', { root, input: { slice_id: 'S1', proof: 'Chưa chạy thực tế nhưng logic test vitest hoàn toàn đúng' } });
+    expect(disclaimer1.exitCode).not.toBe(0);
+    expect(disclaimer1.message).toContain('cannot self-certify PASS');
+
+    const disclaimer2 = taskCommand('advance-slice', { root, input: { slice_id: 'S1', proof: 'vitest run: only an example test run' } });
+    expect(disclaimer2.exitCode).not.toBe(0);
+    expect(disclaimer2.message).toContain('cannot self-certify PASS');
+
+    // Valid execution output with runner context + exit code/status PASS
+    const validProof = taskCommand('advance-slice', { root, input: { slice_id: 'S1', proof: 'vitest run test/demo.test.ts\nTests: 3 passed\nExit code: 0' } });
+    expect(validProof.exitCode).toBe(0);
   });
 
   it('record-failure triggers stall detection on repeated failure without evidence delta', () => {

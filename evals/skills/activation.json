@@ -12,26 +12,6 @@
       "prompt": "Fix the TypeScript implementation; do not edit documentation."
     },
     {
-      "skill": "frontend-design-contract",
-      "kind": "positive",
-      "prompt": "Implement this screen using the approved design brief and existing token contract."
-    },
-    {
-      "skill": "frontend-design-contract",
-      "kind": "hard_negative",
-      "prompt": "Make a new landing page with no approved product design contract."
-    },
-    {
-      "skill": "parity-verification",
-      "kind": "positive",
-      "prompt": "Prove responsive and behavioral parity against this live reference."
-    },
-    {
-      "skill": "parity-verification",
-      "kind": "hard_negative",
-      "prompt": "Run unit tests for this pure reducer; there is no reference product."
-    },
-    {
       "skill": "plan-and-handoff",
       "kind": "positive",
       "prompt": "Create a portable cold-start plan for a multi-part cross-host handoff."
@@ -82,32 +62,10 @@
       "prompt": "Explain what unit testing means; no implementation or verification decision is requested."
     },
     {
-      "skill": "backend-change-boundaries",
-      "kind": "positive",
-      "prompt": "Change an authenticated payment webhook while preserving transaction and public error contracts."
-    },
-    {
-      "skill": "backend-change-boundaries",
-      "kind": "hard_negative",
-      "prompt": "Rename a private backend helper with no API, auth or transaction boundary change."
-    },
-    {
       "skill": "docs-style",
       "kind": "positive",
       "language": "vi",
       "prompt": "Viết lại README dựa trên source thật và giữ phần tiếng Việt, tiếng Anh nhất quán."
-    },
-    {
-      "skill": "frontend-design-contract",
-      "kind": "positive",
-      "language": "vi",
-      "prompt": "Áp dụng đúng design contract đã duyệt cho màn hình này, không tự đổi nhận diện."
-    },
-    {
-      "skill": "parity-verification",
-      "kind": "positive",
-      "language": "vi",
-      "prompt": "Chứng minh giao diện responsive và hành vi giống reference đang chạy."
     },
     {
       "skill": "plan-and-handoff",
@@ -138,28 +96,6 @@
       "kind": "positive",
       "language": "vi",
       "prompt": "Chọn proof nhỏ nhất nhưng đủ cho refactor chạm API và browser."
-    },
-    {
-      "skill": "backend-change-boundaries",
-      "kind": "positive",
-      "language": "vi",
-      "prompt": "Sửa webhook thanh toán có auth, transaction và public error contract."
-    },
-    {
-      "skill": "best-of-n",
-      "kind": "positive",
-      "prompt": "Implement this algorithm using multiple parallel approaches and pick the highest scoring candidate."
-    },
-    {
-      "skill": "best-of-n",
-      "kind": "hard_negative",
-      "prompt": "Fix a single typo in this function sequentially."
-    },
-    {
-      "skill": "best-of-n",
-      "kind": "positive",
-      "language": "vi",
-      "prompt": "Thử giải quyết bài toán này theo 3 hướng song song rồi chọn giải pháp tốt nhất."
     },
     {
       "skill": "context-evolution-protocol",
@@ -258,22 +194,6 @@
       "prompt": "Nâng cấp dự án Expo lên phiên bản SDK mới và xử lý các breaking changes."
     },
     {
-      "skill": "react-native-best-practices",
-      "kind": "positive",
-      "prompt": "Optimize this React Native FlatList to eliminate dropped frames and memory leaks."
-    },
-    {
-      "skill": "react-native-best-practices",
-      "kind": "hard_negative",
-      "prompt": "Write an SQL query for a Postgres database."
-    },
-    {
-      "skill": "react-native-best-practices",
-      "kind": "positive",
-      "language": "vi",
-      "prompt": "Tối ưu giật lag và re-render cho danh sách cuộn trong ứng dụng React Native."
-    },
-    {
       "skill": "supabase-postgres-best-practices",
       "kind": "positive",
       "prompt": "Optimize this PostgreSQL query with composite indexes and configure Row Level Security in Supabase."
@@ -322,54 +242,6 @@
       "prompt": "Chạy Prisma migration để đồng bộ schema vào cơ sở dữ liệu."
     },
     {
-      "skill": "terraform-style-guide",
-      "kind": "positive",
-      "prompt": "Structure this Terraform infrastructure module following standard variable and output conventions."
-    },
-    {
-      "skill": "terraform-style-guide",
-      "kind": "hard_negative",
-      "prompt": "Write a React component with Tailwind classes."
-    },
-    {
-      "skill": "terraform-style-guide",
-      "kind": "positive",
-      "language": "vi",
-      "prompt": "Tái cấu trúc module Terraform theo chuẩn hạ tầng đám mây an toàn."
-    },
-    {
-      "skill": "terraform-test",
-      "kind": "positive",
-      "prompt": "Write automated tests for this Terraform module to validate plan outputs before apply."
-    },
-    {
-      "skill": "terraform-test",
-      "kind": "hard_negative",
-      "prompt": "Run manual browser tests on a login page."
-    },
-    {
-      "skill": "terraform-test",
-      "kind": "positive",
-      "language": "vi",
-      "prompt": "Viết test tự động kiểm tra tính hợp lệ của tài nguyên Terraform trước khi triển khai."
-    },
-    {
-      "skill": "sharp-edges",
-      "kind": "positive",
-      "prompt": "Review this concurrent code for race conditions, reentrancy bugs, and subtle language traps."
-    },
-    {
-      "skill": "sharp-edges",
-      "kind": "hard_negative",
-      "prompt": "Change the color of a heading in markdown documentation."
-    },
-    {
-      "skill": "sharp-edges",
-      "kind": "positive",
-      "language": "vi",
-      "prompt": "Rà soát các bẫy ngôn ngữ nguy hiểm và lỗi tranh chấp luồng trong đoạn mã bất đồng bộ."
-    },
-    {
       "skill": "differential-review",
       "kind": "positive",
       "prompt": "Perform a security-focused differential review on this pull request git diff."
@@ -416,22 +288,6 @@
       "kind": "positive",
       "language": "vi",
       "prompt": "Thử nghiệm khám phá các ca biên, màn hình rỗng và lỗi phân quyền tiềm ẩn."
-    },
-    {
-      "skill": "impeccable",
-      "kind": "positive",
-      "prompt": "Polish micro-interactions, spring transitions, and focus states for this web component."
-    },
-    {
-      "skill": "impeccable",
-      "kind": "hard_negative",
-      "prompt": "Configure an environment variable on a Linux server."
-    },
-    {
-      "skill": "impeccable",
-      "kind": "positive",
-      "language": "vi",
-      "prompt": "Đánh bóng hiệu ứng chuyển động, hover và micro-interactions cho giao diện mượt mà."
     },
     {
       "skill": "test-strategy",
@@ -594,20 +450,452 @@
       "prompt": "Tạo file trình chiếu PowerPoint pptx với các biểu đồ và hình khối native có thể chỉnh sửa được."
     },
     {
-      "skill": "presentation-design-contract",
+      "skill": "3dviz-pro-max",
       "kind": "positive",
-      "prompt": "Design an executive pitch deck with strong narrative hierarchy and anti-slop visual standards."
+      "prompt": "Build an interactive 3D scene using Three.js and Blender with realistic lighting and spatial controls."
     },
     {
-      "skill": "presentation-design-contract",
+      "skill": "3dviz-pro-max",
       "kind": "hard_negative",
-      "prompt": "Design a web landing page in Tailwind CSS with hero typography."
+      "prompt": "Write a command-line script to parse CSV data without any 3D, WebGL or canvas rendering."
     },
     {
-      "skill": "presentation-design-contract",
+      "skill": "3dviz-pro-max",
       "kind": "positive",
       "language": "vi",
-      "prompt": "Thiết kế bài thuyết trình slide deck cho ban giám đốc theo chuẩn narrative rõ ràng, không dùng card grid AI."
+      "prompt": "Dựng một cảnh 3D tương tác với Three.js và mô hình không gian WebGL có điều khiển camera."
+    },
+    {
+      "skill": "systematic-debugging",
+      "kind": "positive",
+      "prompt": "We have a flaky regression and random crash in the checkout API; systematically find the root cause before patching."
+    },
+    {
+      "skill": "systematic-debugging",
+      "kind": "hard_negative",
+      "prompt": "Create a new documentation folder and list project contributors without debugging any code."
+    },
+    {
+      "skill": "systematic-debugging",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Hệ thống đang bị lỗi 500 và crash màn hình trắng khi bấm thanh toán, hãy điều tra nguyên nhân gốc rễ và fix bug."
+    },
+    {
+      "skill": "test-strategy",
+      "kind": "positive",
+      "prompt": "Define a test strategy and risk-based test plan for our new authentication and billing microservices."
+    },
+    {
+      "skill": "test-strategy",
+      "kind": "hard_negative",
+      "prompt": "Write a pure CSS stylesheet for a blog header with no tests or verification plans."
+    },
+    {
+      "skill": "test-strategy",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Lập kế hoạch kiểm thử và chiến lược viết test cho module thanh toán đa cổng theo mức độ rủi ro."
+    },
+    {
+      "skill": "exploratory-testing",
+      "kind": "positive",
+      "prompt": "Conduct exploratory testing across user permission matrices, role transitions, and boundary states."
+    },
+    {
+      "skill": "exploratory-testing",
+      "kind": "hard_negative",
+      "prompt": "Format JSON files using prettier with no QA or exploratory testing."
+    },
+    {
+      "skill": "exploratory-testing",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Kiểm thử ngóc ngách các ca biên edge cases và ma trận phân quyền người dùng xem có lỗ hổng nào không."
+    },
+    {
+      "skill": "differential-review",
+      "kind": "positive",
+      "prompt": "Perform a differential review on git diff between main and feature branch to catch contract breaks."
+    },
+    {
+      "skill": "differential-review",
+      "kind": "hard_negative",
+      "prompt": "Print current date and time to the console without reviewing any git changes."
+    },
+    {
+      "skill": "differential-review",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Rà soát lại toàn bộ thay đổi trong git diff review trước khi tạo pull request để tránh regression."
+    },
+    {
+      "skill": "supply-chain-risk-auditor",
+      "kind": "positive",
+      "prompt": "Audit project dependencies for supply chain risks, typosquatting, and unmaintained vulnerable packages."
+    },
+    {
+      "skill": "supply-chain-risk-auditor",
+      "kind": "hard_negative",
+      "prompt": "Indent a python function with 4 spaces without auditing any dependencies."
+    },
+    {
+      "skill": "supply-chain-risk-auditor",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Kiểm tra rủi ro thư viện bảo mật và quét npm audit các package bên thứ ba xem có mã độc không."
+    },
+    {
+      "skill": "image-to-code",
+      "kind": "positive",
+      "prompt": "Convert this UI screenshot mockup image into responsive Tailwind CSS and React component code."
+    },
+    {
+      "skill": "image-to-code",
+      "kind": "hard_negative",
+      "prompt": "Calculate prime numbers up to 100 in C without using any images or UI."
+    },
+    {
+      "skill": "image-to-code",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Dựng code từ ảnh chụp giao diện mockup này thành component React và Tailwind CSS chuẩn xác."
+    },
+    {
+      "skill": "playwright-cli",
+      "kind": "positive",
+      "prompt": "Write and run a Playwright CLI end-to-end browser test script with assertions and traces."
+    },
+    {
+      "skill": "playwright-cli",
+      "kind": "hard_negative",
+      "prompt": "Write a pure mathematical formula in LaTeX with no browser automation or test runner."
+    },
+    {
+      "skill": "playwright-cli",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Viết script Playwright CLI chạy kiểm thử trình duyệt e2e test luồng đăng nhập và đặt hàng."
+    },
+    {
+      "skill": "prisma-client-api",
+      "kind": "positive",
+      "prompt": "Write optimized Prisma Client queries with relations, includes, and transactional updates."
+    },
+    {
+      "skill": "prisma-client-api",
+      "kind": "hard_negative",
+      "prompt": "Write a bash shell script to archive old tarballs without any database or ORM."
+    },
+    {
+      "skill": "prisma-client-api",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Viết truy vấn Prisma Client lấy danh sách bài viết kèm tác giả và bình luận trong một transaction."
+    },
+    {
+      "skill": "prisma-cli",
+      "kind": "positive",
+      "prompt": "Run prisma migrate dev and generate Prisma client artifacts from schema.prisma."
+    },
+    {
+      "skill": "prisma-cli",
+      "kind": "hard_negative",
+      "prompt": "Sort a text file alphabetically using the sort command without database schema files."
+    },
+    {
+      "skill": "prisma-cli",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Chạy npx prisma migrate dev để cập nhật bảng mới từ schema.prisma và generate client."
+    },
+    {
+      "skill": "supabase-postgres-best-practices",
+      "kind": "positive",
+      "prompt": "Configure Supabase Row Level Security RLS policies and write performant Postgres queries."
+    },
+    {
+      "skill": "supabase-postgres-best-practices",
+      "kind": "hard_negative",
+      "prompt": "Compile a C++ hello world binary without using Supabase or PostgreSQL."
+    },
+    {
+      "skill": "supabase-postgres-best-practices",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Cấu hình Supabase RLS policy cho bảng profiles và tối ưu truy vấn Postgres Supabase."
+    },
+    {
+      "skill": "expo-router",
+      "kind": "positive",
+      "prompt": "Build file-based navigation with Expo Router including _layout.tsx and nested route groups."
+    },
+    {
+      "skill": "expo-router",
+      "kind": "hard_negative",
+      "prompt": "Write an nginx.conf reverse proxy configuration without any mobile app framework."
+    },
+    {
+      "skill": "expo-router",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Thiết lập cấu trúc điều hướng Expo Router với file _layout.tsx và stack navigation cho app."
+    },
+    {
+      "skill": "expo-native-ui",
+      "kind": "positive",
+      "prompt": "Implement native mobile UI components in Expo with safe area handling and vector icons."
+    },
+    {
+      "skill": "expo-native-ui",
+      "kind": "hard_negative",
+      "prompt": "Configure docker compose for a Redis sentinel cluster with no mobile UI."
+    },
+    {
+      "skill": "expo-native-ui",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Xây dựng giao diện Expo component chuẩn mobile với SafeAreaView và Expo Vector Icons."
+    },
+    {
+      "skill": "expo-upgrade",
+      "kind": "positive",
+      "prompt": "Upgrade Expo SDK to the latest version using npx expo install --fix and update dependencies."
+    },
+    {
+      "skill": "expo-upgrade",
+      "kind": "hard_negative",
+      "prompt": "Check git commit history using git log without upgrading any mobile packages."
+    },
+    {
+      "skill": "expo-upgrade",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Nâng cấp Expo SDK lên phiên bản mới nhất và sửa lỗi tương thích dependency bằng npx expo install --fix."
+    },
+    {
+      "skill": "expo-overview",
+      "kind": "positive",
+      "prompt": "Scaffold a new cross-platform mobile project with Expo SDK, EAS build config, and app.json."
+    },
+    {
+      "skill": "expo-overview",
+      "kind": "hard_negative",
+      "prompt": "Create an empty .gitignore file for a Rust project with no mobile tools."
+    },
+    {
+      "skill": "expo-overview",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Tổng quan kiến trúc khởi tạo dự án Expo SDK và cấu hình file app.json cho mobile app."
+    },
+    {
+      "skill": "react-native-best-practices",
+      "kind": "positive",
+      "prompt": "Optimize React Native performance, resolve JS thread frame drops, and profile FlatList memory."
+    },
+    {
+      "skill": "react-native-best-practices",
+      "kind": "hard_negative",
+      "prompt": "Write a SQL migration script for SQLite without React Native or mobile runtimes."
+    },
+    {
+      "skill": "react-native-best-practices",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Tối ưu hiệu năng React Native giảm giật lag khung hình và tối ưu bộ nhớ khi cuộn FlatList."
+    },
+    {
+      "skill": "apple-design",
+      "kind": "positive",
+      "prompt": "Design fluid spring animations and interruptible gesture interactions following Apple design principles."
+    },
+    {
+      "skill": "apple-design",
+      "kind": "hard_negative",
+      "prompt": "Write a python script to parse CSV files and compute average columns."
+    },
+    {
+      "skill": "apple-design",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Thiết kế animation vật lý và chuyển động mượt mà kiểu Apple với spring physics cho giao diện web."
+    },
+    {
+      "skill": "animation-vocabulary",
+      "kind": "positive",
+      "prompt": "What is it called when UI elements stagger into the screen sequentially?"
+    },
+    {
+      "skill": "animation-vocabulary",
+      "kind": "hard_negative",
+      "prompt": "Implement an authentication middleware in Express.js."
+    },
+    {
+      "skill": "animation-vocabulary",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Hiệu ứng nảy bouncy khi popover mở ra này gọi là gì trong animation?"
+    },
+    {
+      "skill": "emil-design-eng",
+      "kind": "positive",
+      "prompt": "Apply design engineering polish and craft details to this component layout."
+    },
+    {
+      "skill": "emil-design-eng",
+      "kind": "hard_negative",
+      "prompt": "Optimize PostgreSQL connection pooling parameters in pg_bouncer."
+    },
+    {
+      "skill": "emil-design-eng",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Tinh chỉnh giao diện đỉnh cao theo triết lý design engineering của Emil Kowalski."
+    },
+    {
+      "skill": "review-animations",
+      "kind": "positive",
+      "prompt": "Review this motion code and audit animation curves against craft standards."
+    },
+    {
+      "skill": "review-animations",
+      "kind": "hard_negative",
+      "prompt": "Debug a memory leak in a background Golang worker process."
+    },
+    {
+      "skill": "review-animations",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Soi và kiểm tra chuyển động animation trong component này xem có giật lag hay sai timing không."
+    },
+    {
+      "skill": "agent-browser",
+      "kind": "positive",
+      "prompt": "Use agent-browser to automate browser navigation, click elements, and verify page state."
+    },
+    {
+      "skill": "agent-browser",
+      "kind": "hard_negative",
+      "prompt": "Configure typescript tsconfig.json compiler options for strict null checks."
+    },
+    {
+      "skill": "agent-browser",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Tự động hóa trình duyệt web để kiểm tra giao diện và xác minh DOM bằng agent browser."
+    },
+    {
+      "skill": "tailwind-design-system",
+      "kind": "positive",
+      "prompt": "Build a scalable design system using Tailwind CSS v4 theme tokens and color definitions."
+    },
+    {
+      "skill": "tailwind-design-system",
+      "kind": "hard_negative",
+      "prompt": "Write bash scripts to backup MySQL database to an S3 bucket."
+    },
+    {
+      "skill": "tailwind-design-system",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Thiết lập hệ thống theme tokens chuẩn Tailwind CSS v4 với directive @theme."
+    },
+    {
+      "skill": "oklch-skill",
+      "kind": "positive",
+      "prompt": "Create a perceptually balanced color palette and contrast ramp using OKLCH color space."
+    },
+    {
+      "skill": "oklch-skill",
+      "kind": "hard_negative",
+      "prompt": "Set up a Kafka consumer group with manual commit offsets."
+    },
+    {
+      "skill": "oklch-skill",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Xây dựng bảng màu và phối màu sắc chuẩn tri giác bằng không gian màu OKLCH."
+    },
+    {
+      "skill": "extract-design-system",
+      "kind": "positive",
+      "prompt": "Extract starter design tokens and color variables from existing stylesheet code."
+    },
+    {
+      "skill": "extract-design-system",
+      "kind": "hard_negative",
+      "prompt": "Implement an LRU cache data structure in Rust."
+    },
+    {
+      "skill": "extract-design-system",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Bóc tách token thiết kế và trích xuất design token từ mã CSS hiện tại của dự án."
+    },
+    {
+      "skill": "quieter",
+      "kind": "positive",
+      "prompt": "Tone down this aggressive visual design and make the interface calmer and quieter."
+    },
+    {
+      "skill": "quieter",
+      "kind": "hard_negative",
+      "prompt": "Generate unit tests for a numerical sorting algorithm."
+    },
+    {
+      "skill": "quieter",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Giao diện này đang bị chói quá và quá lòe loẹt, hãy làm dịu giao diện bớt rối mắt."
+    },
+    {
+      "skill": "distill",
+      "kind": "positive",
+      "prompt": "Distill this complex cluttered UI into a clean, minimal interface focusing on primary intent."
+    },
+    {
+      "skill": "distill",
+      "kind": "hard_negative",
+      "prompt": "Configure DNS records for custom email domain sending with DKIM."
+    },
+    {
+      "skill": "distill",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Hãy tinh giản UI, bỏ bớt chi tiết thừa và tối giản giao diện để làm nổi bật tính năng chính."
+    },
+    {
+      "skill": "critique",
+      "kind": "positive",
+      "prompt": "Perform a multi-lens UX critique with heuristic scoring and actionable feedback on this dashboard."
+    },
+    {
+      "skill": "critique",
+      "kind": "hard_negative",
+      "prompt": "Create a GitHub Actions workflow to publish an npm package."
+    },
+    {
+      "skill": "critique",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Đánh giá giao diện và chấm điểm UX cho màn hình này với các tiêu chí cụ thể."
+    },
+    {
+      "skill": "polish",
+      "kind": "positive",
+      "prompt": "Run a meticulous pre-ship polish pass on this landing page fixing spacing, contrast, and alignment."
+    },
+    {
+      "skill": "polish",
+      "kind": "hard_negative",
+      "prompt": "Fix broken linting errors in a backend Go microservice."
+    },
+    {
+      "skill": "polish",
+      "kind": "positive",
+      "language": "vi",
+      "prompt": "Chuốt lại giao diện và rà soát chi tiết spacing, hover states trước khi bàn giao sản phẩm."
     }
   ]
 }

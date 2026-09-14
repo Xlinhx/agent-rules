@@ -16,7 +16,7 @@ Target projects do not vendor the template. Workers use the harness broker:
 
 ```text
 agent-rules reference 5fedu <manifest-bound-path>
-agent-rules reference-search 5fedu <literal-query>
+agent-rules reference 5fedu --search <literal-query>
 ```
 
 Every emitted reference is checked against the bundled source manifest. A changed/missing/extra source file or a stale behavior pointer fails closed.

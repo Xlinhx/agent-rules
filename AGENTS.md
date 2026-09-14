@@ -25,6 +25,9 @@ mirrors are projections; never edit them by hand.
 9. Upstream skills are immutable vendor artifacts. The harness governs their
    projection, mounting, filtering, and routing, but never alters, trims, or
    refactors third-party skill content or descriptions.
+10. Verification adapts directly to the user's raw prompt. Terminal exit code 0
+    is never sufficient; proof must actively verify that raw prompt negative
+    constraints, blacklists, and positive requirements are strictly honored.
 
 ## Repository map
 

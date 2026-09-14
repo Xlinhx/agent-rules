@@ -1,319 +1,71 @@
 ---
 name: docs-style
-description: "Create/review/rewrite high-quality project docs (README, specs, doc architecture)."
+description: "Create/review/rewrite high-quality project docs (README, specs, doc architecture) with pragmatic, source-grounded standards."
 metadata:
   signals: "README, README-vi, /docs/, documentation, tài liệu, docs cleanup, tech stack"
   excludes: "pure code implementation"
   priority: "50"
   platform_scope: "all"
+---
+
+# Docs Style — Cẩm nang viết tài liệu kỹ thuật thực dụng
+
+Mục tiêu: Tạo ra tài liệu kỹ thuật chuẩn xác, ngắn gọn, đi thẳng vào bản chất hệ thống để người đọc và maintainer nắm bắt ngay lập tức mà không cần đào bới toàn bộ mã nguồn.
 
 ---
 
-# Docs Style
+## 1. Nguyên tắc cốt lõi (Grounded & Pragmatic)
 
-Use this skill to produce documentation that proves real project understanding. The target is documentation a maintainer can trust before opening the source.
+1. **Sự thật từ mã nguồn (Source-grounded)**: Mọi thông tin về stack, lệnh chạy, routes, env vars, kiến trúc đều phải được kiểm chứng trực tiếp từ manifests, configs, imports và runtime thực tế. Không suy đoán hay chém gió tính năng chưa có.
+2. **Phân định rõ ràng Hiện tại vs Tàn dư**:
+   - **Hiện tại (Current)**: Tính năng đang hoạt động, có route, có import.
+   - **Tàn dư (Legacy)**: Code cũ, cấu hình cũ còn sót lại nhưng không còn dùng -> ghi chú rõ vị trí hoặc đề xuất dọn dẹp.
+   - **Dự kiến (Planned)**: TODO hoặc roadmap -> ghi rõ là dự kiến.
+3. **Ưu tiên "Tại sao" trước "Như thế nào"**: Giải thích bài toán kỹ thuật, lý do lựa chọn kiến trúc và các đánh đổi (tradeoffs).
+4. **Văn phong chuyên nghiệp, súc tích**: Viết gãy gọn, không văn mẫu, không thuật lại nhật ký agent ("Tôi thấy...", "Dự án này có vẻ..."). Dùng tiếng Việt chuẩn xác cho docs tiếng Việt, giữ nguyên thuật ngữ kỹ thuật tiếng Anh tự nhiên.
 
-The benchmark is a strong hand-written technical spec: it explains product pressure, architecture, workflows, tradeoffs, failure modes, operations, and limitations. Match that depth in the repo's own context.
+---
 
-## Hard Bar
+## 2. Tiêu chuẩn cấu trúc README
 
-Documentation must:
+README là bộ mặt của dự án, cần trả lời nhanh 6 câu hỏi:
+1. **Dự án là gì và giải quyết bài toán gì?** (1-2 câu súc tích mở đầu).
+2. **Trạng thái hiện tại**: Đang chạy production, alpha, hay nội bộ?
+3. **Tech Stack đã kiểm chứng**: Bảng hoặc danh sách ngắn gọn các công nghệ cốt lõi thực tế.
+4. **Kiến trúc & Luồng dữ liệu chính**: Diagram ngắn gọn (Mermaid) hoặc tóm tắt boundary các thành phần.
+5. **Hướng dẫn khởi chạy (Quickstart)**: Yêu cầu môi trường, cài đặt, env vars tối thiểu và lệnh chạy dev/build/test.
+6. **Mục lục tài liệu sâu hơn**: Trỏ tới `/docs` nếu có.
 
-- open with what the project is, who it serves, current status, and the core engineering pressure;
-- separate active behavior from legacy traces, experiments, mocks, TODOs, and deleted/archived features;
-- derive stack, commands, routes, schemas, integrations, screenshots, and deploy claims from source or verified runtime behavior;
-- explain why key design choices exist, what alternatives were rejected, and what tradeoff remains;
-- cover normal paths and failure paths for important workflows;
-- look deliberate on GitHub: coherent badges, verified screenshots, readable tables, useful diagrams, and no broken assets;
-- read like edited technical documentation, not agent reasoning, source inventory, audit notes, or a generated checklist.
+> [!TIP]
+> Tránh phình to README bằng các bảng route chi tiết hay log quyết định dài. Hãy đưa chúng vào thư mục `/docs/`.
 
-If a fact cannot be proven, omit it or write `TODO: xác minh ...`. Never fill gaps with plausible guesses.
+---
 
-## Required Workflow
+## 3. Cấu trúc thư mục `/docs`
 
-1. **Classify the repo first.** Product/app, frontend, backend/API, library/tooling, agent/rules, data/AI, profile repo, or demo/prototype each needs a different documentation shape.
-2. **Read source before writing.** Inspect manifests, lockfiles, entry points, route/API definitions, schemas/migrations, env examples, deployment files, CI, tests/scripts, and the main UI/CLI surfaces.
-3. **Build an evidence map privately.** For every major claim, know the source path or runtime check behind it. Use source paths sparingly in docs as "Where to verify", not as the main prose.
-4. **Write from thesis to detail.** Start with the domain/product pressure, then system shape, then workflows, decisions, operations, and risks.
-5. **Capture verified visuals.** For any repo with a UI this is mandatory, not optional — see [Screenshots](#screenshots-mandatory-for-any-repo-with-a-ui). Reuse existing safe assets when they still match the UI; otherwise drive the app or production and capture. If blocked, ask the user rather than shipping docs without visuals.
-6. **Clean the docs surface.** Move useful scattered markdown into `/docs`, merge repeated shallow files, delete stale migration/setup/task files only after preserving useful facts, and move loose docs assets into subfolders.
-7. **Verify.** Check links, images, badge URLs, commands, formatting, and repo status. Do not report PASS until the quality gates pass.
+Tổ chức tài liệu theo nhu cầu thực tế của người đọc, không tạo các file trống rỗng:
 
-For substantial rewrites, read `references/docs-style-reference.md`.
+- **Ứng dụng / Dịch vụ (Full Product / Backend / Web)**:
+  - `docs/architecture.md`: Kiến trúc tổng quan, boundaries, data flow.
+  - `docs/api-contracts.md`: Chi tiết routes, events, payload schemas (nếu không dùng OpenAPI/Swagger tự sinh).
+  - `docs/operations.md`: Cấu hình production, deployment, migrations, monitoring, runbooks.
+- **Thư viện / Tooling**:
+  - `docs/getting-started.md`: Hướng dẫn tích hợp.
+  - `docs/api-reference.md`: Chi tiết public API.
 
-## Source Reading Standard
+---
 
-Do not claim "source-grounded" or "đã đọc full" unless these areas were inspected where they exist:
+## 4. Hình ảnh & Visuals (Thực dụng, không hình thức)
 
-- package/framework manifests and lockfiles;
-- app/server/worker/CLI entry points;
-- routing, controllers, handlers, pages, commands, or tool maps;
-- schemas, migrations, ORM models, SQL, storage adapters, cache clients;
-- auth, permissions, role guards, sessions, JWT, middleware;
-- integrations: AI providers, payments, email, storage, CMS, analytics, external APIs;
-- deployment/runtime: Docker, Compose, Vercel, Cloudflare, Pages, Nginx, env examples, GitHub Actions;
-- UI surface: homepage/landing, dashboard/admin, important forms, live URLs, screenshots;
-- tests, scripts, seed/maintenance/build/lint/deploy commands.
+- **Khi có UI hoặc CLI trực quan**: Đính kèm ảnh chụp màn hình hoặc terminal cast khi khả thi và giúp người đọc dễ hình dung giao diện/kết quả.
+- **Không ép buộc cứng nhắc**: Nếu môi trường chạy không có browser, thiếu headless display, hoặc đang trong giai đoạn dev backend/headless, không cần dừng lại ép người dùng cung cấp ảnh. Ưu tiên diagrams (Mermaid) và text output chuẩn xác.
+- Lưu trữ asset tài liệu trong `docs/assets/` với tên file rõ nghĩa.
 
-Use current/legacy/planned/unknown labels internally:
+---
 
-| Label | Meaning | Documentation treatment |
-|---|---|---|
-| Current | imported, routed, configured, or executed by current runtime | write as present behavior |
-| Legacy | old code/config remains but is not active | label as legacy trace with location |
-| Planned | TODO, roadmap, placeholder, partial scaffold | put in limitations/roadmap |
-| Unknown | cannot prove from source/runtime | omit or mark `TODO: xác minh ...` |
+## 5. Dọn dẹp tài liệu cũ (Docs Cleanup)
 
-Example current-vs-legacy wording:
-
-```md
-OpenRouter is the active AI provider in the chat request path. A Cloudflare Worker AI adapter remains in `src/lib/ai/cloudflare.ts`, but no current route imports it; treat it as legacy until the request path changes.
-```
-
-## README Standard
-
-`README.md` and `README-vi.md` are the entry points. If both exist, they must agree on facts.
-
-A strong README answers quickly:
-
-1. What is the project?
-2. Who uses it?
-3. What is the live/current/product state?
-4. What are the main capabilities?
-5. What is the verified tech stack?
-6. What architecture shape matters?
-7. How do I run or inspect it?
-8. Where do I read deeper docs?
-
-Recommended shape:
-
-```md
-# Project Name — concrete category
-
-Badges: only use verified Shields.io URLs for the active stack.
-
-Live: https://...
-
-One or two direct paragraphs explaining the product, audience, current state, and engineering pressure.
-
-## Preview
-
-Screenshot: include a verified local image path only when the file exists, for example `docs/assets/homepage.png`.
-
-## What it does
-
-## Technical Shape
-
-## Why It Is Built This Way
-
-## Run Locally
-
-## Read Next
-```
-
-Avoid README bloat. Put route tables, schema details, incident playbooks, and long decision logs in `/docs`.
-
-## Tech Badges
-
-Badges are expected for product/app/tooling repos when the stack is clear. Every badge must be backed by active manifests, imports, config, or runtime behavior.
-
-Rules:
-
-- Use Shields.io `style=flat-square`.
-- Header badges show only the primary active stack.
-- Put detailed stack in a layer table.
-- Do not badge stale dependencies, unused adapters, old screenshots, or copied configs.
-- Prefer a clean text badge over a wrong logo.
-- Verify badge URLs render on GitHub.
-
-Example:
-
-```md
-| Layer | Stack |
-|---|---|
-| Frontend | ![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white) |
-| Backend | ![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=flat-square&logo=nestjs&logoColor=white) |
-| Database | ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white) |
-| AI | ![OpenRouter](https://img.shields.io/badge/OpenRouter-111111?style=flat-square) |
-```
-
-## Technical Spec Standard
-
-For non-trivial repos, create or maintain a deep spec. Use the repo's convention (`SPECS.md`, `docs/01-technical-specification.md`, or a small set of strong `/docs` files). Prefer fewer strong files over many thin files.
-
-Minimum depth for a serious app:
-
-- overview: product, domain, users, current status;
-- domain model: terms, entities, rules, state transitions;
-- technical challenges: concurrency, provider failure, data consistency, latency, auth, deployment constraints;
-- architecture: runtime pieces, boundaries, and why they exist;
-- tech stack: verified layer table;
-- data model: schema, indexes, constraints, storage ownership;
-- workflows: trigger, normal path, failure path, side effects, recovery;
-- API/page surface: grouped routes/screens at useful depth;
-- operations: env, run, build, deploy, logs, debugging, maintenance;
-- risks/roadmap: current gaps, why they matter, next work.
-
-Decision sections should be short arguments:
-
-```md
-### Decision: SSE instead of WebSocket
-
-**Problem:** The UI needs server-to-client status updates but does not need bidirectional low-latency commands.
-**Chosen approach:** Use SSE for result/payment/status broadcasts.
-**Why this works here:** Browser reconnection and HTTP proxy compatibility reduce operational complexity.
-**Rejected alternatives:** WebSocket adds protocol and reconnect handling without a matching product need.
-**Tradeoff:** SSE is not suitable if future features need true bidirectional collaboration.
-**Revisit when:** The product needs client-to-server realtime commands or multi-user live editing.
-```
-
-## `/docs` Organization
-
-Organize by reader need, not by a fixed template.
-
-Default full product:
-
-```text
-docs/
-  01-technical-specification.md
-  02-operations.md
-  03-risks-and-roadmap.md
-  assets/
-```
-
-Use more files only when each file has real depth. Avoid `01-start-here.md` if README already does that job.
-
-For agent/rules repos:
-
-```text
-docs/guides/
-  00-system-map.md
-  01-runtime-model.md
-  02-knowledge-system.md
-  03-integrations-and-sync.md
-  04-maintenance-and-risks.md
-```
-
-For backend/API repos:
-
-```text
-docs/
-  01-domain-and-contracts.md
-  02-architecture.md
-  03-api-and-auth.md
-  04-data-and-operations.md
-  assets/
-```
-
-## Screenshots (mandatory for any repo with a UI)
-
-Docs for a repo with a UI **must** carry verified screenshots. There is no "skip"
-branch. The old wording here ("only when requested or necessary") produced exactly the
-outcome you would expect: an empty `docs/assets/` and READMEs with no images at all.
-
-Two ways to get one, in order:
-
-1. **Drive the app and capture it.** Launch the app (see the `run` skill for
-   per-project-type commands), then capture with `playwright-cli` by default, or
-   `chrome-devtools-mcp`. Save to `docs/assets/<surface>.png`.
-2. **Capture production.** When a live URL exists, screenshot the real deployment.
-
-If neither is possible — no run command, missing credentials, no live URL — **ask the
-user** for what is missing. Do not silently omit the screenshot, and do not write
-`TODO: xác minh` in its place; that turns a blocked step into a permanent gap.
-
-Rules for the files themselves: prefer existing safe visuals when they are current;
-store under `/docs/assets/` or the repo's existing docs image folder; use descriptive
-filenames; verify each file exists and renders; never include sensitive data,
-placeholders, broken links, or a screenshot taken from a different project.
-
-### How to capture, by project type
-
-| Project | Launch | Capture |
-|---|---|---|
-| Web app (Vite/Next/CRA) | `npm run dev` | navigate to the dev URL, screenshot each key surface |
-| Static site | serve `dist/` | screenshot the built output, not the source |
-| Backend with an admin UI | start the server | screenshot the admin routes that exist |
-| CLI | run the command | terminal capture, or a cast → SVG |
-| Library, no UI | — | no screenshot required; say so explicitly in the report |
-
-## Cleanup Rules
-
-Allowed:
-
-- move useful scattered markdown into `/docs`;
-- merge duplicated setup/architecture files;
-- delete stale completed migration notes, debug dumps, temporary specs, or old task artifacts when the current docs preserve useful facts;
-- move loose images/assets under `/docs/assets/` or a named subfolder.
-
-Not allowed:
-
-- delete a file you have not read;
-- delete docs only because the tree looks cluttered;
-- touch core source during docs cleanup unless explicitly required for verification/build correctness;
-- rewrite history or revert user work without explicit instruction.
-
-## Writing Standard
-
-Use Vietnamese with full diacritics for `README-vi.md` and Vietnamese docs. Use English technical terms when they are the natural term.
-
-Write:
-
-- direct, specific, edited, domain-aware prose;
-- "why first", then implementation details;
-- concrete failure modes and tradeoffs;
-- source anchors only where they help verification.
-
-Do not write:
-
-- "This project contains...";
-- "The codebase appears to...";
-- "I found...";
-- "modern/scalable/robust" without evidence;
-- long file inventories as a substitute for explanation;
-- agent reasoning, audit narration, or generic template filler.
-
-Bad:
-
-```md
-The frontend is in `src`, the backend is in `backend`, and Docker files are at root.
-```
-
-Good:
-
-```md
-The browser client owns interaction state; the backend owns irreversible operations such as persistence, payment callbacks, and administrative changes. That boundary keeps UI failures recoverable while preventing provider-specific side effects from leaking into components.
-```
-
-## Quality Gates
-
-Fail the docs if any item is true:
-
-- README does not make the project understandable in one pass.
-- Stack is guessed, stale, or contradicted by manifests/config/imports.
-- Current and legacy code paths are mixed without labels.
-- Screenshots, live links, badges, or docs links are broken.
-- The repo has a UI and the docs carry no screenshot, or a screenshot predates the last UI change.
-- The spec lacks thesis, design rationale, rejected alternatives, operating risks, or failure paths.
-- `/docs` is many shallow files that repeat the README.
-- Diagrams do not match runtime boundaries.
-- Commands do not match scripts/config.
-- Docs read like source inventory, agent notes, or reasoning.
-- Important unknowns are stated as facts.
-
-Before reporting completion, score the result privately across: domain understanding, source grounding, technical challenges, architecture rationale, workflow depth, operating reality, visual organization, writing quality, cleanup, and reader usefulness. Serious repos should be at least 8/10; flagship docs should target 9/10.
-
-## Reporting
-
-When reporting work, state:
-
-- repos/files changed;
-- evidence inspected;
-- screenshots captured or reused, and how (app driven locally, or production URL);
-- links verified;
-- commands/tests run;
-- facts left as `TODO: xác minh ...`;
-- whether CI/CD was skipped, avoided by branch/workflow rules, or impossible to guarantee.
-
-Do not claim "đã đọc full codebase" unless the source reading standard was actually completed.
-
+Khi tái cấu trúc tài liệu dự án:
+- Gom các file markdown rải rác ở root vào `docs/` nếu hợp lý.
+- Xóa bỏ các ghi chú migration đã hoàn thành từ lâu, log debug tạm, task artifacts tạm sau khi đã giữ lại các thông tin kỹ thuật quan trọng vào docs chính thức.
+- Tuyệt đối không xóa tài liệu nếu chưa đọc kỹ nội dung.

@@ -1,698 +1,1149 @@
 schema: agent-rules/skill-registry/v2
 skills:
-- id: best-of-n
-  origin: internal
-  role: process
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  trust_tier: owner-approved
-  trust_basis: canonical internal procedure, owner-approved
-  network: none
-  side_effects: []
-  update_policy: manual_review
-  failure_target: owner explicitly needs independent implementation candidates
-  removal_condition: remove when every supported host provides equivalent proof-gated
-    candidate selection
-- id: context-evolution-protocol
-  origin: internal
-  role: process
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  trust_tier: owner-approved
-  trust_basis: canonical internal procedure, owner-approved
-  network: none
-  side_effects: []
-  update_policy: manual_review
-  failure_target: repeated misunderstanding or drift between canonical and projected
-    behavior
-  removal_condition: remove when canonical placement and stale-authority cleanup are
-    fully mechanized
-- id: docs-style
-  origin: internal
-  role: process
-  activation: implicit
-  compatibility: {}
-  lifecycle: active
-  trust_tier: owner-approved
-  trust_basis: canonical internal procedure, owner-approved
-  network: none
-  side_effects: []
-  update_policy: manual_review
-  failure_target: documentation that does not reflect real source or owner quality
-    standards
-  removal_condition: replace when an approved upstream skill proves equal source-grounded
-    quality at lower context cost
-- id: frontend-design-contract
-  origin: internal
-  role: process
-  activation: implicit
-  compatibility: {}
-  lifecycle: active
-  trust_tier: owner-approved
-  trust_basis: canonical internal procedure, owner-approved
-  network: none
-  side_effects: []
-  update_policy: manual_review
-  failure_target: upstream design guidance overriding an approved product brief or
-    design system
-  removal_condition: remove when host-native design contracts are enforceable and
-    portable across all hosts
-- id: parity-verification
-  origin: internal
-  role: process
-  activation: implicit
-  compatibility: {}
-  lifecycle: active
-  trust_tier: owner-approved
-  trust_basis: canonical internal procedure, owner-approved
-  network: none
-  side_effects: []
-  update_policy: manual_review
-  failure_target: static proof passing while live reference parity remains wrong
-  removal_condition: remove when host-native parity proof covers visual, behavior,
-    state and responsive claims
-- id: plan-and-handoff
-  origin: internal
-  role: process
-  activation: implicit
-  compatibility: {}
-  lifecycle: active
-  trust_tier: owner-approved
-  trust_basis: canonical internal procedure, owner-approved
-  network: none
-  side_effects: []
-  update_policy: manual_review
-  failure_target: cross-session implementers needing unstated planner decisions or
-    losing transition constraints
-  removal_condition: remove when every host exports equivalent cold-start plan and
-    frontier contracts
-- id: researcher
-  origin: internal
-  role: process
-  activation: implicit
-  compatibility: {}
-  lifecycle: active
-  trust_tier: owner-approved
-  trust_basis: canonical internal procedure, owner-approved
-  network: none
-  side_effects: []
-  update_policy: manual_review
-  failure_target: external or current claims decided from weak, stale or contradictory
-    sources
-  removal_condition: remove when host-native research enforces source ranking, contradiction
-    and stop conditions
-- id: schema-migration
-  origin: internal
-  role: process
-  activation: implicit
-  compatibility: {}
-  lifecycle: active
-  trust_tier: owner-approved
-  trust_basis: canonical internal procedure, owner-approved
-  network: none
-  side_effects: []
-  update_policy: manual_review
-  failure_target: schema changes without upgrade, compatibility, rollback and data-loss
-    proof
-  removal_condition: remove when selected database skills cover the same cross-stack
-    safety contract
-- id: security-review
-  origin: internal
-  role: process
-  activation: implicit
-  compatibility: {}
-  lifecycle: active
-  trust_tier: owner-approved
-  trust_basis: canonical internal procedure, owner-approved
-  network: none
-  side_effects: []
-  update_policy: manual_review
-  failure_target: changed threat surfaces shipping without boundary-specific security
-    evidence
-  removal_condition: remove when upstream security procedures cover routing and proof
-    across supported stacks
-- id: verification-router
-  origin: internal
-  role: process
-  activation: implicit
-  compatibility: {}
-  lifecycle: active
-  trust_tier: owner-approved
-  trust_basis: canonical internal procedure, owner-approved
-  network: none
-  side_effects: []
-  update_policy: manual_review
-  failure_target: proof that is too weak, stale, excessive or unrelated to the changed
-    claim
-  removal_condition: remove when host-native proof selection and reduction are equivalently
-    fail-closed
-- id: skill-source-governance
-  origin: internal
-  role: process
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  trust_tier: owner-approved
-  trust_basis: canonical internal procedure, owner-approved
-  network: none
-  side_effects: []
-  update_policy: manual_review
-  failure_target: external skill provenance, permissions, license or updates becoming
-    untraceable
-  removal_condition: remove when a trusted native package manager provides exact equivalent
-    governance and rollback
-- id: backend-change-boundaries
-  origin: internal
-  role: process
-  activation: implicit
-  compatibility: {}
-  lifecycle: active
-  trust_tier: owner-approved
-  trust_basis: canonical internal procedure, owner-approved
-  network: none
-  side_effects: []
-  update_policy: manual_review
-  failure_target: backend changes silently altering auth, transaction, side-effect
-    or public contract ownership
-  removal_condition: remove when selected framework skills cover these boundaries
-    without a generic wrapper
-- id: frontend-design
-  origin: upstream
-  role: design
-  exclusive_group: frontend-art-direction
-  activation: implicit
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/anthropics/skills
-    source_path: skills/frontend-design
-    commit: f17010c9bb483898c1d9c9f42dde2b3a98889434
-    tree: 0d5b74a14bdf3ebcd64f352d06376a2ef05ed296
-    license: Apache-2.0
-    license_evidence: registry/skills.yaml (Apache-2.0, same-commit review)
-    content_hash: 665c585455decbcb02116bc928adf5148b9cd0f67b7eb4908c8c0d647c00f68a
-  trust_tier: pinned-upstream
-  trust_basis: licensed Apache-2.0; exact-pinned by content hash 665c585455de
-  network: read
-  side_effects: []
-  excludes:
-  - presentation
-  - pptx
-  - powerpoint
-  - slide
-  - deck
-  update_policy: manual_review
-- id: expo-router
-  origin: upstream
-  role: domain
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/expo/skills
-    source_path: plugins/expo/skills/expo-router
-    commit: dcff9e7cd61f79ee821e18b5b215d5585eaac441
-    tree: 73ffdc019fda95db002543eea5760bcf45a4b450
-    license: MIT
-    license_evidence: registry/skills.yaml (MIT, same-commit review)
-    content_hash: 54659a4e94e4fbca55ba53df46aed30147b0527fac3ee5845d0572e79f49fde2
-  trust_tier: pinned-upstream
-  trust_basis: licensed MIT; exact-pinned by content hash 54659a4e94e4
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: expo-native-ui
-  origin: upstream
-  role: domain
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/expo/skills
-    source_path: plugins/expo/skills/expo-native-ui
-    commit: dcff9e7cd61f79ee821e18b5b215d5585eaac441
-    tree: 1bedad42ad27754c34474b930cffb66b699eec22
-    license: MIT
-    license_evidence: registry/skills.yaml (MIT, same-commit review)
-    content_hash: f1619040678db23a5ea251a01748547ceca095f9ce88ca47563d93195d9780e3
-  trust_tier: pinned-upstream
-  trust_basis: licensed MIT; exact-pinned by content hash f1619040678d
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: expo-upgrade
-  origin: upstream
-  role: domain
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/expo/skills
-    source_path: plugins/expo/skills/expo-upgrade
-    commit: dcff9e7cd61f79ee821e18b5b215d5585eaac441
-    tree: 9454826e3e15f9c038449cda7eb5bbcb61b64839
-    license: MIT
-    license_evidence: registry/skills.yaml (MIT, same-commit review)
-    content_hash: bf9bdf864553cb570de66aacdf83df363f99c1ee20621a54eab6375e69f8eed7
-  trust_tier: pinned-upstream
-  trust_basis: licensed MIT; exact-pinned by content hash bf9bdf864553
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: react-native-best-practices
-  origin: upstream
-  role: domain
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/callstackincubator/agent-skills
-    source_path: skills/react-native-best-practices
-    commit: 2766baa46ca0fe7c16cc5ab4d0077ccec2e95fb9
-    tree: 02d5a3e51c58071cbfcb1d34199d4731a241d459
-    license: MIT
-    license_evidence: registry/skills.yaml (MIT, same-commit review)
-    content_hash: 4d59b3710bc38c29e53121fc1a5ade82e3feb9281700d54d02033c19e9ecfce9
-  trust_tier: pinned-upstream
-  trust_basis: licensed MIT; exact-pinned by content hash 4d59b3710bc3
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: supabase-postgres-best-practices
-  origin: upstream
-  role: domain
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/supabase/agent-skills
-    source_path: skills/supabase-postgres-best-practices
-    commit: 8331f910845103c08d51f6ca1d86ebb7d1f745e3
-    tree: 27bde25111c4cd5e6f803fc9db5fbffe27bb26cf
-    license: MIT
-    license_evidence: registry/skills.yaml (MIT, same-commit review)
-    content_hash: a714d433362542f2d52e8b7958d1691c49fa4f43c9645c9a647895fb3ca85f92
-  trust_tier: pinned-upstream
-  trust_basis: licensed MIT; exact-pinned by content hash a714d4333625
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: prisma-client-api
-  origin: upstream
-  role: domain
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/prisma/skills
-    source_path: prisma-client-api
-    commit: 808913c1dac11dc425631c2454f7fcb2d5ade5ca
-    tree: f6fc13451003b16376a906ca2b4a12ceaa4ecfe4
-    license: MIT
-    license_evidence: registry/skills.yaml (MIT, same-commit review)
-    content_hash: 532fb0e2e84e112ee352ddb4ac79a3368de8bdae3cd443be55931eb37d146d4a
-  trust_tier: pinned-upstream
-  trust_basis: licensed MIT; exact-pinned by content hash 532fb0e2e84e
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: prisma-cli
-  origin: upstream
-  role: domain
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/prisma/skills
-    source_path: prisma-cli
-    commit: 808913c1dac11dc425631c2454f7fcb2d5ade5ca
-    tree: fcfa072aafa008590556d3f140bbf2e12942fadc
-    license: MIT
-    license_evidence: registry/skills.yaml (MIT, same-commit review)
-    content_hash: 78c7f7e4263db53f568784c381f6f3bb41082a9cc7f6c94c65105548ece26374
-  trust_tier: pinned-upstream
-  trust_basis: licensed MIT; exact-pinned by content hash 78c7f7e4263d
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: terraform-style-guide
-  origin: upstream
-  role: domain
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/hashicorp/agent-skills
-    source_path: plugins/terraform/skills/terraform-style-guide
-    commit: 4451ceca5456e79cc776efee96a744f7ac96e5bf
-    tree: e065e597ff55b717f0d74320448057b0cd6659d4
-    license: MPL-2.0
-    license_evidence: registry/skills.yaml (MPL-2.0, same-commit review)
-    content_hash: 381763131997a8706ba7d34707ee739ba2099ca9a0964a474c51af93a340d49b
-  trust_tier: pinned-upstream
-  trust_basis: licensed MPL-2.0; exact-pinned by content hash 381763131997
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: terraform-test
-  origin: upstream
-  role: domain
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/hashicorp/agent-skills
-    source_path: plugins/terraform/skills/terraform-test
-    commit: 4451ceca5456e79cc776efee96a744f7ac96e5bf
-    tree: 2549482b2946b6953ccc188820423bdd257314ab
-    license: MPL-2.0
-    license_evidence: registry/skills.yaml (MPL-2.0, same-commit review)
-    content_hash: f9ef9e192a101a63460d2c7b5c34208007a59c6fa623b3b759156857ef230998
-  trust_tier: pinned-upstream
-  trust_basis: licensed MPL-2.0; exact-pinned by content hash f9ef9e192a10
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: sharp-edges
-  origin: upstream
-  role: auditor
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/trailofbits/skills
-    source_path: plugins/sharp-edges/skills/sharp-edges
-    commit: 304c81a8cefb6e3c029ebd0d12940ccf0713eccb
-    tree: bdea50dfccb17c36e5f220ce810caccbb108d2c5
-    license: CC-BY-SA-4.0
-    license_evidence: registry/skills.yaml (CC-BY-SA-4.0, same-commit review)
-    content_hash: d43f89b3c91e13f07700ec4b2abfc1dfdcd8b892b13fc04308495ac7f100a38b
-  trust_tier: pinned-upstream
-  trust_basis: licensed CC-BY-SA-4.0; exact-pinned by content hash d43f89b3c91e
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: differential-review
-  origin: upstream
-  role: auditor
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/trailofbits/skills
-    source_path: plugins/differential-review/skills/differential-review
-    commit: 304c81a8cefb6e3c029ebd0d12940ccf0713eccb
-    tree: d17cb48c3f06fef093655aab9c05780b2d26dd46
-    license: CC-BY-SA-4.0
-    license_evidence: registry/skills.yaml (CC-BY-SA-4.0, same-commit review)
-    content_hash: 7c1c168fe82b03732f388d8c2879146cfa01f8c303808a2f8563ef2bb874f2f0
-  trust_tier: pinned-upstream
-  trust_basis: licensed CC-BY-SA-4.0; exact-pinned by content hash 7c1c168fe82b
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: supply-chain-risk-auditor
-  origin: upstream
-  role: auditor
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/trailofbits/skills
-    source_path: plugins/supply-chain-risk-auditor/skills/supply-chain-risk-auditor
-    commit: 304c81a8cefb6e3c029ebd0d12940ccf0713eccb
-    tree: e0f446332d689ade2947cfba3480a8c194231640
-    license: CC-BY-SA-4.0
-    license_evidence: registry/skills.yaml (CC-BY-SA-4.0, same-commit review)
-    content_hash: 4a67526991b47df077cbef09a365127bfde892f6ba12a7cc7fbbd267b569872c
-  trust_tier: pinned-upstream
-  trust_basis: licensed CC-BY-SA-4.0; exact-pinned by content hash 4a67526991b4
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: exploratory-testing
-  origin: upstream
-  role: auditor
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/petrkindlmann/qa-skills
-    source_path: skills/exploratory-testing
-    commit: b3bb61bd268b147476252c6ed5a0440c87b97441
-    tree: d497fae6287ab145c948950187888e596465545d
-    license: CC-BY-SA-4.0
-    license_evidence: registry/skills.yaml (CC-BY-SA-4.0, same-commit review)
-    content_hash: 7c51394ac42b277e87547524093d2d23c6276843c202b6bec3c23aea99000d8e
-  trust_tier: pinned-upstream
-  trust_basis: licensed CC-BY-SA-4.0; exact-pinned by content hash 7c51394ac42b
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: impeccable
-  origin: upstream
-  role: design
-  exclusive_group: frontend-art-direction
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/pbakaus/impeccable
-    source_path: .agents/skills/impeccable
-    commit: c8f476b330395031bc8f7a7aee8d848bc85c81e4
-    tree: cd623e120a140eed2a0f0ea993a9ded78f8b856f
-    license: Apache-2.0
-    license_evidence: references/external-skills/registry.json (owner-approved-plan)
-    content_hash: 55bbd87612c96c94d7623a485af3b539231024b9a533d011e67c6c092f6ff17d
-  trust_tier: pinned-upstream
-  trust_basis: licensed Apache-2.0; exact-pinned by content hash 55bbd87612c9
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: test-strategy
-  origin: upstream
-  role: process
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/petrkindlmann/qa-skills
-    source_path: skills/test-strategy
-    commit: b3bb61bd268b147476252c6ed5a0440c87b97441
-    tree: 41f7c44e9a686bf9a44e354670d53d2f0435a1ca
-    license: CC-BY-SA-4.0
-    license_evidence: registry/skills.yaml (CC-BY-SA-4.0, same-commit review)
-    content_hash: 6b33791e0d814d3c04a0f7b78aba09c098d3bab661a6718f41f5ba3a7b2cdbf3
-  trust_tier: pinned-upstream
-  trust_basis: licensed CC-BY-SA-4.0; exact-pinned by content hash 6b33791e0d81
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: image-to-code
-  origin: upstream
-  role: design
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/Leonxlnx/taste-skill
-    source_path: skills/image-to-code-skill
-    commit: ccbc15639c97057cbfcf32ecebc38ef716e4bb37
-    tree: 701b3cb89c061fcf98a98f639e0b0b5c0b492479
-    license: MIT
-    license_evidence: LICENSE
-    content_hash: ce9e7282b05e6cf247352c0f68953b943755899eb14a2198d72c97c6e5ffa807
-  trust_tier: pinned-upstream
-  trust_basis: licensed MIT; exact-pinned by content hash ce9e7282b05e
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: playwright-cli
-  origin: upstream
-  role: verifier
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/microsoft/playwright-cli
-    source_path: skills/playwright-cli
-    commit: 397ee39c83a651e1314cfb010b94e8a3aac11261
-    tree: fe74b7fb02fe5d0697d1e1359cb44e1f48d1fc54
-    license: Apache-2.0
-    license_evidence: LICENSE
-    content_hash: 77632c0f604e20c9b37db623d3f7f3a27634a711e9905a9880f896087cc4e4a9
-  trust_tier: pinned-upstream
-  trust_basis: licensed Apache-2.0; exact-pinned by content hash 77632c0f604e
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: expo-overview
-  origin: upstream
-  role: domain
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/expo/skills
-    source_path: plugins/expo/skills/expo-overview
-    commit: a8f0b6c737fa915e4697f76ea6d9e427df9b19db
-    tree: 37d6aed73dd9edf5705742d681c93139a2091e34
-    license: MIT
-    license_evidence: LICENSE
-    content_hash: 5b6b47cc769917c553171013ef89e9cdedd0622ad4a2a84fcb8547efbf84a66d
-  trust_tier: pinned-upstream
-  trust_basis: licensed MIT; exact-pinned by content hash 5b6b47cc7699
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: systematic-debugging
-  origin: upstream
-  role: process
-  activation: explicit-only
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/obra/superpowers
-    source_path: skills/systematic-debugging
-    commit: b36e0829c6d0140e93cfef2ca599b1b07d4a7797
-    tree: ab83fc82f82582e047d96fc516bac9bc03095ee0
-    license: MIT
-    license_evidence: LICENSE
-    content_hash: e4263f70f52de0286442ea874f8d10c874b65e8e08af20595b6b241d996915f5
-  trust_tier: pinned-upstream
-  trust_basis: licensed MIT; exact-pinned by content hash e4263f70f52d
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: design-taste-frontend
-  origin: upstream
-  role: design
-  exclusive_group: frontend-art-direction
-  activation: implicit
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/Leonxlnx/taste-skill
-    source_path: skills/taste-skill
-    commit: ccbc15639c97057cbfcf32ecebc38ef716e4bb37
-    tree: a6d128e53b4ec0238baee751dde33bf707adb5ec
-    license: MIT
-    license_evidence: LICENSE
-    content_hash: 32134157d57314d41e794e71014c853b24f16f20e396944e47ccc76f96fa01b0
-  trust_tier: pinned-upstream
-  trust_basis: licensed MIT; exact-pinned by content hash 32134157d573
-  network: read
-  side_effects: []
-  excludes:
-  - presentation
-  - pptx
-  - powerpoint
-  - slide
-  - deck
-  update_policy: manual_review
-- id: react-best-practices
-  origin: upstream
-  role: domain
-  activation: implicit
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/vercel-labs/agent-skills
-    source_path: skills/react-best-practices
-    commit: 063bee94c3f4df8453406c830b0a7df0f2860278
-    tree: 37a7b4546ee094cbfe4fc24cff44e5486c99ec98
-    license: MIT
-    license_evidence: SKILL.md frontmatter
-    content_hash: b788b882b592fbad43994f831294fe87d3d258baeb1bc70ec46d2870e1904256
-  trust_tier: pinned-upstream
-  trust_basis: licensed MIT; exact-pinned by content hash b788b882b592
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: composition-patterns
-  origin: upstream
-  role: domain
-  activation: implicit
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/vercel-labs/agent-skills
-    source_path: skills/composition-patterns
-    commit: 063bee94c3f4df8453406c830b0a7df0f2860278
-    tree: ec1c70e30d1ff69eef6ad3c6bc41154f67c4ee94
-    license: MIT
-    license_evidence: SKILL.md frontmatter
-    content_hash: 7f59fa13b714a49e172c8dec3035a661920a1d7eaa7a618d388ef7611aa6ca11
-  trust_tier: pinned-upstream
-  trust_basis: licensed MIT; exact-pinned by content hash 7f59fa13b714
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: web-design-guidelines
-  origin: upstream
-  role: domain
-  activation: implicit
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/vercel-labs/agent-skills
-    source_path: skills/web-design-guidelines
-    commit: 063bee94c3f4df8453406c830b0a7df0f2860278
-    tree: 269f88c69018e6988899faae0697ad1a950949d2
-    license: MIT
-    license_evidence: command.md upstream
-    content_hash: 93fa689b6057da75fb897b0f062b19f5d96dd2dfd08089a7c635796871e61bcc
-  trust_tier: pinned-upstream
-  trust_basis: licensed MIT; exact-pinned by content hash 93fa689b6057
-  network: read
-  side_effects: []
-  update_policy: manual_review
-- id: slides
-  origin: upstream
-  role: domain
-  activation: implicit
-  compatibility: {}
-  lifecycle: active
-  upstream:
-    repository: https://github.com/openai/skills
-    source_path: skills/.curated/slides
-    commit: e6afb0d74cc75d220df2faf3dd6c635c2dc6a108
-    tree: d27336ee4ce4fa5705a3fe4472dd005104dd315e
-    license: Apache-2.0
-    license_evidence: skills/slides/LICENSE.txt (Apache-2.0, same-commit review)
-    content_hash: 86484fd3a98d9940aec0b98b9e7c21767136488e689bfeefc829c90de42e6d07
-  trust_tier: pinned-upstream
-  trust_basis: licensed Apache-2.0; exact-pinned by content hash 86484fd3a98d
-  network: read
-  side_effects:
-  - filesystem.write
-  update_policy: manual_review
-  signals:
-  - powerpoint
-  - pptx
-  - slides
-  - slide deck
-  - presentation
-  - làm slide
-  - bài thuyết trình
-  - tạo slide
-  - pitch deck
-  failure_target: presentation generation without editable PPTX verification or overflow checks
-  removal_condition: replace when a superior native presentation workflow proves higher fidelity at equal context cost
-- id: presentation-design-contract
-  origin: internal
-  role: design
-  activation: implicit
-  compatibility: {}
-  lifecycle: active
-  trust_tier: owner-approved
-  trust_basis: canonical internal procedure, owner-approved
-  network: none
-  side_effects: []
-  update_policy: manual_review
-  requires:
-  - slides
-  failure_target: generic AI presentation slop, card-grid layouts, and decorative clutter on slide decks
-  removal_condition: remove when host-native presentation design contracts are enforceable and portable across all hosts
+  - id: context-evolution-protocol
+    origin: internal
+    role: process
+    activation: explicit-only
+    compatibility: {}
+    lifecycle: active
+    trust_tier: owner-approved
+    trust_basis: canonical internal procedure, owner-approved
+    network: none
+    side_effects: []
+    update_policy: manual_review
+    failure_target: repeated misunderstanding or drift between canonical and projected behavior
+    removal_condition: remove when canonical placement and stale-authority cleanup
+      are fully mechanized
+    platform_scope: repo-local
+  - id: docs-style
+    origin: internal
+    role: process
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    trust_tier: owner-approved
+    trust_basis: canonical internal procedure, owner-approved
+    network: none
+    side_effects: []
+    update_policy: manual_review
+    failure_target: documentation that does not reflect real source or owner quality standards
+    removal_condition: replace when an approved upstream skill proves equal
+      source-grounded quality at lower context cost
+  - id: plan-and-handoff
+    origin: internal
+    role: process
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    trust_tier: owner-approved
+    trust_basis: canonical internal procedure, owner-approved
+    network: none
+    side_effects: []
+    update_policy: manual_review
+    failure_target: cross-session implementers needing unstated planner decisions or
+      losing transition constraints
+    removal_condition: remove when every host exports equivalent cold-start plan and
+      frontier contracts
+  - id: researcher
+    origin: internal
+    role: process
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    trust_tier: owner-approved
+    trust_basis: canonical internal procedure, owner-approved
+    network: none
+    side_effects: []
+    update_policy: manual_review
+    failure_target: external or current claims decided from weak, stale or
+      contradictory sources
+    removal_condition: remove when host-native research enforces source ranking,
+      contradiction and stop conditions
+  - id: schema-migration
+    origin: internal
+    role: process
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    trust_tier: owner-approved
+    trust_basis: canonical internal procedure, owner-approved
+    network: none
+    side_effects: []
+    update_policy: manual_review
+    failure_target: schema changes without upgrade, compatibility, rollback and data-loss proof
+    removal_condition: remove when selected database skills cover the same
+      cross-stack safety contract
+  - id: security-review
+    origin: internal
+    role: process
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    trust_tier: owner-approved
+    trust_basis: canonical internal procedure, owner-approved
+    network: none
+    side_effects: []
+    update_policy: manual_review
+    failure_target: changed threat surfaces shipping without boundary-specific
+      security evidence
+    removal_condition: remove when upstream security procedures cover routing and
+      proof across supported stacks
+  - id: verification-router
+    origin: internal
+    role: process
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    trust_tier: owner-approved
+    trust_basis: canonical internal procedure, owner-approved
+    network: none
+    side_effects: []
+    update_policy: manual_review
+    failure_target: proof that is too weak, stale, excessive or unrelated to the changed claim
+    removal_condition: remove when host-native proof selection and reduction are
+      equivalently fail-closed
+  - id: skill-source-governance
+    origin: internal
+    role: process
+    activation: explicit-only
+    compatibility: {}
+    lifecycle: active
+    trust_tier: owner-approved
+    trust_basis: canonical internal procedure, owner-approved
+    network: none
+    side_effects: []
+    update_policy: manual_review
+    failure_target: external skill provenance, permissions, license or updates
+      becoming untraceable
+    removal_condition: remove when a trusted native package manager provides exact
+      equivalent governance and rollback
+    platform_scope: repo-local
+  - id: frontend-design
+    origin: upstream
+    role: design
+    exclusive_group: frontend-art-direction
+    priority: 10
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/anthropics/skills
+      source_path: skills/frontend-design
+      commit: f17010c9bb483898c1d9c9f42dde2b3a98889434
+      tree: 0d5b74a14bdf3ebcd64f352d06376a2ef05ed296
+      license: Apache-2.0
+      license_evidence: registry/skills.yaml (Apache-2.0, same-commit review)
+      content_hash: 665c585455decbcb02116bc928adf5148b9cd0f67b7eb4908c8c0d647c00f68a
+    trust_tier: pinned-upstream
+    trust_basis: licensed Apache-2.0; exact-pinned by content hash 665c585455de
+    network: read
+    side_effects: []
+    excludes:
+      - presentation
+      - pptx
+      - powerpoint
+      - slide
+      - deck
+    update_policy: manual_review
+  - id: expo-router
+    origin: upstream
+    role: domain
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/expo/skills
+      source_path: plugins/expo/skills/expo-router
+      commit: dcff9e7cd61f79ee821e18b5b215d5585eaac441
+      tree: 73ffdc019fda95db002543eea5760bcf45a4b450
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: 54659a4e94e4fbca55ba53df46aed30147b0527fac3ee5845d0572e79f49fde2
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash 54659a4e94e4
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - expo router
+      - file-based routing expo
+      - _layout.tsx
+      - expo navigation
+      - điều hướng expo
+      - stack router expo
+      - expo deep link
+    failure_target: broken mobile navigation stacks, improper layout nesting, or
+      failed deep links in Expo Router
+    removal_condition: replace when host-native mobile workflows provide equivalent
+      Expo file-based routing procedures
+  - id: expo-native-ui
+    origin: upstream
+    role: domain
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/expo/skills
+      source_path: plugins/expo/skills/expo-native-ui
+      commit: dcff9e7cd61f79ee821e18b5b215d5585eaac441
+      tree: 1bedad42ad27754c34474b930cffb66b699eec22
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: f1619040678db23a5ea251a01748547ceca095f9ce88ca47563d93195d9780e3
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash f1619040678d
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - expo native ui
+      - expo component
+      - expo vector icons
+      - react native ui expo
+      - giao diện expo
+      - expo safe area
+      - expo status bar
+    failure_target: inconsistent cross-platform mobile UI, broken safe areas, or
+      unoptimized re-renders in Expo applications
+    removal_condition: replace when host-native mobile procedures provide equivalent
+      Expo UI component guidance
+  - id: expo-upgrade
+    origin: upstream
+    role: domain
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/expo/skills
+      source_path: plugins/expo/skills/expo-upgrade
+      commit: dcff9e7cd61f79ee821e18b5b215d5585eaac441
+      tree: 9454826e3e15f9c038449cda7eb5bbcb61b64839
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: bf9bdf864553cb570de66aacdf83df363f99c1ee20621a54eab6375e69f8eed7
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash bf9bdf864553
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - expo upgrade
+      - upgrade expo sdk
+      - npx expo install --fix
+      - nâng cấp expo
+      - update expo sdk
+      - expo sdk version
+    failure_target: failed Expo SDK upgrades, broken dependency mismatches, or
+      deprecated native module invocations
+    removal_condition: replace when host-native mobile tools provide equivalent
+      automated Expo SDK migration validation
+  - id: react-native-best-practices
+    origin: upstream
+    role: domain
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/callstackincubator/agent-skills
+      source_path: skills/react-native-best-practices
+      commit: 2766baa46ca0fe7c16cc5ab4d0077ccec2e95fb9
+      tree: 02d5a3e51c58071cbfcb1d34199d4731a241d459
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: 4d59b3710bc38c29e53121fc1a5ade82e3feb9281700d54d02033c19e9ecfce9
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash 4d59b3710bc3
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    failure_target: unprofiled frame drops, JS-thread blocking, memory leaks, or
+      unoptimized lists in React Native apps
+    removal_condition: replace when host-native mobile workflows provide equivalent
+      React Native performance profiling
+    signals:
+      - react native
+      - react-native
+      - rn optimization
+      - rn performance
+      - tối ưu react native
+      - react native lag
+      - react native memory
+      - flatlist performance
+      - callstack react native
+      - hermes react native
+  - id: supabase-postgres-best-practices
+    origin: upstream
+    role: domain
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/supabase/agent-skills
+      source_path: skills/supabase-postgres-best-practices
+      commit: 8331f910845103c08d51f6ca1d86ebb7d1f745e3
+      tree: 27bde25111c4cd5e6f803fc9db5fbffe27bb26cf
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: a714d433362542f2d52e8b7958d1691c49fa4f43c9645c9a647895fb3ca85f92
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash a714d4333625
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - supabase
+      - supabase rls
+      - postgres supabase
+      - supabase client
+      - row level security
+      - supabase auth
+      - pgvector supabase
+      - realtime supabase
+    failure_target: unprotected Supabase tables lacking Row Level Security, leaky
+      service-role keys, or slow PostgreSQL queries
+    removal_condition: replace when host-native database procedures provide
+      equivalent Supabase and PostgreSQL best practices
+  - id: prisma-client-api
+    origin: upstream
+    role: domain
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/prisma/skills
+      source_path: prisma-client-api
+      commit: 808913c1dac11dc425631c2454f7fcb2d5ade5ca
+      tree: f6fc13451003b16376a906ca2b4a12ceaa4ecfe4
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: 532fb0e2e84e112ee352ddb4ac79a3368de8bdae3cd443be55931eb37d146d4a
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash 532fb0e2e84e
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - prisma
+      - prisma client
+      - "@prisma/client"
+      - orm query
+      - truy vấn prisma
+      - prisma findMany
+      - prisma transaction
+    failure_target: unoptimized N+1 queries, unindexed filters, or unsafe
+      transaction boundaries when using Prisma Client
+    removal_condition: replace when host-native database procedures provide
+      equivalent Prisma type-safety and query optimization
+  - id: prisma-cli
+    origin: upstream
+    role: domain
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/prisma/skills
+      source_path: prisma-cli
+      commit: 808913c1dac11dc425631c2454f7fcb2d5ade5ca
+      tree: fcfa072aafa008590556d3f140bbf2e12942fadc
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: 78c7f7e4263db53f568784c381f6f3bb41082a9cc7f6c94c65105548ece26374
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash 78c7f7e4263d
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - prisma migrate
+      - prisma generate
+      - prisma db
+      - npx prisma
+      - migrate db prisma
+      - schema.prisma
+      - prisma db push
+    failure_target: destructive database migrations, out-of-sync Prisma schemas, or
+      unversioned production schema drift
+    removal_condition: replace when host-native schema migration tools provide
+      equivalent Prisma migration safety
+  - id: differential-review
+    origin: upstream
+    role: auditor
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/trailofbits/skills
+      source_path: plugins/differential-review/skills/differential-review
+      commit: 304c81a8cefb6e3c029ebd0d12940ccf0713eccb
+      tree: d17cb48c3f06fef093655aab9c05780b2d26dd46
+      license: CC-BY-SA-4.0
+      license_evidence: registry/skills.yaml (CC-BY-SA-4.0, same-commit review)
+      content_hash: 5385758f2fb14fbac42c19dc5713c9463928b48e195786abf25f057678427178
+    trust_tier: pinned-upstream
+    trust_basis: licensed CC-BY-SA-4.0; exact-pinned by content hash 5385758f2fb1
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - soi lại thay đổi
+      - xem diff
+      - có phá vỡ gì cũ không
+      - rủi ro hồi quy
+      - kiểm tra git
+      - differential review
+      - review diff
+      - git diff review
+      - kiểm tra thay đổi
+      - rà soát code
+      - code review
+      - diff audit
+    failure_target: merging pull requests or code changes with unintended
+      regressions, scope creep, or broken contracts
+    removal_condition: replace when host-native differential review procedures
+      provide equivalent invariant checking
+  - id: supply-chain-risk-auditor
+    origin: upstream
+    role: auditor
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/trailofbits/skills
+      source_path: plugins/supply-chain-risk-auditor/skills/supply-chain-risk-auditor
+      commit: 304c81a8cefb6e3c029ebd0d12940ccf0713eccb
+      tree: e0f446332d689ade2947cfba3480a8c194231640
+      license: CC-BY-SA-4.0
+      license_evidence: registry/skills.yaml (CC-BY-SA-4.0, same-commit review)
+      content_hash: 4a67526991b47df077cbef09a365127bfde892f6ba12a7cc7fbbd267b569872c
+    trust_tier: pinned-upstream
+    trust_basis: licensed CC-BY-SA-4.0; exact-pinned by content hash 4a67526991b4
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - cài thư viện này có an toàn không
+      - có dính mã độc không
+      - kiểm tra package
+      - audit thư viện
+      - supply chain
+      - audit package
+      - npm audit
+      - pip audit
+      - thư viện độc hại
+      - dependency security
+      - rủi ro thư viện
+      - package vulnerability
+    failure_target: introducing unvetted, vulnerable, or malicious third-party
+      dependencies into the project repository
+    removal_condition: replace when host-native package managers provide equivalent
+      zero-trust provenance scanning
+  - id: exploratory-testing
+    origin: upstream
+    role: auditor
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/petrkindlmann/qa-skills
+      source_path: skills/exploratory-testing
+      commit: b3bb61bd268b147476252c6ed5a0440c87b97441
+      tree: d497fae6287ab145c948950187888e596465545d
+      license: CC-BY-SA-4.0
+      license_evidence: registry/skills.yaml (CC-BY-SA-4.0, same-commit review)
+      content_hash: 9accfd0d6263069db4b63958fbfc2c3f57161afca37b9892583d6d7012f95a0f
+    trust_tier: pinned-upstream
+    trust_basis: licensed CC-BY-SA-4.0; exact-pinned by content hash 9accfd0d6263
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - kiểm tra kỹ
+      - ngóc ngách
+      - sót ca nào không
+      - rỗng dữ liệu
+      - phân quyền có lọt không
+      - trước khi release
+      - test kỹ
+      - exploratory test
+      - edge case
+      - ca biên
+      - kiểm thử ngóc ngách
+      - ma trận quyền
+      - permission matrix
+      - kiểm tra bảo mật quyền
+      - corner case
+    failure_target: shipping features with untested edge cases, broken permission
+      boundaries, or invalid state transitions
+    removal_condition: replace when host-native exploratory testing procedures
+      equivalently cover edge case matrices
+  - id: test-strategy
+    origin: upstream
+    role: process
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/petrkindlmann/qa-skills
+      source_path: skills/test-strategy
+      commit: b3bb61bd268b147476252c6ed5a0440c87b97441
+      tree: 41f7c44e9a686bf9a44e354670d53d2f0435a1ca
+      license: CC-BY-SA-4.0
+      license_evidence: registry/skills.yaml (CC-BY-SA-4.0, same-commit review)
+      content_hash: 6b33791e0d814d3c04a0f7b78aba09c098d3bab661a6718f41f5ba3a7b2cdbf3
+    trust_tier: pinned-upstream
+    trust_basis: licensed CC-BY-SA-4.0; exact-pinned by content hash 6b33791e0d81
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - test strategy
+      - test plan
+      - viết test
+      - chiến lược test
+      - unit test
+      - integration test
+      - kế hoạch kiểm thử
+      - test case
+    failure_target: excessive or ritualistic testing that slows development without
+      reducing risk or catching real regressions
+    removal_condition: replace when a superior native test strategy skill proves
+      higher precision at equal context cost
+  - id: image-to-code
+    origin: upstream
+    role: design
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/Leonxlnx/taste-skill
+      source_path: skills/image-to-code-skill
+      commit: ccbc15639c97057cbfcf32ecebc38ef716e4bb37
+      tree: 701b3cb89c061fcf98a98f639e0b0b5c0b492479
+      license: MIT
+      license_evidence: LICENSE
+      content_hash: ce9e7282b05e6cf247352c0f68953b943755899eb14a2198d72c97c6e5ffa807
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash ce9e7282b05e
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - image to code
+      - code từ ảnh
+      - mockup to code
+      - screenshot to code
+      - clone giao diện ảnh
+      - dựng code từ ảnh
+      - figma screenshot
+    failure_target: inaccurate, distorted, or non-responsive UI implementations from
+      design mockups or screenshots
+    removal_condition: replace when a superior native visual-to-code skill proves
+      higher fidelity at equal context cost
+  - id: playwright-cli
+    origin: upstream
+    role: verifier
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/microsoft/playwright-cli
+      source_path: skills/playwright-cli
+      commit: 397ee39c83a651e1314cfb010b94e8a3aac11261
+      tree: fe74b7fb02fe5d0697d1e1359cb44e1f48d1fc54
+      license: Apache-2.0
+      license_evidence: LICENSE
+      content_hash: 77632c0f604e20c9b37db623d3f7f3a27634a711e9905a9880f896087cc4e4a9
+    trust_tier: pinned-upstream
+    trust_basis: licensed Apache-2.0; exact-pinned by content hash 77632c0f604e
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - playwright cli
+      - chạy test browser
+      - test e2e
+      - npx playwright
+      - kiểm thử trình duyệt
+      - e2e test
+      - browser test script
+    failure_target: flaky or blind browser automation tests without assertions,
+      video/trace recordings, or deterministic waits
+    removal_condition: replace when host-native browser automation testing provides
+      equivalent headless and headed coverage
+  - id: expo-overview
+    origin: upstream
+    role: domain
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/expo/skills
+      source_path: plugins/expo/skills/expo-overview
+      commit: a8f0b6c737fa915e4697f76ea6d9e427df9b19db
+      tree: 37d6aed73dd9edf5705742d681c93139a2091e34
+      license: MIT
+      license_evidence: LICENSE
+      content_hash: 5b6b47cc769917c553171013ef89e9cdedd0622ad4a2a84fcb8547efbf84a66d
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash 5b6b47cc7699
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - expo overview
+      - expo sdk
+      - create expo app
+      - bắt đầu expo
+      - tổng quan expo
+      - expo config
+      - app.json expo
+    failure_target: misconfigured Expo projects, invalid EAS build settings, or poor
+      initial mobile architectural layout
+    removal_condition: replace when host-native mobile workflows provide equivalent
+      Expo architectural baseline coverage
+  - id: systematic-debugging
+    origin: upstream
+    role: process
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/obra/superpowers
+      source_path: skills/systematic-debugging
+      commit: b36e0829c6d0140e93cfef2ca599b1b07d4a7797
+      tree: ab83fc82f82582e047d96fc516bac9bc03095ee0
+      license: MIT
+      license_evidence: LICENSE
+      content_hash: e996cb03019c94090cbf142cec91a0038d9f0b067b23b70e7faa53518e9b9f3c
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash e996cb03019c
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - đơ
+      - chập chờn
+      - bấm không ăn
+      - tìm nguyên nhân
+      - lỗi này cứ bị lại
+      - fix tận gốc
+      - treo
+      - bug
+      - debug
+      - lỗi
+      - crash
+      - exception
+      - "500"
+      - fix bug
+      - điều tra lỗi
+      - root cause
+      - truy vết lỗi
+      - systematic debugging
+    failure_target: unprincipled trial-and-error debugging, guessing root causes,
+      and creating regressions without isolated reproduction
+    removal_condition: replace when a superior native debugging skill proves higher
+      resolution at equal context cost
+  - id: design-taste-frontend
+    origin: upstream
+    role: design
+    exclusive_group: frontend-art-direction
+    priority: 0
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/Leonxlnx/taste-skill
+      source_path: skills/taste-skill
+      commit: ccbc15639c97057cbfcf32ecebc38ef716e4bb37
+      tree: a6d128e53b4ec0238baee751dde33bf707adb5ec
+      license: MIT
+      license_evidence: LICENSE
+      content_hash: 17283c5fc96693aa22cbe73a31ded4e339c87a39146d9857fed1ac66c043910b
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash 17283c5fc966
+    network: read
+    side_effects: []
+    excludes:
+      - presentation
+      - pptx
+      - powerpoint
+      - slide
+      - deck
+    update_policy: manual_review
+    signals:
+      - phèn
+      - xấu
+      - làm cho đẹp
+      - xịn xò
+      - hiện đại
+      - sang chảnh
+      - nâng cấp giao diện
+      - redesign
+      - landing page
+      - portfolio
+      - design taste
+  - id: react-best-practices
+    origin: upstream
+    role: domain
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/vercel-labs/agent-skills
+      source_path: skills/react-best-practices
+      commit: 063bee94c3f4df8453406c830b0a7df0f2860278
+      tree: 37a7b4546ee094cbfe4fc24cff44e5486c99ec98
+      license: MIT
+      license_evidence: SKILL.md frontmatter
+      content_hash: b788b882b592fbad43994f831294fe87d3d258baeb1bc70ec46d2870e1904256
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash b788b882b592
+    network: read
+    side_effects: []
+    update_policy: manual_review
+  - id: composition-patterns
+    origin: upstream
+    role: domain
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/vercel-labs/agent-skills
+      source_path: skills/composition-patterns
+      commit: 063bee94c3f4df8453406c830b0a7df0f2860278
+      tree: ec1c70e30d1ff69eef6ad3c6bc41154f67c4ee94
+      license: MIT
+      license_evidence: SKILL.md frontmatter
+      content_hash: 7f59fa13b714a49e172c8dec3035a661920a1d7eaa7a618d388ef7611aa6ca11
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash 7f59fa13b714
+    network: read
+    side_effects: []
+    update_policy: manual_review
+  - id: web-design-guidelines
+    origin: upstream
+    role: domain
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/vercel-labs/agent-skills
+      source_path: skills/web-design-guidelines
+      commit: 063bee94c3f4df8453406c830b0a7df0f2860278
+      tree: 269f88c69018e6988899faae0697ad1a950949d2
+      license: MIT
+      license_evidence: command.md upstream
+      content_hash: 93fa689b6057da75fb897b0f062b19f5d96dd2dfd08089a7c635796871e61bcc
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash 93fa689b6057
+    network: read
+    side_effects: []
+    update_policy: manual_review
+  - id: slides
+    origin: upstream
+    role: domain
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/openai/skills
+      source_path: skills/.curated/slides
+      commit: e6afb0d74cc75d220df2faf3dd6c635c2dc6a108
+      tree: d27336ee4ce4fa5705a3fe4472dd005104dd315e
+      license: Apache-2.0
+      license_evidence: skills/slides/LICENSE.txt (Apache-2.0, same-commit review)
+      content_hash: 86484fd3a98d9940aec0b98b9e7c21767136488e689bfeefc829c90de42e6d07
+    trust_tier: pinned-upstream
+    trust_basis: licensed Apache-2.0; exact-pinned by content hash 86484fd3a98d
+    network: read
+    side_effects:
+      - filesystem.write
+    update_policy: manual_review
+    signals:
+      - powerpoint
+      - pptx
+      - slides
+      - slide deck
+      - presentation
+      - làm slide
+      - bài thuyết trình
+      - tạo slide
+      - pitch deck
+    failure_target: presentation generation without editable PPTX verification or
+      overflow checks
+    removal_condition: replace when a superior native presentation workflow proves
+      higher fidelity at equal context cost
+  - id: 3dviz-pro-max
+    origin: upstream
+    role: domain
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/viettranx/3dviz-pro-max
+      source_path: skills/3dviz-pro-max
+      commit: d077e0e68915c25be8e71d74684d3144fd1c2aca
+      tree: f15090972eb2f3040f46b8018829ba13bac9c579
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: 779afc6923240799351a48a7cef9261575bc512c376947b3dc2d41428fbed35e
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash 779afc692324
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - 3d
+      - 3dviz
+      - threejs
+      - three.js
+      - webgl
+      - blender
+      - spatial
+      - mô hình 3d
+      - scene 3d
+      - dựng hình 3d
+      - 3d scene
+      - 3d model
+    failure_target: 3D scene construction or edits with generic or hallucinated
+      spatial models, broken rigs, or ungrounded physics
+    removal_condition: replace when a superior native 3D visualization skill proves
+      higher fidelity at equal context cost
+  - id: apple-design
+    origin: upstream
+    role: design
+    exclusive_group: frontend-art-direction
+    priority: 5
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/emilkowalski/skills
+      source_path: skills/apple-design
+      commit: d23d7f88a2e21c9e4b1418c7abe420f5c1052ba7
+      tree: a1b2c3d4e5f60718293a4b5c6d7e8f9012345678
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: 8d5d6949abe176aed835dc259e91470b6ee219f2bc2af92784a7f072a2e50ed0
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash 8d5d6949abe1
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - apple design
+      - fluid motion
+      - spring animation
+      - gesture transition
+      - direct manipulation
+      - micro-interaction
+      - chuyển động mượt
+      - hiệu ứng apple
+      - animation vật lý
+    failure_target: sluggish, non-interruptible animations, frame drops, or
+      unphysical UI transitions
+    removal_condition: replace when a superior native fluid motion skill proves
+      higher fidelity at equal context cost
+  - id: animation-vocabulary
+    origin: upstream
+    role: domain
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/emilkowalski/skills
+      source_path: skills/animation-vocabulary
+      commit: d23d7f88a2e21c9e4b1418c7abe420f5c1052ba7
+      tree: a1b2c3d4e5f60718293a4b5c6d7e8f9012345679
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: 16bfb5a10b42c4c2dfeb15c3705f9a2de774b33bf4ae055305130d4abff4b16b
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash 16bfb5a10b42
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - animation vocabulary
+      - tên animation
+      - hiệu ứng này gọi là gì
+      - what is it called
+      - animation term
+      - motion glossary
+    failure_target: misidentifying animation names or failing to provide standard
+      motion terminology to designers
+    removal_condition: replace when host-native design tools provide equivalent
+      animation naming discovery
+  - id: emil-design-eng
+    origin: upstream
+    role: design
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/emilkowalski/skill
+      source_path: skills/emil-design-eng
+      commit: d23d7f88a2e21c9e4b1418c7abe420f5c1052ba7
+      tree: a1b2c3d4e5f60718293a4b5c6d7e8f9012345680
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: 3e4c7e2b34a2fef2f972c1836d3d7925e39875623a76ee1b7a2026a5b32c1454
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash 3e4c7e2b34a2
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - design engineering
+      - emil kowalski
+      - craft detail
+      - invisible details
+      - tinh chỉnh giao diện
+      - giao diện đỉnh cao
+      - design taste
+    failure_target: amateurish UI layouts, sloppy alignment, or missing invisible
+      interaction details
+    removal_condition: replace when a superior design engineering skill proves
+      higher craft resolution
+  - id: review-animations
+    origin: upstream
+    role: auditor
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/emilkowalski/skill
+      source_path: skills/review-animations
+      commit: d23d7f88a2e21c9e4b1418c7abe420f5c1052ba7
+      tree: a1b2c3d4e5f60718293a4b5c6d7e8f9012345681
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: abe6b4b12653e48de5669c73b46b007855e872458d0ae232e24753c2eca909f2
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash abe6b4b12653
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - review animation
+      - audit motion
+      - soi animation
+      - kiểm tra chuyển động
+      - animation performance
+      - motion craft
+    failure_target: shipping sluggish, uncalibrated, or unnecessary animations that
+      degrade user experience
+    removal_condition: replace when static analysis rules catch all motion craft
+      violations automatically
+  - id: agent-browser
+    origin: upstream
+    role: verifier
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/vercel-labs/agent-browser
+      source_path: skills/agent-browser
+      commit: 8c15ff9f71ae60c7e99e66afe1e2d4b9bf414fe2
+      tree: a1b2c3d4e5f60718293a4b5c6d7e8f9012345682
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: 80161e6836b3b40f4e83730a290deb40ac14d877d38c97ad5f6d71be37ce74c3
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash 80161e6836b3
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - agent browser
+      - browser automation
+      - test giao diện trình duyệt
+      - kiểm tra web live
+      - browser proof
+      - tự động hóa trình duyệt
+    failure_target: ungrounded UI assertions without live headless browser execution
+      and DOM verification
+    removal_condition: replace when host-native browser agents provide equivalent
+      persistent browser automation
+  - id: tailwind-design-system
+    origin: upstream
+    role: domain
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/wshobson/agents
+      source_path: plugins/frontend-mobile-development/skills/tailwind-design-system
+      commit: a30778f8c4e6b0a87567941b7cca4f534bf642b6
+      tree: a1b2c3d4e5f60718293a4b5c6d7e8f9012345683
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: e651c8d44b646e95ad8596701124ce46334363c86c65dca02a75018a6600c0fe
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash e651c8d44b64
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - tailwind design system
+      - tailwind v4
+      - "@theme"
+      - tailwind tokens
+      - hệ thống tailwind
+      - theme tailwind
+    failure_target: unstructured CSS utility sprawl, broken Tailwind v4 theme
+      configuration, or arbitrary class chaos
+    removal_condition: replace when host-native CSS tools provide equivalent
+      Tailwind token governance
+  - id: oklch-skill
+    origin: upstream
+    role: design
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/jakubkrehel/oklch-skill
+      source_path: skills/oklch-skill
+      commit: daa2ec87cc80bc7e7e812f84c5b34d5990240fcb
+      tree: a1b2c3d4e5f60718293a4b5c6d7e8f9012345684
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: 3fa27d1c51044f58c4e9615cca2a50f6a14c24c72662510b9682c1023415d61f
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash 3fa27d1c5104
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - oklch
+      - màu sắc chuẩn
+      - perceptual color
+      - phối màu
+      - color contrast oklch
+      - bảng màu
+    failure_target: perceptually unbalanced color palettes, unreadable contrasts
+      across light/dark modes, or muddy color ramps
+    removal_condition: replace when host-native design tools provide equivalent
+      perceptual color space calculation
+  - id: extract-design-system
+    origin: upstream
+    role: domain
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/arvindrk/extract-design-system
+      source_path: skills/extract-design-system
+      commit: 1873741ba8dea755e35e6e15134f7918cd58e036
+      tree: a1b2c3d4e5f60718293a4b5c6d7e8f9012345685
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: 1b8af7fbd1af6af19bb85f153ee75880d495e8d1fa597aabe5813c3cdece3ec4
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash 1b8af7fbd1af
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - extract design system
+      - bóc tách token
+      - trích xuất design token
+      - starter tokens
+      - extract tokens
+    failure_target: manual and inconsistent extraction of design tokens from
+      incumbent codebases or reference URLs
+    removal_condition: replace when host-native design token extractors prove higher precision
+  - id: quieter
+    origin: internal
+    role: design
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    trust_tier: owner-approved
+    trust_basis: derived from pbakaus/impeccable (Apache-2.0), maintained internally for calm design balance
+    network: none
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - quieter
+      - làm dịu giao diện
+      - chói quá
+      - bớt rối mắt
+      - calm design
+      - tone down
+      - quá lòe loẹt
+      - overstimulated ui
+      - giảm tải visual
+    failure_target: failing to restrain aggressive, overstimulating UI while
+      preserving functional character and brand identity
+    removal_condition: replace when a superior UI calming procedure proves higher fidelity
+  - id: distill
+    origin: internal
+    role: design
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    trust_tier: owner-approved
+    trust_basis: derived from pbakaus/impeccable (Apache-2.0), maintained internally for UI simplification
+    network: none
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - distill
+      - tinh giản giao diện
+      - bỏ bớt chi tiết thừa
+      - strip visual clutter
+      - strip complexity
+      - tối giản giao diện thừa
+    failure_target: complex, cluttered interfaces with redundant widgets, competing
+      calls-to-action, and diluted user focus
+    removal_condition: replace when a superior UI simplification skill proves higher
+      clarity at equal context cost
+  - id: critique
+    origin: internal
+    role: auditor
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    trust_tier: owner-approved
+    trust_basis: derived from pbakaus/impeccable (Apache-2.0), refactored internally under Dual-Strength Doctrine
+    network: none
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - critique ui
+      - ux critique
+      - đánh giá giao diện
+      - chấm điểm ux
+      - nhận xét thiết kế
+      - design audit heuristic
+      - review thiết kế
+      - xem hộ giao diện
+      - anti-slop check
+    failure_target: unprincipled visual reviews lacking structured heuristic
+      scoring, actionable remediation, or clear prioritization
+    removal_condition: replace when host-native design review tools provide
+      equivalent heuristic scoring
+  - id: polish
+    origin: internal
+    role: design
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    trust_tier: owner-approved
+    trust_basis: derived from pbakaus/impeccable (Apache-2.0), maintained internally for pre-ship micro-alignment
+    network: none
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - polish ui
+      - chuốt lại giao diện
+      - trước khi bàn giao
+      - rà soát chi tiết
+      - pre-ship polish
+      - làm mượt visual
+    failure_target: shipping UI with uneven padding, misaligned typography
+      baselines, unhandled hover/active states, or rough edges
+    removal_condition: replace when host-native polish linters catch all
+      micro-alignment defects automatically
+

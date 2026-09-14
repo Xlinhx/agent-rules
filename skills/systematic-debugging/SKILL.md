@@ -5,6 +5,12 @@ description: Use when encountering any bug, test failure, or unexpected behavior
 
 # Systematic Debugging
 
+## Product Owner Execution Directive (Silent Competence)
+When serving a Product Owner or answering user prompts:
+- Execute all 4 phases thoroughly in your internal reasoning, code inspection, and test verification.
+- **DO NOT** output procedural ceremony, "Phase 1/2/3/4" announcements, or lecturing checklists.
+- Find the true root cause, apply the verified fix with evidence, and report the result concisely in clear, human language.
+
 ## Overview
 
 **Core principle:** ALWAYS find root cause before attempting fixes. Symptom fixes are failure.

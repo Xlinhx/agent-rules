@@ -124,7 +124,7 @@ export async function inspectHostMcpRegistration(
     const { NativeHostProbe } = await import("../native/probe.js");
     const { inspectDshNativeReadback } = await import("../services/deepseek-native.js");
     const native = inspectDshNativeReadback(await new NativeHostProbe().detect(host));
-    const names = ["chrome-devtools", "codebase-memory", "context7", "playwright"];
+    const names = ["chrome-devtools", "serena", "context7"];
     const entries = names.map((id) => ({
       id,
       status: native.nativeMcp && native.profiles.length > 0 ? "MCP_REGISTERED" as const : "MCP_MISSING" as const,
@@ -210,7 +210,6 @@ export async function registerHostMcpAdapters(
       if (!observed) additions.push(definition);
       else if (!sameServerDefinition(host, observed.body, definition.definition)) {
         const legacyOwned = isLegacyOmpCodebaseMemory(host, definition.name, observed.body)
-          || observed.body.includes('__AGENT_RULES_PENCIL_LAUNCHER__')
           || (observed.disabled
             && (model.fingerprints.some((known) => known.serverName === definition.name && sameServerDefinition(host, observed.body, known.body))
               || model.legacyCommandPatterns.some((pattern) => pattern.test(observed.body))));
@@ -234,8 +233,7 @@ export async function registerHostMcpAdapters(
     const refreshes = applicable.filter((definition) => {
       const observed = current.get(definition.name);
       return observed?.disabled === true
-        || (observed !== undefined && isLegacyOmpCodebaseMemory(host, definition.name, observed.body))
-        || (observed !== undefined && observed.body.includes('__AGENT_RULES_PENCIL_LAUNCHER__'));
+        || (observed !== undefined && isLegacyOmpCodebaseMemory(host, definition.name, observed.body));
     });
     if (applicableAdditions.length === 0 && refreshes.length === 0 && aliasesToRemove.length === 0) {
       return { host, configPath, status: conflicts.length > 0 || selected.unavailable.length > 0 ? "NEEDS_USER" : "REGISTERED", registered: applicable.map((definition) => definition.name), conflicts, needsAction: selected.unavailable };

@@ -1,11 +1,15 @@
 # Proof và Outcome
 
-Model prose never creates PASS. Map every required acceptance to sufficient current evidence: static, unit, integration, live runtime or user-visible E2E according to the claim. Live, security, data-loss, public-contract and UI interaction claims require the corresponding high-fidelity proof.
+Model prose never creates PASS. Xác nhận hoàn thành dựa trên bằng chứng thực tế, không chỉ dựa trên văn xuôi hay giả định.
+Ánh xạ từng tiêu chí nghiệm thu với bằng chứng phù hợp: static check, unit test, integration test, hoặc runtime log.
 
-Reuse PASS only for the same claim, source, environment and proof contract. Source or contract drift invalidates it. Refactors/replacements require active consumer adoption, preserved behavior and old-path retirement; deletion requires negative removal proof plus preservation outside scope.
+Nguyên tắc kiểm chứng:
+- Mã nguồn build thành công hoặc exit code 0 là điều kiện cần nhưng phải đi kèm với việc thỏa mãn các ràng buộc nghiệp vụ của người dùng.
+- Kiểm tra tính đúng đắn tích cực (chức năng yêu cầu có mặt) và kiểm tra phủ định (không xuất hiện mã lỗi, pattern cấm đã nêu).
+- Lỗi kiểm chứng là thông tin phản hồi: xác định rõ nguyên nhân do mã nguồn, môi trường hay thiếu dữ liệu trước khi điều chỉnh.
+- Phân tầng bằng chứng hợp lý: ưu tiên static/unit test cho logic nội bộ; yêu cầu integration hoặc runtime proof cho tương tác mạng và giao diện.
 
-Proof failure is evidence. Classify it as implementation, plan, source-understanding, proof, environment, dependency, context/routing or external before changing the correct layer. The same failure without evidence delta must trigger root-cause/replan, not random patching.
-
-Completion states are PASS, PARTIAL, BLOCKED, UNSUPPORTED, PRE-EXISTING and NEEDS_USER. PASS requires every required acceptance proved. Pending work is PARTIAL. BLOCKED applies only when no required unblocked work remains. Separately reproduced legacy failure is PRE-EXISTING only after changed acceptance passes.
-
-Keep proof summaries and freshness bindings needed by the active task; do not persist raw tool output or evidence history. Install, health and rollback receipts remain separate safety-critical state.
+Trạng thái hoàn thành:
+- PASS: Mọi tiêu chí bắt buộc đã có bằng chứng xác thực.
+- PARTIAL: Đang xử lý các bước còn lại chưa bị chặn.
+- BLOCKED: Gặp trở ngại cần thêm thông tin hoặc quyền hạn từ người dùng.

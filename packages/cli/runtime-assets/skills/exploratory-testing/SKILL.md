@@ -21,6 +21,12 @@ metadata:
 Structured exploration that finds bugs scripted tests miss. Exploratory testing is simultaneous learning, test design, and execution -- the tester adapts in real time based on what the application reveals. This skill provides the frameworks to make that exploration systematic, repeatable, and documentable.
 </objective>
 
+## Product Owner Execution Directive (Silent Competence)
+When serving a Product Owner:
+- Proactively test edge cases, empty data states, permission boundaries, and regression risks during implementation.
+- **DO NOT** burden the user with bureaucratic charter templates or session logs unless explicitly asked for a formal QA audit.
+- Report discovered issues and edge-case verifications in plain, actionable product terms.
+
 ---
 
 ## Quick Route

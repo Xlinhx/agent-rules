@@ -471,19 +471,34 @@ export function taskCommand(action: string, options: { stdin?: boolean; taskId?:
       if (!proofText || proofText.length < 15 || /^(trust me|trust me bro|passed|it works|ok|done|verified|all good|tests pass)$/i.test(proofText)) {
         return { exitCode: ExitCode.ValidationFailed, message: `advance-slice rejected self-certified PASS for ${sliceId}: model prose ("${proofText}") cannot self-certify PASS without verifiable execution details` };
       }
+      if (/(?:chưa chạy|chưa test|chưa kiểm tra|not executed|not run|haven't run|haven't tested|only an example|chỉ là ví dụ|giả định|mock|placeholder)/i.test(proofText)) {
+        return { exitCode: ExitCode.ValidationFailed, message: `advance-slice rejected self-certified PASS for ${sliceId}: proof statement indicates execution was skipped or hypothetical (cannot self-certify PASS)` };
+      }
+      if (/(?:trust me|yên tâm|mọi thứ đều ổn|tất cả đều ổn|đã test kỹ|đã kiểm tra kỹ|đã chạy thử|chạy ổn|hoạt động tốt|nhìn chung là ổn|looks good|works fine|tested manually|verified manually|everything looks good|all seems good)/i.test(proofText)) {
+        return { exitCode: ExitCode.ValidationFailed, message: `advance-slice rejected self-certified PASS for ${sliceId}: model prose ("${proofText}") cannot self-certify PASS without verifiable execution details` };
+      }
       const targetSlice = state.slices.find((s) => s.id === sliceId);
       if (!targetSlice) return { exitCode: ExitCode.ValidationFailed, message: `Slice ${sliceId} not found` };
+      const accId = input.acceptance_id ?? targetSlice.acceptance_ids?.[0] ?? state.acceptance[0]?.id;
+      const targetAcc = accId ? state.acceptance.find((a) => a.id === accId) : null;
+      const requiredStrength = targetAcc?.required_strength ?? 'STATIC';
+      const inputMeta = input as { receipt_id?: string; command?: string; exit_code?: number };
+      const hasStructuredReceipt = Boolean(inputMeta.receipt_id || (inputMeta.exit_code === 0 && inputMeta.command));
+      const hasDetailedExecutionOutput = (
+        /(?:exit code 0|status: 0|build succeeded|passed in \d+|✓|\d+ passing)/i.test(proofText) &&
+        /(?:npm|pnpm|yarn|vitest|jest|pytest|playwright|curl|http|test|node|cargo|go test|\$ |> )/i.test(proofText)
+      );
+      if ((requiredStrength === 'LIVE' || requiredStrength === 'INTEGRATION' || requiredStrength === 'USER_VISIBLE_E2E') && !hasStructuredReceipt && !hasDetailedExecutionOutput) {
+        return { exitCode: ExitCode.ValidationFailed, message: `advance-slice rejected self-certified PASS for ${sliceId}: acceptance ${accId} requires ${requiredStrength} evidence with verifiable execution details (command runner output or receipt), but provided prose lacks verifiable execution trace` };
+      }
       const observed = sourceObservation(root);
       const updatedSlices = state.slices.map((s) => {
         if (s.id !== sliceId) return s;
         const proofList = [...(s.proof_summary ?? [])];
-        const accId = input.acceptance_id ?? s.acceptance_ids?.[0] ?? state.acceptance[0]?.id;
         if (accId) {
-          const targetAcc = state.acceptance.find((a) => a.id === accId);
-          const derivedStrength = targetAcc?.required_strength ?? 'STATIC';
           proofList.push({
             acceptance_id: accId,
-            strength: derivedStrength,
+            strength: requiredStrength,
             status: 'PASS',
             evidence: proofText,
             source_binding: observed.worktree_hash,

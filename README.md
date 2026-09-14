@@ -91,5 +91,5 @@ During implementation, run typecheck and focused tests for the changed seam.
 `verify:all` is the single integrated release gate and includes packed clean
 static install/update/doctor/source-state-independence/rollback smoke proof.
 
-`5fedu` and Pencil remain explicit-only. Seeing an ERP, UI, or design keyword
-does not activate them automatically.
+`5fedu` remains explicit-only. Seeing an ERP keyword
+does not activate it automatically.

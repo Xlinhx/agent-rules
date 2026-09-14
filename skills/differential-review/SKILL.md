@@ -10,7 +10,10 @@ allowed-tools: Read Write Grep Glob Bash
 
 # Differential Security Review
 
-Security-focused code review for PRs, commits, and diffs.
+## Product Owner Execution Directive (Silent Competence)
+When reviewing changes for a Product Owner:
+- Focus sharply on regression risks, broken public contracts, security flaws, and business impact.
+- Present findings directly in clear, concise bullet points (highlighting what could break, regression risks, and safety) rather than forcing formal bureaucratic audit forms unless requested.
 
 ## Core Principles
 

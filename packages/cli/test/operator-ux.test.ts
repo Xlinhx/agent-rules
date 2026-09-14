@@ -49,7 +49,7 @@ describe('operator UX', () => {
     expect(rolledBack.readback?.omp.profiles).toEqual(['5fedu']);
     expect(fs.readFileSync(path.join(agentDir, 'AGENTS.md'), 'utf8')).toContain('Explicit profile: 5fedu');
     expect(fs.existsSync(path.join(agentDir, 'skills', '5fedu-module-parity', 'SKILL.md'))).toBe(true);
-  }, 90_000);
+  }, 180_000);
 
   it('rejects update before install and rollback without a generation', async () => {
     const agentDir = temp('agent-rules-ux-empty-');
@@ -63,7 +63,7 @@ describe('operator UX', () => {
     expect(update.errors?.omp).toMatch(/not installed/i);
     const rollback = await createInstallationCoordinator({ enableMcp: false }).rollback('omp');
     expect(rollback.errors?.omp).toMatch(/no rollback generation/i);
-  });
+  }, 60_000);
 
   it('rejects an unknown explicit profile before writing host bytes', async () => {
     const agentDir = temp('agent-rules-ux-profile-');

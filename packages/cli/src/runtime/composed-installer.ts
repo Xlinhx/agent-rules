@@ -331,6 +331,12 @@ export async function projectSkillsToGlobal(
       await fs.mkdir(targetRoot, { recursive: true });
       if (legacyManagedRoots.has(path.resolve(targetRoot))) {
         await backupLegacySkillRoot(targetRoot, platform, harnessHome);
+        const existingEntries = await fs.readdir(targetRoot, { withFileTypes: true });
+        for (const existingEntry of existingEntries) {
+          if (existingEntry.isDirectory() && !desiredNames.has(existingEntry.name)) {
+            await fs.rm(path.join(targetRoot, existingEntry.name), { recursive: true, force: true });
+          }
+        }
       }
 
       for (const entry of entries) {

@@ -139,7 +139,7 @@ describe('SkillRegistryV2 validator', () => {
     expect(registry.schema).toBe('agent-rules/skill-registry/v2');
     expect(registry.skills.length).toBeGreaterThan(0);
     // canonical active skills are present in the registry file
-    for (const canonicalId of ['frontend-design', 'react-native-best-practices', 'expo-overview', 'terraform-style-guide', 'impeccable', 'prisma-client-api', 'supabase-postgres-best-practices', 'sharp-edges', 'react-best-practices']) {
+    for (const canonicalId of ['frontend-design', 'react-native-best-practices', 'expo-overview', 'apple-design', 'distill', 'prisma-client-api', 'supabase-postgres-best-practices', 'security-review', 'react-best-practices']) {
       expect(registry.skills.some((s) => s.id === canonicalId), `${canonicalId} must have a v2 record`).toBe(true);
     }
   });

@@ -88,12 +88,11 @@ try {
     }
     const graph = JSON.parse(fs.readFileSync(path.join(root, 'generated', 'context-graph.json'), 'utf8'));
     for (const node of graph.nodes.filter((node) => node.layer === 'skills' && !node.source.startsWith('profiles/'))) assert.equal(node.routing_source, 'registry/skills.yaml', `${node.id} governance must come from registry/skills.yaml`);
-    for (const retired of ['anthropic-frontend-design', 'callstack-react-native-best-practices', 'expo-skills', 'hashicorp-agent-skills', 'prisma-skills', 'supabase-agent-skills', 'trail-of-bits-security', 'vercel-agent-skills', 'vercel-react-best-practices', 'vercel-web-design-guidelines', 'claim-test-strategy', 'frontend-architect']) {
+    for (const retired of ['anthropic-frontend-design', 'callstack-react-native-best-practices', 'expo-skills', 'hashicorp-agent-skills', 'prisma-skills', 'supabase-agent-skills', 'trail-of-bits-security', 'vercel-agent-skills', 'vercel-react-best-practices', 'vercel-web-design-guidelines', 'claim-test-strategy', 'frontend-architect', 'impeccable', 'frontend-design-contract', 'parity-verification', 'terraform-style-guide', 'terraform-test']) {
       assert.equal(fs.existsSync(path.join(root, 'skills', retired, 'SKILL.md')), false, `${retired} must not remain selectable`);
     }
-    // 'impeccable' was a pack-level old registry record whose successor is
-    // materialized as the active skill itself — verify it is now selectable.
-    assert.equal(fs.existsSync(path.join(root, 'skills/impeccable/SKILL.md')), true, 'impeccable successor must be materialized');
+    // 'impeccable' monolithic skill has been replaced by pbakaus atomic skills (polish, critique, quieter, distill)
+    assert.equal(fs.existsSync(path.join(root, 'skills/polish/SKILL.md')), true, 'polish successor must be materialized');
     for (const upstream of ['playwright-cli', 'expo-overview', 'systematic-debugging', 'design-taste-frontend', 'image-to-code']) assert.equal(fs.existsSync(path.join(root, 'skills', upstream, 'SKILL.md')), true, `${upstream} must be materialized under its exact upstream name`);
     assert.equal(fs.existsSync(path.join(root, '.agent', 'history')), false, 'active task state must not create history');
   });

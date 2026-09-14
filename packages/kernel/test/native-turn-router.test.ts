@@ -67,4 +67,36 @@ describe('native turn router', () => {
   it('rejects empty input without creating plan or ticket state', () => {
     expect(() => routeNativeTurn(request({ prompt: ' ' }))).toThrow(/must not be empty/);
   });
+
+  it('supports baton pass workflow across consecutive turns without sticky state leakage', () => {
+    // Turn 1: UI critique
+    const turn1 = routeNativeTurn(request({
+      turn_id: 'turn-1',
+      prompt: 'Review giao diện landing page',
+      explicit: { skills: ['critique'] },
+    })).capsule;
+    expect(turn1.skills.map((s) => s.id)).toContain('critique');
+    expect(turn1.context.rendered).toContain('## Skill: critique');
+
+    // Turn 2: Baton pass to quieter to tone down aggressive colors
+    const turn2 = routeNativeTurn(request({
+      turn_id: 'turn-2',
+      prompt: 'Giao diện hơi chói, làm dịu bớt',
+      explicit: { skills: ['quieter'] },
+    })).capsule;
+    expect(turn2.skills.map((s) => s.id)).toContain('quieter');
+    expect(turn2.skills.map((s) => s.id)).not.toContain('critique');
+    expect(turn2.context.rendered).toContain('## Skill: quieter');
+
+    // Turn 3: Baton pass to polish for final detailing
+    const turn3 = routeNativeTurn(request({
+      turn_id: 'turn-3',
+      prompt: 'Chuốt lại micro-details trước khi bàn giao',
+      explicit: { skills: ['polish'] },
+    })).capsule;
+    expect(turn3.skills.map((s) => s.id)).toContain('polish');
+    expect(turn3.skills.map((s) => s.id)).not.toContain('quieter');
+    expect(turn3.context.rendered).toContain('## Skill: polish');
+  });
 });
+

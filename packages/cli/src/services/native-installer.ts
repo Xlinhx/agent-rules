@@ -130,11 +130,11 @@ function renderCanonicalRules(repositoryRoot = findRepositoryRoot(), profileIds:
   const manifest = path.join(repositoryRoot, 'rules', 'manifest.yaml');
   if (!fs.existsSync(manifest)) throw new Error(`canonical rules manifest missing: ${manifest}`);
   const raw = fs.readFileSync(manifest, 'utf8');
-  const matches = [...raw.matchAll(/^\s*-\s*([0-9a-zA-Z._-]+\.md)/gm)].map((m) => m[1]);
-  const names = matches.length > 0
-    ? matches
-    : ['00-intent-scope-safety.md', '10-execution-planning-delegation.md', '20-proof-outcome.md', '30-context-skill-mcp.md', '40-maintainer.md'];
-  const base = names.map((name) => {
+  const doc = YAML.parse(raw) as { load_order?: string[]; rule_contracts?: Record<string, { trigger?: string }> };
+  const loadOrder = doc?.load_order ?? [];
+  const contracts = doc?.rule_contracts ?? {};
+  const names = loadOrder.filter((name) => (contracts[name]?.trigger ?? 'always-load') === 'always-load');
+  const base = (names.length > 0 ? names : ['00-intent-scope-safety.md', '10-execution-planning-delegation.md', '20-proof-outcome.md']).map((name) => {
     const source = path.join(repositoryRoot, 'rules', name);
     if (!fs.existsSync(source)) throw new Error(`canonical rule missing: ${name}`);
     return fs.readFileSync(source, 'utf8').trim();
@@ -355,9 +355,18 @@ export class NativeInstaller {
 
       // The native coordinator owns the complete host projection. This helper
       // only copies skills and records ownership; it cannot mutate MCP config.
+      const userHome = process.env.USERPROFILE || process.env.HOME || '';
       const skillRoot = resolveNativeSkillRoot(host, detection);
+      const targetRoots = host === 'antigravity'
+        ? [
+            path.join(detection.homeDir, 'skills'),
+            path.join(userHome, '.gemini', 'antigravity-cli', 'skills'),
+          ].filter((p) => fs.existsSync(path.dirname(p)) || fs.existsSync(p))
+        : host === 'cursor' && fs.existsSync(path.join(userHome, '.cursor', 'skills'))
+          ? [skillRoot!, path.join(userHome, '.cursor', 'skills')]
+          : (skillRoot ? [skillRoot] : undefined);
       const skills = await projectSkillsToGlobal(compiledSkills.root, host as RuntimePlatform, {
-        ...(skillRoot ? { targetRoots: [skillRoot] } : {}),
+        ...(targetRoots ? { targetRoots } : {}),
         rollbackRoot: backupDir,
       });
       if (skills.collisions.length > 0) {
@@ -380,7 +389,6 @@ export class NativeInstaller {
         return receipt;
       }
 
-      const userHome = process.env.USERPROFILE || process.env.HOME || '';
       const nativeBackup: NativeBackupManifest = { schema: 'agent-rules/native-backup/v1', host, home: detection.homeDir, entries: [] };
 
       // Backup existing files
@@ -544,16 +552,40 @@ export class NativeInstaller {
           try { stat = fs.statSync(instrPath); } catch {}
           if (stat?.isFile()) {
             const content = fs.readFileSync(instrPath, 'utf8');
-            if (content.includes(`agent-rules:managed:${host}`) || content.includes('agent-rules')) {
+            const managedMarker = `agent-rules:managed:${host}`;
+            const hasBegin = content.includes(`<!-- ${managedMarker} BEGIN`);
+            const hasEnd = content.includes(`<!-- ${managedMarker} END`);
+            if (hasBegin && hasEnd) {
               installedStatus = 'PASS';
               installedDetail = `managed block verified in ${path.basename(instrPath)}`;
+            } else if (hasBegin || hasEnd || content.includes(managedMarker)) {
+              installedStatus = 'FAIL';
+              installedDetail = `managed block incomplete (missing BEGIN or END marker) in ${path.basename(instrPath)}`;
             } else {
               installedStatus = 'FAIL';
               installedDetail = `managed block not found in ${path.basename(instrPath)}`;
             }
           } else if (stat?.isDirectory()) {
-            installedStatus = readback.ok ? 'PASS' : 'FAIL';
-            installedDetail = readback.ok ? `native rules directory read back at ${path.basename(instrPath)}` : `native rules directory exists but readback failed: ${readback.detail ?? 'unknown reason'}`;
+            const ruleFile = path.join(instrPath, 'agent-rules.md');
+            if (fs.existsSync(ruleFile)) {
+              const content = fs.readFileSync(ruleFile, 'utf8');
+              const managedMarker = `agent-rules:managed:${host}`;
+              const hasBegin = content.includes(`<!-- ${managedMarker} BEGIN`);
+              const hasEnd = content.includes(`<!-- ${managedMarker} END`);
+              if (hasBegin && hasEnd) {
+                installedStatus = 'PASS';
+                installedDetail = `managed rule file verified at ${path.basename(instrPath)}/${path.basename(ruleFile)}`;
+              } else if (hasBegin || hasEnd || content.includes(managedMarker)) {
+                installedStatus = 'FAIL';
+                installedDetail = `managed rule file in ${path.basename(instrPath)} is missing BEGIN or END marker`;
+              } else {
+                installedStatus = 'FAIL';
+                installedDetail = `managed block not found in ${path.basename(instrPath)}/${path.basename(ruleFile)}`;
+              }
+            } else {
+              installedStatus = readback.ok ? 'PASS' : 'FAIL';
+              installedDetail = readback.ok ? `native rules directory read back at ${path.basename(instrPath)}` : `native rules directory exists but readback failed: ${readback.detail ?? 'unknown reason'}`;
+            }
           } else {
             installedStatus = readback.ok ? 'PASS' : 'FAIL';
             installedDetail = readback.ok ? `native surface read back for ${host}` : `native surface readback failed: ${readback.detail ?? 'unknown reason'}`;
@@ -572,8 +604,46 @@ export class NativeInstaller {
     let policyDetail = 'host not present';
     if (detection.present) {
       if (installedStatus === 'PASS') {
-        policyStatus = 'PASS';
-        policyDetail = `canonical agent-rules policy projection verified in the effective host instruction surface for ${host}; live permission and sandbox behavior were not exercised`;
+        let policyContent = '';
+        if (host === 'deepseek-harness') {
+          const agentsPath = path.join(detection.homeDir, 'AGENTS.md');
+          if (fs.existsSync(agentsPath)) {
+            try { policyContent = fs.readFileSync(agentsPath, 'utf8'); } catch {}
+          }
+        } else if (host === 'command-code') {
+          const native = readCommandCodeNative(detection.homeDir);
+          if (native.modPresent && fs.existsSync(native.modPath)) {
+            try { policyContent = fs.readFileSync(native.modPath, 'utf8'); } catch {}
+          }
+        } else if (contract) {
+          let targetPath = expandNativePath(contract.paths.instructionPath, detection.homeDir, userHome);
+          if (fs.existsSync(targetPath) && fs.statSync(targetPath).isDirectory()) {
+            targetPath = path.join(targetPath, 'agent-rules.md');
+          }
+          if (fs.existsSync(targetPath) && fs.statSync(targetPath).isFile()) {
+            try { policyContent = fs.readFileSync(targetPath, 'utf8'); } catch {}
+          }
+        }
+
+        const hasIntent = policyContent.includes('# Intent, Scope');
+        const hasExecution = policyContent.includes('# Execution, Planning');
+        const hasProof = policyContent.includes('# Proof và Outcome') || policyContent.includes('# Proof and Outcome');
+        const hasCandidate = policyContent.includes('bound to candidate') || /candidate [0-9a-f]{8,}/i.test(policyContent) || host === 'deepseek-harness' || host === 'command-code';
+
+        if (!hasIntent || !hasExecution || !hasProof) {
+          const missingSections: string[] = [];
+          if (!hasIntent) missingSections.push('# Intent, Scope');
+          if (!hasExecution) missingSections.push('# Execution, Planning');
+          if (!hasProof) missingSections.push('# Proof và Outcome');
+          policyStatus = 'FAIL';
+          policyDetail = `effective host instruction surface is missing canonical policy sections: ${missingSections.join(', ')}`;
+        } else if (!hasCandidate) {
+          policyStatus = 'FAIL';
+          policyDetail = 'effective host instruction surface is missing candidate fingerprint binding';
+        } else {
+          policyStatus = 'PASS';
+          policyDetail = `canonical agent-rules policy projection verified in the effective host instruction surface for ${host}; live permission and sandbox behavior were not exercised`;
+        }
       } else {
         policyStatus = 'FAIL';
         policyDetail = `effective host instruction surface missing canonical policy projection for ${host}`;
@@ -856,13 +926,13 @@ export class NativeInstaller {
     try { body = fs.readFileSync(instrPath, 'utf8'); } catch (error) {
       return { ok: false, method: contract.readbackStrategy ?? 'native', found: false, detail: `cannot read ${instrPath}: ${error instanceof Error ? error.message : String(error)}` };
     }
-    const managed = new RegExp(`<!-- agent-rules:managed:${host} BEGIN`, 's').test(body);
+    const managed = body.includes(`<!-- agent-rules:managed:${host} BEGIN`) && body.includes(`<!-- agent-rules:managed:${host} END`);
     return {
       ok: managed,
       method: contract.readbackStrategy ?? 'managed-block',
       found: managed,
       sha256: sha256(body),
-      detail: managed ? `managed block present in ${path.basename(instrPath)}` : `managed block absent in ${path.basename(instrPath)}`,
+      detail: managed ? `managed block present in ${path.basename(instrPath)}` : `managed block absent or incomplete in ${path.basename(instrPath)}`,
     };
   }
 

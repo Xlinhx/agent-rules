@@ -21,13 +21,13 @@ if (fs.existsSync(graphFile)) {
   for (const id of graphIds) if (!activeIds.has(id)) issues.push(`context graph exposes non-active skill: ${id}`);
 }
 for (const file of [
-  'skills/frontend-design-contract/SKILL.md',
+  'skills/apple-design/SKILL.md',
   'README.md',
   'skills/README.md',
   'platforms/antigravity/antigravity-overlay.md',
   'platforms/codex/codex-overlay.md',
   'platforms/grok/grok-overlay.md',
-  'skills/parity-verification/SKILL.md',
+  'skills/agent-browser/SKILL.md',
 ]) {
   if (fs.existsSync(path.join(root, file))) {
     const body = fs.readFileSync(path.join(root, file), 'utf8');

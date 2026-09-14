@@ -7,7 +7,7 @@ from prompt wording or a repository marker file.
 The authoritative ERP reference source remains inside the installed harness at
 `profiles/5fedu/reference-source/template`, protected by its manifest and source
 receipt. Target repositories do not install/copy that template. Workers read it
-through `agent-rules reference 5fedu <path>` / `reference-search`.
+through `agent-rules reference 5fedu <path>` / `agent-rules reference 5fedu --search <query>`.
 
 A legacy lean `context/5fedu/` install is supported only for older host routing
 and project-local overlays; it is not required by North-Star execution and is

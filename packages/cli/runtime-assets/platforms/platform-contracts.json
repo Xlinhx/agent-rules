@@ -244,7 +244,7 @@
       },
       "paths": {
         "instructionPath": "~/.gemini/GEMINI.md",
-        "skillPath": "~/.agents/skills/<skill>/SKILL.md",
+        "skillPath": "~/.gemini/config/skills/<skill>/SKILL.md",
         "repositorySkillPath": ".agents/skills/<skill>/SKILL.md",
         "mcpPath": "$ANTIGRAVITY_HOME/mcp_config.json",
         "legacyPaths": []

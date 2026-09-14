@@ -55,9 +55,9 @@ describe("npm managed-install handler", () => {
   it("installs a pinned package into the managed surface via argv (no shell string)", async () => {
     mocks.execFile.mockResolvedValue({ stdout: "", stderr: "" });
     const result = await npmInstall({
-      packageName: "@playwright/mcp",
-      version: "0.0.78",
-      commandName: "playwright-mcp",
+      packageName: "@playwright/cli",
+      version: "0.1.18",
+      commandName: "playwright-cli",
       installDir: "/managed/npm-global",
     });
     expect(result.ok).toBe(true);
@@ -67,7 +67,7 @@ describe("npm managed-install handler", () => {
     const args = mocks.execFile.mock.calls[0];
     expect(args[0]).toBe(process.platform === "win32" ? process.execPath : "npm");
     expect(Array.isArray(args[1])).toBe(true);
-    expect(args[1]).toEqual(expect.arrayContaining(["--prefix", "/managed/npm-global", "@playwright/mcp@0.0.78"]));
+    expect(args[1]).toEqual(expect.arrayContaining(["--prefix", "/managed/npm-global", "@playwright/cli@0.1.18"]));
     if (process.platform === "win32") expect(args[1][0]).toMatch(/npm-cli\.js$/i);
     expect(args[1]).not.toContain("sh");
     expect(args[1]).not.toContain("npx");
@@ -75,7 +75,7 @@ describe("npm managed-install handler", () => {
 
   it("verify fails closed when the managed binary is absent", async () => {
     mocks.stat.mockRejectedValue(new Error("ENOENT"));
-    const result = await npmVerify({ packageName: "@playwright/mcp", version: "0.0.78", commandName: "playwright-mcp", installDir: "/managed/npm-global" });
+    const result = await npmVerify({ packageName: "@playwright/cli", version: "0.1.18", commandName: "playwright-cli", installDir: "/managed/npm-global" });
     expect(result.ok).toBe(false);
     expect(result.message).toContain("missing managed binary");
   });

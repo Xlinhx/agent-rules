@@ -115,7 +115,31 @@ export function cleanupHostRuntimeCallbacks(host: HostId, home: string): LegacyC
   if (host === 'codex') removeGroupedCallbacks(path.join(home, 'hooks.json'), result);
   if (host === 'claude') removeGroupedCallbacks(path.join(home, 'settings.json'), result);
   if (host === 'cursor') removeCursorCallbacks(path.join(home, 'hooks.json'), result);
-  if (host === 'opencode') removeMarkedFile(path.join(home, 'plugins', 'agent-rules.ts'), 'agent-rules:managed:opencode', result);
+  if (host === 'opencode') {
+    removeMarkedFile(path.join(home, 'plugins', 'agent-rules.ts'), 'agent-rules:managed:opencode', result);
+    // Legacy v1 OpenCode skill directory (~/.config/opencode/skills).
+    // OpenCode in v2 uses ~/.agents/skills. Leaving this directory causes OMP to pull in dead skills.
+    const legacySkills = path.join(home, 'skills');
+    if (fs.existsSync(legacySkills)) {
+      try {
+        fs.rmSync(legacySkills, { recursive: true, force: true });
+        result.removed.push(legacySkills);
+      } catch {}
+    }
+  }
+  if (host === 'deepseek-harness') {
+    for (const legacyPath of [
+      path.join(os.homedir(), '.config', 'deepseek-harness', 'skills'),
+      path.join(os.homedir(), '.config', 'deepseek-harness', 'agent-rules-runtime'),
+    ]) {
+      if (fs.existsSync(legacyPath)) {
+        try {
+          fs.rmSync(legacyPath, { recursive: true, force: true });
+          result.removed.push(legacyPath);
+        } catch {}
+      }
+    }
+  }
   if (host === 'omp') removeMarkedFile(path.join(home, 'extensions', 'agent-rules.ts'), 'agent-rules:managed:omp', result);
   removeOwnedRuntime(path.join(home, 'agent-rules-runtime'), result);
   removeOwnedRuntime(path.join(home, '.agent-rules-runtime.rollback'), result);

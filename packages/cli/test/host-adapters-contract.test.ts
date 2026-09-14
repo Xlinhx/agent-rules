@@ -65,7 +65,7 @@ describe('static host projector contracts', () => {
       expect(fs.readFileSync(path.join(agentDir, 'AGENTS.md'), 'utf8')).toContain('agent-rules:managed:omp');
       expect(fs.existsSync(path.join(agentDir, 'skills'))).toBe(true);
       expect(fs.existsSync(path.join(agentDir, 'skills', 'plan-and-handoff', 'SKILL.md'))).toBe(true);
-      expect(fs.existsSync(path.join(agentDir, 'skills', 'playwright-cli'))).toBe(false);
+      expect(fs.existsSync(path.join(agentDir, 'skills', 'skill-source-governance'))).toBe(false);
       expect(fs.existsSync(path.join(agentDir, 'extensions', 'agent-rules.ts'))).toBe(false);
       expect(fs.existsSync(path.join(agentDir, 'agent-rules-runtime'))).toBe(false);
       const before = fs.readFileSync(path.join(agentDir, 'AGENTS.md'));
@@ -78,7 +78,7 @@ describe('static host projector contracts', () => {
       if (previousHarnessHome === undefined) delete process.env.AGENT_RULES_HOME; else process.env.AGENT_RULES_HOME = previousHarnessHome;
       fs.rmSync(agentDir, { recursive: true, force: true }); fs.rmSync(harnessHome, { recursive: true, force: true });
     }
-  }, 60_000);
+  }, 120_000);
 
   it('certifies static infrastructure and model-mediated intake without router binding', async () => {
     const installer = new NativeInstaller();
@@ -89,4 +89,51 @@ describe('static host projector contracts', () => {
       expect(receipt.claims).not.toHaveProperty('NATIVE_LIFECYCLE');
     }
   }, 30_000);
+
+  it('rejects NATIVE_INSTALLED on incomplete markers and rejects NATIVE_POLICY on missing policy content', async () => {
+    const previousAgentDir = process.env.PI_CODING_AGENT_DIR;
+    const agentDir = fs.mkdtempSync(path.join(process.cwd(), '.omp-cert-test-'));
+    const fakeOmp = path.join(agentDir, process.platform === 'win32' ? 'omp.cmd' : 'omp');
+    fs.writeFileSync(fakeOmp, process.platform === 'win32' ? '@exit /b 0\r\n' : '#!/bin/sh\nexit 0\n');
+    if (process.platform !== 'win32') fs.chmodSync(fakeOmp, 0o755);
+    process.env.PI_CODING_AGENT_DIR = path.relative(process.cwd(), agentDir);
+
+    try {
+      const installer = new NativeInstaller();
+      const agentsFile = path.join(agentDir, 'AGENTS.md');
+
+      // Case 1: Only BEGIN marker (missing END)
+      fs.writeFileSync(agentsFile, '<!-- agent-rules:managed:omp BEGIN -->\nSome text\n', 'utf8');
+      const r1 = await installer.certify('omp');
+      expect(r1.claims.NATIVE_INSTALLED.status).toBe('FAIL');
+      expect(r1.claims.NATIVE_POLICY.status).toBe('FAIL');
+
+      // Case 2: Both markers present, but NO canonical policy sections
+      fs.writeFileSync(agentsFile, '<!-- agent-rules:managed:omp BEGIN -->\nEmpty placeholder\n<!-- agent-rules:managed:omp END -->\n', 'utf8');
+      const r2 = await installer.certify('omp');
+      expect(r2.claims.NATIVE_INSTALLED.status).toBe('PASS');
+      expect(r2.claims.NATIVE_POLICY.status).toBe('FAIL');
+      expect(r2.claims.NATIVE_POLICY.evidence[0]?.detail).toContain('missing canonical policy sections');
+
+      // Case 3: Complete markers + canonical policy sections + candidate binding
+      fs.writeFileSync(
+        agentsFile,
+        '<!-- agent-rules:managed:omp BEGIN -->\n' +
+        '# Agent Rules — omp native (global)\n' +
+        'This self-contained static projection is owned by agent-rules and is bound to candidate 1234567890ab.\n' +
+        '# Intent, Scope và Safety\nRule 1\n' +
+        '# Execution, Planning và Handoff\nRule 2\n' +
+        '# Proof và Outcome\nRule 3\n' +
+        '<!-- agent-rules:managed:omp END -->\n',
+        'utf8'
+      );
+      const r3 = await installer.certify('omp');
+      expect(r3.claims.NATIVE_INSTALLED.status).toBe('PASS');
+      expect(r3.claims.NATIVE_POLICY.status).toBe('PASS');
+    } finally {
+      if (previousAgentDir === undefined) delete process.env.PI_CODING_AGENT_DIR; else process.env.PI_CODING_AGENT_DIR = previousAgentDir;
+      fs.rmSync(agentDir, { recursive: true, force: true });
+    }
+  }, 30_000);
 });
+

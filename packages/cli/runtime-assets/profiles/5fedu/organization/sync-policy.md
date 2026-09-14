@@ -13,9 +13,9 @@
 
 Do **not** install or copy the reference template into a target project.
 
-1. Explicitly activate `domain_pack: 5fedu` or use `--domain-pack 5fedu`.
-2. Read reusable rules from the harness.
-3. Inspect authoritative template code through `agent-rules reference 5fedu <path>` or `agent-rules reference-search 5fedu <query>`.
+1. Explicitly activate `domain_pack: 5fedu` or use `--profile 5fedu`.
+2. Do not copy the central template or domain pack into the target repository.
+3. Inspect authoritative template code through `agent-rules reference 5fedu <path>` or `agent-rules reference 5fedu --search <query>`.
 4. Adapt only the behavior that is source-grounded and applicable to the active project's schema/spec.
 5. Keep project-specific facts and decisions in the target repository.
 

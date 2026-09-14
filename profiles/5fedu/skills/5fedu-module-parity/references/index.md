@@ -8,7 +8,7 @@ Load after the skill triggers, in this order:
 4. The active project's schema/spec owns target-specific fields, routes, variable-slot values, business rules, and approved deviations.
 5. The task's `parity/<module>/` packet is the worker's only target mapping authority.
 
-Do not default-load historical archives, another project overlay, or an entire template checkout into the target. Read only the selected reference files/dependencies through `agent-rules reference` / `reference-search`; the central template is never materialized into the target merely to use the profile. A missing, stale, ambiguous, or unverified central source never falls back to a branch, screenshot, documentation, memory, or another application.
+Do not default-load historical archives, another project overlay, or an entire template checkout into the target. Read only the selected reference files/dependencies through `agent-rules reference` / `agent-rules reference 5fedu --search`; the central template is never materialized into the target merely to use the profile. A missing, stale, ambiguous, or unverified central source never falls back to a branch, screenshot, documentation, memory, or another application.
 
 ## Packet file contract
 

@@ -12,13 +12,12 @@ metadata:
 # 5fedu module parity
 
 Use only when the runtime/project configuration **explicitly activates** the
-`5fedu` domain pack (for example `agent-rules init --domain-pack 5fedu` or a
+`5fedu` domain pack (for example `agent-rules install --profile 5fedu` or a
 validated activation marker). Prompt words such as `5fedu`, `ERP`, `drawer`, or
 `listview` never activate this skill by themselves. The authoritative template
 is stored once in the harness; target projects do not install or vendor it.
 
-Do not use a branding/design capability as the primary source for ERP parity.
-Pencil is manual/explicit-only and may assist a user-requested design task, but
+Do not use a branding/design capability as the primary source for ERP parity;
 production behavior and parity remain source/browser-evidence driven.
 
 Typical activated work includes creating a new module ("làm module mới"), cloning
@@ -30,9 +29,9 @@ and ui-delivery evidence through this skill when the domain pack is active.
    `behavior-contract.json`, and `source-evidence.json`; select a reference role
    from the active project schema/spec and requested surface, not from visual
    resemblance.
-2. Require a verified domain-pack source receipt before implementation. Read
-   exact source through `agent-rules reference 5fedu <path>` and search it with
-   `agent-rules reference-search 5fedu <query>`. Do not copy the whole template
+2. Read authoritative template files through `agent-rules reference 5fedu <path>`
+   or search relevant behaviors using
+   `agent-rules reference 5fedu --search <query>`. Do not copy the whole template
    into the target workspace.
 3. Bind each owner requirement to the manifest-bound pointers in
    `source-evidence.json`, then inspect the referenced code before editing. If a

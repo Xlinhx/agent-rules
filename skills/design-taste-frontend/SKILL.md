@@ -22,60 +22,18 @@ Before touching code or tweaking dials, **infer what the user actually wants**. 
 5. **Brand assets that already exist** - logo, color, type, photography. For redesigns, these are starting material, not optional input (see Section 11).
 6. **Quiet constraints** - accessibility-first audiences, public-sector, regulated industries, trust-first commerce, kids' products. These constraints OVERRIDE aesthetic preference.
 
-### 0.B Output a one-line "Design Read" before generating
-Before any code, state in one line: **"Reading this as: \<page kind> for \<audience>, with a \<vibe> language, leaning toward \<design system or aesthetic family>."**
+### 0.B Silent Competence & Zero Ceremony (Product Owner Mode)
+Apply all visual principles, spacing discipline, contrast rules, and design system guidance directly into your implementation.
+- **NEVER** output bot preambles, fake configuration dials, or mechanical declarations like "Reading this as...".
+- **NEVER** interrupt the user with procedural chatter.
+- Deliver production-ready, beautiful code and summarize the completed deliverable in plain, natural language.
 
-Example reads:
-- *"Reading this as: B2B SaaS landing for technical buyers, with a Linear-style minimalist language, leaning toward Tailwind utilities + Geist + restrained motion."*
-- *"Reading this as: solo designer portfolio for hiring managers, with an editorial / kinetic-type language, leaning toward native CSS + scroll-driven animation + custom typography."*
-- *"Reading this as: redesign of a public-sector service site, with a trust-first language, leaning toward GOV.UK Frontend or USWDS."*
-
-### 0.C If the brief is ambiguous, ask one question, do not guess
-Ask exactly **one** clarifying question - never a multi-question dump - and only when the design read genuinely diverges. Example: *"Should this feel closer to Linear-clean or Awwwards-experimental?"*
-
-If you can confidently infer from context, **do not ask**. Just declare the design read and proceed.
+### 0.C Product Scope & Contextual Restraint
+- **For Dashboards, Admin Panels, Data Tables, Business Forms, and Bug Fixes:** Prioritize clarity, high data density, readability, fast loading, and rock-solid UX. Do NOT introduce distracting spring physics, excessive glassmorphism, or artsy clutter.
+- **For Landing Pages, Portfolios, Marketing Surfaces, or when requested ("làm cho xịn xò", "làm đẹp", "redesign"):** Unleash full design taste: intentional typography hierarchy, bespoke palette, refined micro-interactions, responsive bento grids, and purposeful negative space.
 
 ### 0.D Anti-Default Discipline
-Do not default to: AI-purple gradients, centered hero over dark mesh, three equal feature cards, generic glassmorphism on everything, infinite-loop micro-animations everywhere, Inter + slate-900. These are the LLM defaults. Reach past them deliberately based on the design read.
-
----
-
-## 1. THE THREE DIALS (Core Configuration)
-
-After the design read, set three dials. Every layout, motion, and density decision below is gated by these.
-
-* **`DESIGN_VARIANCE: 8`** - 1 = Perfect Symmetry, 10 = Artsy Chaos
-* **`MOTION_INTENSITY: 6`** - 1 = Static, 10 = Cinematic / Physics
-* **`VISUAL_DENSITY: 4`** - 1 = Art Gallery / Airy, 10 = Cockpit / Packed Data
-
-**Baseline:** `8 / 6 / 4`. Use these unless the design read overrides them. Do not ask the user to edit this file - overrides happen conversationally.
-
-### 1.A Dial Inference (design read → dial values)
-| Signal | VARIANCE | MOTION | DENSITY |
-|---|---|---|---|
-| "minimalist / clean / calm / editorial / Linear-style" | 5-6 | 3-4 | 2-3 |
-| "premium consumer / Apple-y / luxury / brand" | 7-8 | 5-7 | 3-4 |
-| "playful / wild / Dribbble / Awwwards / experimental / agency" | 9-10 | 8-10 | 3-4 |
-| "landing page / portfolio / marketing site (default)" | 7-9 | 6-8 | 3-5 |
-| "trust-first / public-sector / regulated / accessibility-critical" | 3-4 | 2-3 | 4-5 |
-| "redesign - preserve" | match existing | +1 | match existing |
-| "redesign - overhaul" | +2 | +2 | match existing |
-
-### 1.B Use-Case Presets
-| Use case | VARIANCE | MOTION | DENSITY |
-|---|---|---|---|
-| Landing (SaaS, mainstream) | 7 | 6 | 4 |
-| Landing (Agency / creative) | 9 | 8 | 3 |
-| Landing (Premium consumer) | 7 | 6 | 3 |
-| Portfolio (Designer / studio) | 8 | 7 | 3 |
-| Portfolio (Developer) | 6 | 5 | 4 |
-| Editorial / Blog | 6 | 4 | 3 |
-| Public-sector service | 3 | 2 | 5 |
-| Redesign - preserve | match | match+1 | match |
-| Redesign - overhaul | +2 | +2 | match |
-
-### 1.C How the Dials Drive Output
-Use these (or user-overridden values) as global variables. Cross-references throughout this document refer to these exact variable names - never invent aliases like `LAYOUT_VARIANCE` or `ANIM_LEVEL`.
+Do not default to: AI-purple gradients, centered hero over dark mesh, three equal feature cards, generic glassmorphism on everything, infinite-loop micro-animations everywhere, Inter + slate-900. These are the LLM defaults. Reach past them deliberately based on the subject and existing brand.
 
 ---
 
@@ -123,26 +81,21 @@ For these directions, there is **no single official package**. Build with native
 
 Unless the design read picks a real design system (Section 2.A), these are the defaults:
 
-### 3.A Stack
-* **Framework:** React or Next.js. Default to Server Components (RSC).
-  * **RSC SAFETY:** Global state works ONLY in Client Components. In Next.js, wrap providers in a `"use client"` component.
-  * **INTERACTIVITY ISOLATION:** Any component using Motion, scroll listeners, or pointer physics MUST be an isolated leaf with `'use client'` at the top. Server Components render static layouts only.
-* **Styling:** **Tailwind v4** (default). Tailwind v3 only if the existing project demands it.
-  * For v4: do NOT use `tailwindcss` plugin in `postcss.config.js`. Use `@tailwindcss/postcss` or the Vite plugin.
-* **Animation:** **Motion** (the library formerly known as Framer Motion). Import from `motion/react` (`import { motion } from "motion/react"`). The `framer-motion` package still works as a legacy alias - prefer `motion/react` in new code.
-* **Fonts:** Always use `next/font` (Next.js) or self-host with `@font-face` + `font-display: swap`. Never link Google Fonts via `<link>` in production.
+### 3.A Stack & Framework Respect
+* **Respect Existing Stack:** Adapt to whatever stack the project is already using (React, Next.js, Vite, Vue, Svelte, Tailwind v3 or v4, CSS Modules, etc.). Do not force framework migrations.
+* **RSC Safety (when using Next.js App Router):** Global state works only in Client Components (`"use client"`). Any leaf component with interactive motion, scroll listeners, or event handlers must be marked with `'use client'`.
+* **Styling:** Work seamlessly with the project's styling setup. If using Tailwind v4, use modern color tokens and `@theme`. If using Tailwind v3 or standard CSS, follow its established patterns.
+* **Fonts:** Use Next.js font optimization (`next/font`) or `@font-face` with `font-display: swap`.
 
 ### 3.B State
 * Local `useState` / `useReducer` for isolated UI.
-* Global state ONLY for deep prop-drilling avoidance - Zustand, Jotai, or React context.
-* **NEVER** use `useState` to track continuous values driven by user input (mouse position, scroll progress, pointer physics, magnetic hover). Use Motion's `useMotionValue` / `useTransform` / `useScroll`. `useState` re-renders the React tree on every change and collapses on mobile.
+* Global state only for deep prop-drilling avoidance - Zustand, Jotai, or React context.
+* Never use `useState` to track continuous 60fps values (mouse position, scroll progress) - use Motion values or CSS transitions.
 
 ### 3.C Icons
-* **Allowed libraries (priority order):** `@phosphor-icons/react`, `hugeicons-react`, `@radix-ui/react-icons`, `@tabler/icons-react`.
-* **Discouraged:** `lucide-react`. Acceptable only when the user explicitly asks for it or the project already depends on it.
-* **NEVER hand-roll SVG icons.** If a glyph is missing, install a second library or compose from primitives - do not draw icon paths from scratch.
-* **One family per project.** Do not mix Phosphor with Lucide in the same component tree.
-* **Standardize `strokeWidth` globally** (e.g. `1.5` or `2.0`).
+* **Allowed libraries:** `lucide-react`, `@phosphor-icons/react`, `hugeicons-react`, `@radix-ui/react-icons`, `@tabler/icons-react`.
+* **Stack Respect:** ALWAYS respect and use the existing icon library installed in the project (e.g. `lucide-react` in shadcn/ui projects). Never demand replacing or discouraging an established icon system.
+* **One family per surface:** Keep icon visual weight, style, and `strokeWidth` consistent across the interface.
 
 ### 3.D Emoji Policy
 Discouraged by default in code, markup, and visible text. Replace symbols with icon-library glyphs. **Override:** allow emojis only when the user explicitly asks for a playful / chat-style / social-native vibe - and even then use them sparingly with intent.

@@ -1,6 +1,5 @@
 # Secrets and local configs
 *.local.json
-*local*.json
 secrets.json
 .env
 .env.*

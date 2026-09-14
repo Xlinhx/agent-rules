@@ -27,35 +27,35 @@ describe("shell handler", () => {
   it("runs the install script via argv with the interpreter, never curl|sh", async () => {
     mocks.execFile.mockResolvedValue({ stdout: "installed ok", stderr: "" });
     const result = await shellInstall({
-      command: ["bash", "/repo/integrations/optional/pencil-mcp/install.sh"],
+      command: ["bash", "/repo/integrations/optional/custom-tool/install.sh"],
       verifyCommand: [],
       uninstallCommand: [],
     });
     expect(result.ok).toBe(true);
     const call = mocks.execFile.mock.calls[0];
     expect(call[0]).toBe("bash");
-    expect(call[1]).toEqual(["/repo/integrations/optional/pencil-mcp/install.sh"]);
+    expect(call[1]).toEqual(["/repo/integrations/optional/custom-tool/install.sh"]);
     expect(call[1].join(" ")).not.toMatch(/curl|\|.*sh/);
   });
 
   it("maps a missing interpreter to UNSUPPORTED on this host", async () => {
     mocks.execFile.mockRejectedValue(Object.assign(new Error("spawn bash ENOENT"), { code: "ENOENT" }));
-    const result = await shellVerify(["bash", "/repo/integrations/optional/serena/verify.sh"]);
+    const result = await shellVerify(["bash", "/repo/integrations/optional/custom-tool/verify.sh"]);
     expect(result.ok).toBe(false);
     expect(result.status).toBe("UNSUPPORTED");
     expect(result.message).toContain("bash");
   });
 
   it("classifies a missing prerequisite (non-ENOENT) as NEEDS_USER", async () => {
-    mocks.execFile.mockRejectedValue(Object.assign(new Error("uv is required for Serena"), { code: 1 }));
-    const result = await shellVerify(["bash", "/repo/integrations/optional/serena/verify.sh"]);
+    mocks.execFile.mockRejectedValue(Object.assign(new Error("prerequisite is required"), { code: 1 }));
+    const result = await shellVerify(["bash", "/repo/integrations/optional/custom-tool/verify.sh"]);
     expect(result.ok).toBe(false);
     expect(result.status).toBe("NEEDS_USER");
-    expect(result.message).toContain("uv is required");
+    expect(result.message).toContain("prerequisite is required");
   });
 
   it("uninstall never pretends success without a real uninstall script", async () => {
-    const result = await shellUninstall(["bash", "/repo/integrations/optional/pencil-mcp/uninstall.sh"]);
+    const result = await shellUninstall(["bash", "/repo/integrations/optional/custom-tool/uninstall.sh"]);
     expect(result.ok).toBe(false);
     expect(result.status).toBe("BLOCKED");
   });

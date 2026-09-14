@@ -33,7 +33,7 @@ Each test case in the full-catalog benchmark defines expected, allowed, and forb
 ```json
 {
   "query": "Create a polished executive pitch deck for cloud infrastructure",
-  "expected": ["slides", "presentation-design-contract"],
+  "expected": ["slides"],
   "allowed": ["researcher"],
   "forbidden": ["frontend-design", "design-taste-frontend", "impeccable"]
 }
@@ -47,7 +47,7 @@ Each test case in the full-catalog benchmark defines expected, allowed, and forb
 5. **Buried Intent**: Multi-line contextual prompt where the actual goal is embedded in the middle.
 6. **Sibling Near-Miss**: Prompts designed specifically to test the boundary between related skills:
    - Visual redesign of a web component (`design-taste-frontend`) vs. resolving a prop-drilling bottleneck (`composition-patterns`).
-   - Mechanical PPTX text extraction (`slides` alone) vs. High-quality slide creation (`slides` + `presentation-design-contract`).
+   - Pure UI polish (`polish`) vs. radical simplification (`distill`).
 
 ---
 

@@ -6,7 +6,7 @@ The canonical 5fedu template is stored **once inside the agent-rules installatio
 
 `profiles/5fedu/projects/source-lock.json` is a verified `bundled-snapshot` receipt containing the owner-supplied archive digest, a deterministic 446-file tree digest, and the manifest path. Before implementation or parity claims, the runtime recomputes the exact file set, byte sizes, and SHA-256 values. Any drift fails closed.
 
-A project opts in explicitly with `domain_pack: "5fedu"` (or CLI `--domain-pack 5fedu`). The harness resolves the pack from its own installation via the explicit harness root, `AGENT_RULES_HOME`, or module location. The active project does not need `profiles/5fedu/` or the reference source on disk.
+A project opts in explicitly with `domain_pack: "5fedu"` (or CLI `--profile 5fedu`). The harness resolves the pack from its own installation via the explicit harness root, `AGENT_RULES_HOME`, or module location. The active project does not need `profiles/5fedu/` or the reference source on disk.
 
 ## Authority order
 

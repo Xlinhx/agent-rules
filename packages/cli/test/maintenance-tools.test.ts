@@ -16,8 +16,9 @@ describe('repo-level maintenance tools', () => {
   it('reports explicit text context separately from binary assets', () => {
     const result = run('automation/skill-eval.mjs');
     expect(result.status, result.stderr).toBe(0);
-    const body = JSON.parse(result.stdout) as { explicit_contracts: Array<Record<string, unknown>> };
-    const reactNative = body.explicit_contracts.find((entry) => entry.id === 'react-native-best-practices');
+    const body = JSON.parse(result.stdout) as { explicit_contracts?: Array<Record<string, unknown>>; implicit_activation?: Array<Record<string, unknown>> };
+    const allContracts = [...(body.explicit_contracts ?? []), ...(body.implicit_activation ?? [])];
+    const reactNative = allContracts.find((entry) => entry.id === 'react-native-best-practices');
     expect(reactNative).toEqual(expect.objectContaining({
       body_reference_tokens: expect.any(Number),
       script_text_tokens: expect.any(Number),
