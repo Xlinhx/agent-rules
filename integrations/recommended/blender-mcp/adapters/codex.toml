@@ -1,0 +1,6 @@
+[mcp_servers.blender-mcp]
+command = "uvx"
+args = ["mcp-for-blender"]
+
+[mcp_servers.blender-mcp.env]
+BLENDER_PORT = "9876"

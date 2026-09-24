@@ -14,10 +14,10 @@ import type { IntegrationInventory, RegistryEntry } from "./inventory.js";
  * availability never grants permission to connect, launch or call it.
  */
 
-export const GLOBAL_MCP_PROFILES = ["none", "core", "research", "frontend", "qa", "all"] as const;
+export const GLOBAL_MCP_PROFILES = ["none", "core", "research", "frontend", "qa", "3d", "all"] as const;
 export type GlobalMcpProfile = (typeof GLOBAL_MCP_PROFILES)[number];
 
-export const INTEGRATION_PROFILES = ["core", "qa", "frontend", "research", "all"] as const;
+export const INTEGRATION_PROFILES = ["core", "qa", "frontend", "research", "3d", "all"] as const;
 export type IntegrationProfile = (typeof INTEGRATION_PROFILES)[number];
 
 export const GLOBAL_MCP_PROFILE_ENV = "AGENT_RULES_GLOBAL_MCP_PROFILE";

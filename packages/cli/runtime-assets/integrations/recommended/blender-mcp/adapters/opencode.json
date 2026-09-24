@@ -1,0 +1,14 @@
+{
+  "mcp": {
+    "blender-mcp": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "mcp-for-blender"
+      ],
+      "environment": {
+        "BLENDER_PORT": "9876"
+      }
+    }
+  }
+}

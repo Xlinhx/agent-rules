@@ -1,0 +1,26 @@
+{
+  "name": "blender-lab-mcp",
+  "policy": "recommended",
+  "upstream": "https://www.blender.org/lab/mcp-server/",
+  "package": "blender-lab-mcp",
+  "commandName": "blender-lab-mcp",
+  "mcpServerKey": "blender-lab",
+  "version": "1.0.0",
+  "versionPolicy": "pinned",
+  "capabilities": [
+    "asset.3d.audit",
+    "scene.3d.inspect"
+  ],
+  "activation": "automatic",
+  "classification": "mcp-provider",
+  "effect": {
+    "effect_level": "read-only",
+    "environment": "local",
+    "approval": "task-scope",
+    "reversible": true,
+    "network": false,
+    "credentials": "none",
+    "timeout_ms": 120000,
+    "provider_evidence": "health-probe"
+  }
+}

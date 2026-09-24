@@ -1,0 +1,12 @@
+{
+  "mcp": {
+    "blender-lab": {
+      "type": "local",
+      "command": [
+        "python",
+        "-m",
+        "blender_lab_mcp"
+      ]
+    }
+  }
+}

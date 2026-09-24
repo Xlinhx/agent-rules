@@ -172,6 +172,7 @@ export function inferCapabilities(prompt: string, _facts?: RepositoryFacts, affe
   if (/\b(documentation|docs?|external api|release notes|changelog|latest)\b/i.test(text)) capabilities.push('docs.lookup');
   if (/\b(database|postgres|prisma|supabase|sql|drizzle)\b/i.test(text)) capabilities.push('database.query');
   if (/\b(logs?|runtime error|diagnostic)\b/i.test(text)) capabilities.push('runtime.logs');
+  if (/\b(blender|3d|gltf|glb|three\.?js|polycount|mesh|rigging|armature|uv[ -]?unwrap)\b/i.test(text)) capabilities.push('modeling.3d', 'asset.3d.audit');
   return [...new Set(capabilities)];
 }
 

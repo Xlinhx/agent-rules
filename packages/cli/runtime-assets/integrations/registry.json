@@ -362,6 +362,158 @@
    "install": {
     "type": "host-native"
    }
+  },
+  {
+   "id": "blender-mcp",
+   "displayName": "Blender MCP (Asset Compose & Rigging)",
+   "kind": "mcp",
+   "policy": "recommended",
+   "profiles": [
+    "3d"
+   ],
+   "source": {
+    "type": "pip",
+    "url": "https://github.com/ahujasid/mcp-for-blender",
+    "package": "mcp-for-blender",
+    "version": "0.1.0",
+    "versionPolicy": "pinned",
+    "commandName": "mcp-for-blender",
+    "mcpServerKey": "blender-mcp"
+   },
+   "integrity": {
+    "pinned": true
+   },
+   "trust": "adapter-verified",
+   "capabilities": [
+    "modeling.3d",
+    "asset.3d.compose"
+   ],
+   "triggers": [
+    "blender",
+    "3d-asset",
+    "uv-unwrap",
+    "rigging",
+    "poly-haven",
+    "gltf-export"
+   ],
+   "sideEffects": "local-process",
+   "tokenClass": "high",
+   "permissions": [
+    "local-process"
+   ],
+   "environment": [],
+   "install": {
+    "type": "shell",
+    "handler": "blender-mcp",
+    "script": "integrations/recommended/blender-mcp/install.ps1",
+    "verify": "integrations/recommended/blender-mcp/verify.ps1",
+    "uninstall": "integrations/recommended/blender-mcp/uninstall.ps1"
+   },
+   "health": {
+    "command": "uvx mcp-for-blender --help",
+    "expectedExitCodes": [
+     0
+    ]
+   },
+   "schema": {
+    "source": "integrations/recommended/blender-mcp/"
+   },
+   "nativeHosts": [
+    "codex",
+    "claude",
+    "antigravity",
+    "cursor",
+    "opencode"
+   ],
+   "fallback": "headless blender background execution via CLI",
+   "deprecatedAliases": [],
+   "priority": 40,
+   "activation": "automatic",
+   "effect": {
+    "effect_level": "interactive",
+    "environment": "local",
+    "approval": "task-scope",
+    "reversible": true,
+    "network": true,
+    "credentials": "none",
+    "timeout_ms": 120000,
+    "provider_evidence": "health-probe"
+   }
+  },
+  {
+   "id": "blender-lab-mcp",
+   "displayName": "Blender Lab MCP (Asset Audit & Optimization)",
+   "kind": "mcp",
+   "policy": "recommended",
+   "profiles": [
+    "3d"
+   ],
+   "source": {
+    "type": "official",
+    "url": "https://www.blender.org/lab/mcp-server/",
+    "package": "blender-lab-mcp",
+    "version": "1.0.0",
+    "versionPolicy": "pinned",
+    "commandName": "blender-lab-mcp",
+    "mcpServerKey": "blender-lab"
+   },
+   "integrity": {
+    "pinned": true
+   },
+   "trust": "adapter-verified",
+   "capabilities": [
+    "asset.3d.audit",
+    "scene.3d.inspect"
+   ],
+   "triggers": [
+    "polycount-audit",
+    "clean-datablocks",
+    "fps-check-3d",
+    "outlier-polycount"
+   ],
+   "sideEffects": "read-only",
+   "tokenClass": "medium",
+   "permissions": [
+    "read-only"
+   ],
+   "environment": [],
+   "install": {
+    "type": "host-native",
+    "handler": "blender-lab-mcp",
+    "script": "integrations/recommended/blender-lab-mcp/install.ps1",
+    "verify": "integrations/recommended/blender-lab-mcp/verify.ps1",
+    "uninstall": "integrations/recommended/blender-lab-mcp/uninstall.ps1"
+   },
+   "health": {
+    "command": "python -c \"import sys; sys.exit(0)\"",
+    "expectedExitCodes": [
+     0
+    ]
+   },
+   "schema": {
+    "source": "integrations/recommended/blender-lab-mcp/"
+   },
+   "nativeHosts": [
+    "codex",
+    "claude",
+    "antigravity",
+    "cursor",
+    "opencode"
+   ],
+   "fallback": "3dviz-pro-max internal validation scripts",
+   "deprecatedAliases": [],
+   "priority": 30,
+   "activation": "automatic",
+   "effect": {
+    "effect_level": "read-only",
+    "environment": "local",
+    "approval": "task-scope",
+    "reversible": true,
+    "network": false,
+    "credentials": "none",
+    "timeout_ms": 120000,
+    "provider_evidence": "health-probe"
+   }
   }
  ],
  "profiles": {
@@ -393,6 +545,14 @@
    "required": [],
    "recommended": [
     "context7"
+   ]
+  },
+  "3d": {
+   "description": "3D Web & Interactive Graphics (Blender asset generation, UV/rigging & polycount audit for React + Three.js)",
+   "required": [],
+   "recommended": [
+    "blender-mcp",
+    "blender-lab-mcp"
    ]
   }
  }

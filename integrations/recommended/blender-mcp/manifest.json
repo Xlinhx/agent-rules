@@ -1,0 +1,26 @@
+{
+  "name": "blender-mcp",
+  "policy": "recommended",
+  "upstream": "https://github.com/ahujasid/mcp-for-blender",
+  "package": "mcp-for-blender",
+  "commandName": "mcp-for-blender",
+  "mcpServerKey": "blender-mcp",
+  "version": "0.1.0",
+  "versionPolicy": "pinned",
+  "capabilities": [
+    "modeling.3d",
+    "asset.3d.compose"
+  ],
+  "activation": "automatic",
+  "classification": "mcp-provider",
+  "effect": {
+    "effect_level": "interactive",
+    "environment": "local",
+    "approval": "task-scope",
+    "reversible": true,
+    "network": true,
+    "credentials": "none",
+    "timeout_ms": 120000,
+    "provider_evidence": "health-probe"
+  }
+}

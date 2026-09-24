@@ -5,7 +5,7 @@
   "files": [
     {
       "path": "generated/context-graph.json",
-      "sha256": "6d60d824991ef3ccb3cc844002a27dba896062637c7fb2dda7e600a7574cd889"
+      "sha256": "abdda0427e641335af9752a0deb83e514aaa56a036e5c9f044d3977936855815"
     },
     {
       "path": "generated/runtime-build/antigravity/manifest.json",
@@ -360,6 +360,86 @@
       "sha256": "6d30ce0e9c4765f64807d5fb70f85286378f48bf2a6ab327bd6530f9f42dd1ba"
     },
     {
+      "path": "integrations/recommended/blender-lab-mcp/adapters/antigravity.json",
+      "sha256": "3145506d2fff1ca78ecc3cf5e0f9b4efd33ee1f90b1d7ba50f56f3e2dc6a6e31"
+    },
+    {
+      "path": "integrations/recommended/blender-lab-mcp/adapters/claude.json",
+      "sha256": "3145506d2fff1ca78ecc3cf5e0f9b4efd33ee1f90b1d7ba50f56f3e2dc6a6e31"
+    },
+    {
+      "path": "integrations/recommended/blender-lab-mcp/adapters/codex.toml",
+      "sha256": "cbf4b72aca1b451e66134d411f08b3a2e205337c615700465ded633b97ae9706"
+    },
+    {
+      "path": "integrations/recommended/blender-lab-mcp/adapters/cursor.json",
+      "sha256": "3145506d2fff1ca78ecc3cf5e0f9b4efd33ee1f90b1d7ba50f56f3e2dc6a6e31"
+    },
+    {
+      "path": "integrations/recommended/blender-lab-mcp/adapters/opencode.json",
+      "sha256": "6fd5b3dbd94eb89478d4ab33e1a0c50eee2f01e1b176df59e6353c478f48cce6"
+    },
+    {
+      "path": "integrations/recommended/blender-lab-mcp/install.ps1",
+      "sha256": "a4ec39de25d9b4bf977aa6512ebc11fd1696157eddeb8d956377f70c1fbdeb48"
+    },
+    {
+      "path": "integrations/recommended/blender-lab-mcp/manifest.json",
+      "sha256": "6395d9bc67bbe9ae2e54f9f38cc401d25899343d6167a3d15f4174219200b3b4"
+    },
+    {
+      "path": "integrations/recommended/blender-lab-mcp/README.md",
+      "sha256": "d88a50fead6f53a40eff2b68150a67ed1b1515db84b77d0024fc506da0d80656"
+    },
+    {
+      "path": "integrations/recommended/blender-lab-mcp/uninstall.ps1",
+      "sha256": "cf5b7e77e2611afb38528c9f5696540e62e492ac8c8775699b421dd6c59f5c62"
+    },
+    {
+      "path": "integrations/recommended/blender-lab-mcp/verify.ps1",
+      "sha256": "eccf292780f788d18df5c4cd5951d0a15e61d089e4e5cc2d5caacd96eba2486b"
+    },
+    {
+      "path": "integrations/recommended/blender-mcp/adapters/antigravity.json",
+      "sha256": "6958a7de006f0ff794aa75ff783f6053080aab45cdef8edd90519070da3ac837"
+    },
+    {
+      "path": "integrations/recommended/blender-mcp/adapters/claude.json",
+      "sha256": "6958a7de006f0ff794aa75ff783f6053080aab45cdef8edd90519070da3ac837"
+    },
+    {
+      "path": "integrations/recommended/blender-mcp/adapters/codex.toml",
+      "sha256": "cf47874c7eb570a59d539ea37d167b8b25c7547d003a85c1b60f974987e2c1a8"
+    },
+    {
+      "path": "integrations/recommended/blender-mcp/adapters/cursor.json",
+      "sha256": "6958a7de006f0ff794aa75ff783f6053080aab45cdef8edd90519070da3ac837"
+    },
+    {
+      "path": "integrations/recommended/blender-mcp/adapters/opencode.json",
+      "sha256": "ac35513eb1dc4809ec58258cadd81f1f7ed246e99dd027d9cf55dd58644ab702"
+    },
+    {
+      "path": "integrations/recommended/blender-mcp/install.ps1",
+      "sha256": "5b0c1a9ca4f59ea1df43dae211d56e3962761a42ca12d1929016154bbbcb0889"
+    },
+    {
+      "path": "integrations/recommended/blender-mcp/manifest.json",
+      "sha256": "42413e34f3b5131dc8b1af0a94616ccf072ac0cc5c31cde7e3a543f71d45b5bf"
+    },
+    {
+      "path": "integrations/recommended/blender-mcp/README.md",
+      "sha256": "e65ab68765e3531cf31468dbc9ede111882a7bd2e0ce4c33ad4654505850603b"
+    },
+    {
+      "path": "integrations/recommended/blender-mcp/uninstall.ps1",
+      "sha256": "f255732a3f05e1b8d85ce8e265a15803ea3ad3e2cfbde5b6b6b317efbb548bf0"
+    },
+    {
+      "path": "integrations/recommended/blender-mcp/verify.ps1",
+      "sha256": "fcbaeb6e98ba5ef70d1f47e77e7e8a47b73f526c2bc3b113625c891ecfa9db18"
+    },
+    {
       "path": "integrations/recommended/chrome-devtools-mcp/adapters/antigravity.json",
       "sha256": "544d5f593ba76a018bd749e5a1236998ecdb712f84866810e15b7503290ad40e"
     },
@@ -513,7 +593,7 @@
     },
     {
       "path": "integrations/registry.json",
-      "sha256": "aef157e9510eab52369fd1991e3113b9f6851b187e403cf865673b42830622b9"
+      "sha256": "b7a6d2596cc9192f869f0b69c7b718c0f3e34478d6a328a1e211cde795a579d3"
     },
     {
       "path": "packages/kernel/dist/contracts.js",
@@ -577,7 +657,7 @@
     },
     {
       "path": "packages/kernel/dist/northstar/routing.js",
-      "sha256": "754f3b175865536893e848325176162ccd3c74e40568237d6d529fb1fb6ab9e6"
+      "sha256": "70cc5cc200f627b93d5f2510e25980d1ae920ace6b20ed47c3abb592a8985972"
     },
     {
       "path": "packages/kernel/dist/northstar/rule-enforcement.js",
@@ -7480,5 +7560,5 @@
       "sha256": "17e48da905f83a19c174079b50760a98c069527ba50079239b3c187236627c29"
     }
   ],
-  "manifest_sha256": "1ca60c2c4bb31c7938020cb388c7d6e7dd91e9ae91f0ecccd5aeb44d7a6a2eaa"
+  "manifest_sha256": "35aa4cd435daadc188266971a71a71a8cd94bf08fc5830dd6e7b2678de3ea357"
 }

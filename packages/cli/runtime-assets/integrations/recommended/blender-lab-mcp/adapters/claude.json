@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "blender-lab": {
+      "command": "python",
+      "args": [
+        "-m",
+        "blender_lab_mcp"
+      ]
+    }
+  }
+}
