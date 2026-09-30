@@ -5,11 +5,11 @@
   "files": [
     {
       "path": "generated/context-graph.json",
-      "sha256": "67ccd81b189fd02acd81471677d3a66cb9016897e7978bfe4ea8c64b976ad103"
+      "sha256": "222cf8493faf4321c88da8a5bbaa3013076c725729ac516fdefbb795a6c04613"
     },
     {
       "path": "generated/runtime-build/antigravity/manifest.json",
-      "sha256": "eaedf05534750a90639cfb2d6dc326864ecc1e1937a4720d643dc5a3819906a3"
+      "sha256": "1908c2b1c8f672aa54c7428a64b04383fcc0ada6ec8c2a49fdd844e7dcea6d4f"
     },
     {
       "path": "generated/runtime-build/antigravity/rules/00-intent-scope-safety.md",
@@ -33,7 +33,7 @@
     },
     {
       "path": "generated/runtime-build/antigravity/rules/antigravity-overlay.md",
-      "sha256": "55017c24747e6f71b5388d3536447c8ba84970aaa472b4524978f45691f066b4"
+      "sha256": "2616a667a34b3484693f8682b7b033fdbaf63d6e855e876debeefc1601a9dcb3"
     },
     {
       "path": "generated/runtime-build/antigravity/rules/manifest.yaml",
@@ -677,7 +677,7 @@
     },
     {
       "path": "platforms/antigravity/antigravity-overlay.md",
-      "sha256": "55017c24747e6f71b5388d3536447c8ba84970aaa472b4524978f45691f066b4"
+      "sha256": "2616a667a34b3484693f8682b7b033fdbaf63d6e855e876debeefc1601a9dcb3"
     },
     {
       "path": "platforms/claude/adapter.ts",
@@ -8580,5 +8580,5 @@
       "sha256": "a6c67c1900064347c2a329990dd3c555657c51c3ec53b259a08aa01a2c26139a"
     }
   ],
-  "manifest_sha256": "15946d8d34e7d8f262fbd880770048fa40b975d97eacd207c334137b4ae46b99"
+  "manifest_sha256": "5c10c2bc16595338557aa6c375058e174c1a510698f7faef0d82754441cfbdda"
 }
