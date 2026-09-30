@@ -62,24 +62,14 @@ proof. Bind blocker evidence to exact acceptance: runtime proof blocked while
 independent source work is pending is PARTIAL, not BLOCKED. Material-risk review
 may be required, but the harness does not choose the reviewer or model.
 
-## Provider routing
-
-| Capability | Default | Escalation |
-|---|---|---|
-| `browser.verify` | Playwright CLI / committed Playwright test | Playwright MCP for exploratory state |
-| `browser.debug` | Chrome DevTools MCP | logs, trace, network and performance diagnostics |
-| `mobile.interact` | native platform driver | emulator/device or Appium adapter |
-| `code.verify` | compiler, typecheck, lint, affected tests | broader regression or independent review |
-
 ## Invariants
 
 - Do not run full regression for every edit when the claim profile is narrower.
 - Do not skip a required high-fidelity check because a lower layer is green.
 - Do not require API, DB, UI, analytics, performance and security evidence for
   every claim; derive the profile from risk and boundary.
-- Do not treat a model narrative, screenshot alone, or stale replay as PASS.
+- Provider selection is governed by the host and integration layer; completion discipline is governed by always-on rules and verification-before-completion.
 - Keep evidence or readback only when it protects a live, safety, rollback or
   freshness claim. Do not create verification packets, phase artifacts, raw
   artifact stores or evidence history by default.
 
-For security/data/migration, major UI/refactor, or high-risk claims, review must be grounded in the raw diff, acceptance criteria, and fresh verification proof. Proof actively verifies that raw prompt negative constraints, blacklists, and positive requirements are strictly honored. The harness never selects a model, creates worker tiers, or invents role handoffs.

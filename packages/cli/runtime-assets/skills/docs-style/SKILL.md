@@ -28,13 +28,13 @@ Mục tiêu: Tạo ra tài liệu kỹ thuật chuẩn xác, ngắn gọn, đi t
 
 ## 2. Tiêu chuẩn cấu trúc README
 
-README là bộ mặt của dự án, cần trả lời nhanh 6 câu hỏi:
+README là bộ mặt của dự án, cần giải đáp nhanh gọn các trọng tâm (linh hoạt theo quy mô, không ép buộc một skeleton cứng nhắc cho mọi dự án):
 1. **Dự án là gì và giải quyết bài toán gì?** (1-2 câu súc tích mở đầu).
 2. **Trạng thái hiện tại**: Đang chạy production, alpha, hay nội bộ?
 3. **Tech Stack đã kiểm chứng**: Bảng hoặc danh sách ngắn gọn các công nghệ cốt lõi thực tế.
 4. **Kiến trúc & Luồng dữ liệu chính**: Diagram ngắn gọn (Mermaid) hoặc tóm tắt boundary các thành phần.
 5. **Hướng dẫn khởi chạy (Quickstart)**: Yêu cầu môi trường, cài đặt, env vars tối thiểu và lệnh chạy dev/build/test.
-6. **Mục lục tài liệu sâu hơn**: Trỏ tới `/docs` nếu có.
+6. **Mục lục tài liệu mở rộng**: Lựa chọn theo nhu cầu khi dự án có tài liệu sâu hơn trong `/docs/`, không phải skeleton bắt buộc cho mọi dự án nhỏ/vừa.
 
 > [!TIP]
 > Tránh phình to README bằng các bảng route chi tiết hay log quyết định dài. Hãy đưa chúng vào thư mục `/docs/`.

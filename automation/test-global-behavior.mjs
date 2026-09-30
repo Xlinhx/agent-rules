@@ -27,7 +27,7 @@ try {
   await check('canonical rules support explicit portable handoff without worker/ticket theater', () => {
     const execution = fs.readFileSync(path.join(root, 'rules/10-execution-planning-delegation.md'), 'utf8');
     const outcome = fs.readFileSync(path.join(root, 'rules/20-proof-outcome.md'), 'utf8');
-    const planSkill = fs.readFileSync(path.join(root, 'skills/task-decomposer/SKILL.md'), 'utf8');
+    const planSkill = fs.readFileSync(path.join(root, 'skills/writing-plans/SKILL.md'), 'utf8');
     const verificationSkill = fs.readFileSync(path.join(root, 'skills/verification-router/SKILL.md'), 'utf8');
     const agents = fs.readFileSync(path.join(root, 'AGENTS.md'), 'utf8');
     const readme = fs.readFileSync(path.join(root, 'README.md'), 'utf8');
@@ -42,12 +42,7 @@ try {
     assert.match(execution, /Pending unblocked acceptance is PARTIAL/i);
     assert.match(execution, /never selects a model/i);
     assert.match(execution, /Subagents default to zero/i);
-    assert.match(planSkill, /Task Decomposer/i);
-    assert.match(planSkill, /acceptance criteria/i);
-    assert.match(planSkill, /tracer-bullet vertical slices/i);
-    assert.match(planSkill, /Map Dependencies/i);
-    assert.match(planSkill, /Test Strategy/i);
-    assert.match(planSkill, /Flag Risks/i);
+    assert.match(planSkill, /Writing Plans/i);
     assert.match(verificationSkill, /focused execution aid/i);
     assert.match(verificationSkill, /Change-kind proof/i);
     assert.match(verificationSkill, /active import, route, consumer or runtime/i);
@@ -57,7 +52,7 @@ try {
     assert.doesNotMatch(verificationSkill, /Human residual packet/i);
     assert.doesNotMatch(verificationSkill, /mandatory independent verifier/i);
     // Retired aliases are gone (no duplicate authority, no wrapper reachability).
-    for (const retired of ['finish-to-completion', 'ui-taste', 'frontend-composition', 'database-stack', 'mobile-composition', 'infra-devops-composition', 'browser-qa', 'master-image-generation', 'qa-skills', 'quality', 'plan-and-handoff', 'slides', 'context-evolution-protocol', 'skill-source-governance']) {
+    for (const retired of ['finish-to-completion', 'ui-taste', 'frontend-composition', 'database-stack', 'mobile-composition', 'infra-devops-composition', 'browser-qa', 'master-image-generation', 'qa-skills', 'quality', 'plan-and-handoff', 'slides', 'context-evolution-protocol', 'skill-source-governance', 'task-decomposer']) {
       assert.equal(fs.existsSync(path.join(root, 'skills', retired, 'SKILL.md')), false, `${retired} must be retired (no alias retained)`);
     }
     assert.doesNotMatch(agents, /owns planning and implementation end to end/i);
@@ -80,7 +75,7 @@ try {
     }
     // 'impeccable' monolithic skill has been replaced by pbakaus atomic skills (polish, critique, quieter, distill)
     assert.equal(fs.existsSync(path.join(root, 'skills/polish/SKILL.md')), true, 'polish successor must be materialized');
-    for (const upstream of ['playwright-cli', 'expo-overview', 'systematic-debugging', 'design-taste-frontend', 'image-to-code', 'task-decomposer', 'slide-maker']) assert.equal(fs.existsSync(path.join(root, 'skills', upstream, 'SKILL.md')), true, `${upstream} must be materialized under its exact upstream name`);
+    for (const upstream of ['playwright-cli', 'expo-overview', 'systematic-debugging', 'design-taste-frontend', 'image-to-code', 'writing-plans', 'executing-plans', 'slide-maker']) assert.equal(fs.existsSync(path.join(root, 'skills', upstream, 'SKILL.md')), true, `${upstream} must be materialized under its exact upstream name`);
     assert.equal(fs.existsSync(path.join(root, '.agent', 'history')), false, 'active task state must not create history');
   });
 

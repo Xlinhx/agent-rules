@@ -43,7 +43,7 @@ describe('native turn router', () => {
   });
 
   it('forwards requested mode to skill routing', () => {
-    expect(routeNativeTurn(request({ prompt: 'Continue with the accepted task', requested_mode: 'plan' })).capsule.skills.map((skill) => skill.id)).toContain('task-decomposer');
+    expect(routeNativeTurn(request({ prompt: 'Continue with the accepted task', requested_mode: 'plan' })).capsule.skills.map((skill) => skill.id)).toContain('writing-plans');
     // execute mode routes no generic skill (Lock 1); explicit skills still win
     const execute = routeNativeTurn(request({ prompt: 'Continue with the accepted task', requested_mode: 'execute', explicit: { skills: ['database-migrations'] } })).capsule.skills.map((skill) => skill.id);
     expect(execute).toContain('database-migrations');
@@ -51,7 +51,7 @@ describe('native turn router', () => {
     const qa = routeNativeTurn(request({ prompt: 'Continue with the accepted task', requested_mode: 'qa' })).capsule.skills.map((skill) => skill.id);
     expect(qa[0]).toBe('verification-router');
     expect(qa).not.toContain('finish-to-completion');
-    expect(qa).not.toContain('task-decomposer');
+    expect(qa).not.toContain('writing-plans');
   });
 
   it('forwards affected scope without activating generic skills', () => {

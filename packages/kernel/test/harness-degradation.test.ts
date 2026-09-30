@@ -35,7 +35,7 @@ describe('harness-degradation safeguards', () => {
     expect(execute).not.toContain('verification-router');
     // plan mode only pulls the lazy planning procedure
     const plan = routeSkills({ prompt: 'Continue', requestedMode: 'plan' }, repoRoot).map((r) => r.id);
-    expect(plan).toContain('task-decomposer');
+    expect(plan).toContain('writing-plans');
   });
 
   it('no excess always-on context: always-on rules are under the hard budget', () => {

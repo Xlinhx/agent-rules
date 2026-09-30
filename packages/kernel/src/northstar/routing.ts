@@ -95,7 +95,7 @@ export function routeSkills(input: NativeRouteInput, root: string): SkillRoute[]
   const { graph, hash } = loadGraph(root);
   const requested = new Set(input.explicitSkills ?? []);
   const mode = input.requestedMode ?? 'auto';
-  const modeSkill = mode === 'plan' ? 'task-decomposer' : mode === 'qa' ? 'verification-router' : null;
+  const modeSkill = mode === 'plan' ? 'writing-plans' : mode === 'qa' ? 'verification-router' : null;
 
   const candidates = graph.nodes
     .filter((node) => node.layer === 'skills' && node.id.startsWith('skill:'))
@@ -105,7 +105,7 @@ export function routeSkills(input: NativeRouteInput, root: string): SkillRoute[]
       if (scope && scope !== input.activeProjectScope) return false;
       if (requested.has(slug)) return true; // explicit skill wins
       if (modeSkill === slug) return true;  // requested mode is deterministic
-      if ((mode === 'plan' && slug === 'verification-router') || (mode === 'qa' && slug === 'task-decomposer')) return false;
+      if ((mode === 'plan' && slug === 'verification-router') || (mode === 'qa' && slug === 'writing-plans')) return false;
       const projectMatch = Boolean(node.routing.project_scope && node.routing.project_scope === input.activeProjectScope);
       if (node.routing.project_scope && !projectMatch) return false;
       if (projectMatch) return true;

@@ -69,13 +69,13 @@ describe('native skill routing', () => {
   });
 
   it('routes explicit skills even when the prompt text is neutral', () => {
-    const ids = routeSkills({ prompt: 'Unrelated neutral wording', explicitSkills: ['task-decomposer'] }, repoRoot).map((r) => r.id);
-    expect(ids).toContain('task-decomposer');
+    const ids = routeSkills({ prompt: 'Unrelated neutral wording', explicitSkills: ['writing-plans'] }, repoRoot).map((r) => r.id);
+    expect(ids).toContain('writing-plans');
   });
 
-  it('uses requested mode deterministically (plan → task-decomposer)', () => {
+  it('uses requested mode deterministically (plan → writing-plans)', () => {
     const ids = routeSkills({ prompt: 'Continue with the accepted task', requestedMode: 'plan' }, repoRoot).map((r) => r.id);
-    expect(ids).toContain('task-decomposer');
+    expect(ids).toContain('writing-plans');
     expect(ids).not.toContain('verification-router');
   });
 
