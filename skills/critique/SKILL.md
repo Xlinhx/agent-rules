@@ -52,5 +52,5 @@ Present feedback concisely and constructively:
    - **P2 (Craft polish)**: Micro-alignment, state polish, icon consistency, transition tuning.
 4. **Actionable Handoff**:
    - For structural layout & component refactoring -> recommend `emil-design-eng`
-   - For micro-interaction & transition tuning -> recommend `animation-vocabulary`
-   - For final typography and surface detailing -> recommend `polish`
+   - For motion & interaction tuning -> recommend platform-appropriate interaction guidelines or `animation-vocabulary`
+   - For final typography, contrast and surface detailing -> recommend `polish`

@@ -44,12 +44,12 @@ describe('skill resolver call count', () => {
       const broker = createStandardCapabilityBroker(repoRoot);
       const initialCalls = resolveSkillsSpy.mock.calls.length;
 
-      const routed = broker.route({ prompt: 'Security review of token middleware', explicitSkills: ['security-review'] });
+      const routed = broker.route({ prompt: 'Security review of token middleware', explicitSkills: ['differential-review'] });
 
       const finalCalls = resolveSkillsSpy.mock.calls.length;
       expect(finalCalls - initialCalls).toBe(1);
       expect(routed.skills.length).toBeGreaterThan(0);
-      expect(routed.skills.map((s) => s.id)).toContain('security-review');
+      expect(routed.skills.map((s) => s.id)).toContain('differential-review');
     } finally {
       resolveSkillsSpy.mockRestore();
     }

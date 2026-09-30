@@ -5,7 +5,7 @@
   "files": [
     {
       "path": "generated/context-graph.json",
-      "sha256": "abdda0427e641335af9752a0deb83e514aaa56a036e5c9f044d3977936855815"
+      "sha256": "c0837438e8d25762367282d5189d13b132b077abed01f0ecb36a1616d309f98d"
     },
     {
       "path": "generated/runtime-build/antigravity/manifest.json",
@@ -641,7 +641,7 @@
     },
     {
       "path": "packages/kernel/dist/northstar/native-turn-router.js",
-      "sha256": "7201d15186bbdbc77576acc00661fb65776b2e1151394b5b1183f198332d0a59"
+      "sha256": "4c967f4d72260dd4c0b4adf928bacba75aa6dbcbb94af677085f995f3c6c3d43"
     },
     {
       "path": "packages/kernel/dist/northstar/proof-router.js",
@@ -657,7 +657,7 @@
     },
     {
       "path": "packages/kernel/dist/northstar/routing.js",
-      "sha256": "70cc5cc200f627b93d5f2510e25980d1ae920ace6b20ed47c3abb592a8985972"
+      "sha256": "9eb6bf8847398b747e5d4982398193bfe94290c0f6904547d906263802ddf9b0"
     },
     {
       "path": "packages/kernel/dist/northstar/rule-enforcement.js",
@@ -2989,7 +2989,7 @@
     },
     {
       "path": "registry/skills.yaml",
-      "sha256": "54f9d3b9159c9e91984c10ac72e54d8a3678d5d76aac5c6d4520dd5269c78796"
+      "sha256": "a51425ea67af05078af4f56314c1d2ae7d7277601645f2f3ed2af17e4b37c23e"
     },
     {
       "path": "rules/00-intent-scope-safety.md",
@@ -6325,7 +6325,15 @@
     },
     {
       "path": "skills/critique/SKILL.md",
-      "sha256": "44c622c0d5061f019c27095cdb500bb6392809bc991ed6ca53cb2e5e3e54d5af"
+      "sha256": "b5e468c39c05be4f50b82b8470c6ccd66e5cb0d4189a0b0a82f58003fb64f141"
+    },
+    {
+      "path": "skills/database-migrations/SKILL.md",
+      "sha256": "dad2f1964295eee14a96e06213ce3f60992bbcdc1f37a50c828bbc2e1abd79dd"
+    },
+    {
+      "path": "skills/deep-research/SKILL.md",
+      "sha256": "95dc12458a8f9dfed5028eebbfa3105227b5904eb6c9d2d34a4ee2651fa44480"
     },
     {
       "path": "skills/design-taste-frontend/SKILL.md",
@@ -6361,7 +6369,7 @@
     },
     {
       "path": "skills/distill/SKILL.md",
-      "sha256": "8f508a6b0405692c6e41178f9becede7a5ca64fd3c6206790e36a7328cdefc2e"
+      "sha256": "ae5a35142bd7b5b4dac9b8b761e0e315620330963eb3add5c4e85ab44f9df4fb"
     },
     {
       "path": "skills/docs-style/agents/openai.yaml",
@@ -6373,7 +6381,7 @@
     },
     {
       "path": "skills/docs-style/SKILL.md",
-      "sha256": "e3337358accc4ce1f1ef6558192cbe3726322745dd096b3c26b2ac136f82e572"
+      "sha256": "a4d9f6979409b9ff93ac72db417ad74f5b990f74cf1181c1981aadc392d5a377"
     },
     {
       "path": "skills/emil-design-eng/SKILL.md",
@@ -6529,7 +6537,7 @@
     },
     {
       "path": "skills/plan-and-handoff/SKILL.md",
-      "sha256": "8fe2d439146c8da6fd5cd4637676b39e0f57b0a3b333ede2205e06c6763572f8"
+      "sha256": "2c8b4c686f10eb8938c52a786621a03b21d22ad342fb93ae219380861f738acd"
     },
     {
       "path": "skills/playwright-cli/references/element-attributes.md",
@@ -6573,7 +6581,7 @@
     },
     {
       "path": "skills/polish/SKILL.md",
-      "sha256": "9113be427483d5410adbd7f175c61130f0b5d5ecf34e463ab6b12d87897c60f6"
+      "sha256": "c22d186ba7620e655624c61e2dcfbbe319f90b07df49cb573fb465f0cf4ef53b"
     },
     {
       "path": "skills/prisma-cli/references/agent-safety.md",
@@ -6697,7 +6705,7 @@
     },
     {
       "path": "skills/quieter/SKILL.md",
-      "sha256": "bc735a14b21c875ea4432f0f8ea973aa92ffa9248d34a34d2799dcb2513f2bd6"
+      "sha256": "711dd6d5a32dc9299bc114778af6393ab21b25f0036c8f8badb6970364652099"
     },
     {
       "path": "skills/react-best-practices/AGENTS.md",
@@ -7184,12 +7192,8 @@
       "sha256": "7940778b6ab5d680a31c5a320b56c92248276d914553df037584b808ed93e7af"
     },
     {
-      "path": "skills/researcher/agents/openai.yaml",
-      "sha256": "5c079ab8a97f28ebd00326ca5dfb11260a54c41b77b10c601ac3e35c0a2508a9"
-    },
-    {
-      "path": "skills/researcher/SKILL.md",
-      "sha256": "5228b76d4d95a43ef18b7356a83d67e3fd35e9786a96f4f76d55ef1385f1f5f1"
+      "path": "skills/receiving-code-review/SKILL.md",
+      "sha256": "091df1629510af1b92fc4abd6f96732ebedb4cb2c0f3457e8f2740b0504a2438"
     },
     {
       "path": "skills/review-animations/SKILL.md",
@@ -7198,14 +7202,6 @@
     {
       "path": "skills/review-animations/STANDARDS.md",
       "sha256": "e7d3605034acda54ca13e43aec9e64d65b53de20f75b11b8d694e373012fbe07"
-    },
-    {
-      "path": "skills/schema-migration/SKILL.md",
-      "sha256": "6f68e28437b0affbf64edfd8f369a043a7c355076dbfa7bbb7ae650b18182630"
-    },
-    {
-      "path": "skills/security-review/SKILL.md",
-      "sha256": "dc22b67cc56a3f264332f7d51ad1022a7059e148c9b3f8b373f2bac71d2675e7"
     },
     {
       "path": "skills/skill-source-governance/SKILL.md",
@@ -7289,7 +7285,7 @@
     },
     {
       "path": "skills/slides/SKILL.md",
-      "sha256": "dc52ad40ed0c5b863de845eed0ac98a4f6da82a1b3db212a13db0b812bc61d23"
+      "sha256": "f1fce620b2f033e641e58196900e66e93a2dd796be5bba515233666ba6564c6a"
     },
     {
       "path": "skills/source-lock-policy.json",
@@ -7540,6 +7536,14 @@
       "sha256": "b6577edb7b7f71a6954f68b80c7eea1748ccdf31862759f864bce558fb2bcf83"
     },
     {
+      "path": "skills/test-driven-development/SKILL.md",
+      "sha256": "64b03fce4aee5a97a93160cea8111f3ba13a17b7c001db4bd5836d67fd10705d"
+    },
+    {
+      "path": "skills/test-driven-development/writing-good-tests.md",
+      "sha256": "51471c853306ff92ca8bb41dcaea05f31c0e46b03651f8f3c99754b7172f4ae1"
+    },
+    {
       "path": "skills/test-strategy/references/diagrams-and-worksheets.md",
       "sha256": "1215aef9e8d2e1f72468169f1eee6d235b7b57636f285b374664c5cff753cfa1"
     },
@@ -7552,13 +7556,17 @@
       "sha256": "523165a7262f2c48e60e0ff273aeb94d86290cbdd25d6d47390af102c9c6eddc"
     },
     {
+      "path": "skills/verification-before-completion/SKILL.md",
+      "sha256": "2befe7fc55bcadaa3d97dd9e8efeb633d2561c0ebe74c5a8b17c4d9e7e4520b3"
+    },
+    {
       "path": "skills/verification-router/SKILL.md",
-      "sha256": "269edd3f8c257a395c3fe1f072bd0efa4fdbabed8aa8273fc6eb68d75a39e3c5"
+      "sha256": "86a5b698044ce9b448d5393eee1ed0fa00af78dbdb3929f2a9e4d5f0faa6b21c"
     },
     {
       "path": "skills/web-design-guidelines/SKILL.md",
       "sha256": "17e48da905f83a19c174079b50760a98c069527ba50079239b3c187236627c29"
     }
   ],
-  "manifest_sha256": "35aa4cd435daadc188266971a71a71a8cd94bf08fc5830dd6e7b2678de3ea357"
+  "manifest_sha256": "c25e5e0e940358a8d086286eeece8446126b7718d4b4903d49b0d93aff997df1"
 }

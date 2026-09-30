@@ -9,8 +9,8 @@ export type RouteStatus = 'READY' | 'NEEDS_USER' | 'BLOCKED' | 'UNSUPPORTED' | '
 export interface NativeTurnModelRef { readonly provider: string; readonly model_id: string }
 export interface NativeTurnRequest {
   readonly protocol_version: string; readonly host: string; readonly session_id: string; readonly turn_id: string; readonly cwd: string; readonly prompt: string;
-  readonly requested_mode?: 'qa' | 'plan' | 'execute' | 'auto'; readonly host_facts?: { readonly model?: string | NativeTurnModelRef | null };
-  readonly explicit?: { readonly skills?: string[]; readonly capability_providers?: string[]; readonly active_project_scope?: string | null; readonly affected_scope?: AffectedScope }; readonly project_facts?: { readonly domain_pack?: string | null; readonly changed_files?: string[] }; readonly repo_root?: string;
+  readonly requested_mode?: 'qa' | 'plan' | 'execute' | 'auto'; readonly requested_capabilities?: readonly string[]; readonly host_facts?: { readonly model?: string | NativeTurnModelRef | null };
+  readonly explicit?: { readonly skills?: string[]; readonly capability_providers?: string[]; readonly active_project_scope?: string | null; readonly affected_scope?: AffectedScope; readonly requested_capabilities?: readonly string[] }; readonly project_facts?: { readonly domain_pack?: string | null; readonly changed_files?: string[] }; readonly repo_root?: string;
 }
 export interface RouteCapsuleSkill { readonly id: string; readonly role: string; readonly primary: boolean; readonly reason: string; readonly source: string; readonly source_hash: string; readonly graph_hash: string }
 export interface RouteCapsuleIntegration { readonly capability: string; readonly provider: string | null; readonly suppressed_reason?: string }
@@ -50,7 +50,8 @@ export function routeNativeTurn(request: NativeTurnRequest, options: NativeTurnR
   const promptHash = sha256(request.prompt);
   const key = nativeTurnIdempotencyKey(request, promptHash, generation);
   const repositoryFacts = collectRepositoryFacts(workspaceRoot, request.project_facts?.changed_files ?? []);
-  const brokerRoute = createStandardCapabilityBroker(root).route({ prompt: request.prompt, requestedMode: request.requested_mode, explicitSkills: request.explicit?.skills, explicitProviders: request.explicit?.capability_providers, activeProjectScope: request.explicit?.active_project_scope ?? request.project_facts?.domain_pack, affectedScope: request.explicit?.affected_scope, repositoryFacts });
+  const requestedCapabilities = request.requested_capabilities ?? request.explicit?.requested_capabilities;
+  const brokerRoute = createStandardCapabilityBroker(root).route({ prompt: request.prompt, requestedMode: request.requested_mode, explicitSkills: request.explicit?.skills, explicitProviders: request.explicit?.capability_providers, activeProjectScope: request.explicit?.active_project_scope ?? request.project_facts?.domain_pack, affectedScope: request.explicit?.affected_scope, repositoryFacts, requestedCapabilities });
   const context = readSelectedSkills(root, brokerRoute.skills);
   const routeId = `RT-${key.slice(0, 24)}`;
   const capsule: RouteCapsule = {

@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import fs from 'node:fs';
 import YAML from 'yaml';
-import { routeSkills } from '../src/northstar/routing.js';
+import { routeSkills, inferCapabilities } from '../src/northstar/routing.js';
 
 describe('native skill routing', () => {
   const repoRoot = path.resolve(__dirname, '../../..');
@@ -61,9 +61,9 @@ describe('native skill routing', () => {
   }
   // ── explicit-routing fixtures: deterministic, no phraseHit-as-semantic ──
   it('routes explicit skill IDs deterministically', () => {
-    const routes = routeSkills({ prompt: '', explicitSkills: ['security-review'] }, repoRoot);
+    const routes = routeSkills({ prompt: '', explicitSkills: ['database-migrations'] }, repoRoot);
     const ids = routes.map((r) => r.id);
-    expect(ids).toContain('security-review');
+    expect(ids).toContain('database-migrations');
     // requires closure pulls the declared dependency
     expect(ids).toContain('verification-router');
   });
@@ -126,16 +126,20 @@ describe('native skill routing', () => {
   });
 
   it('retired aliases are not selectable', () => {
-    const active = routeSkills({ prompt: '', explicitSkills: ['security-review'] }, repoRoot).map((route) => route.id);
-    for (const slug of ['finish-to-completion', 'database-stack', 'frontend-composition', 'mobile-composition', 'infra-devops-composition', 'browser-qa', 'ui-taste', 'master-image-generation', 'qa-skills', 'quality']) {
+    const active = routeSkills({ prompt: '', explicitSkills: ['database-migrations'] }, repoRoot).map((route) => route.id);
+    for (const slug of [
+      'finish-to-completion', 'database-stack', 'frontend-composition', 'mobile-composition',
+      'infra-devops-composition', 'browser-qa', 'ui-taste', 'master-image-generation', 'qa-skills', 'quality',
+      'security-review', 'schema-migration', 'researcher'
+    ]) {
       expect(active).not.toContain(slug);
       expect(fs.existsSync(path.join(repoRoot, 'skills', slug, 'SKILL.md'))).toBe(false);
     }
   });
 
-  it('renamed skills keep their canonical folder and frontmatter name', () => {
-    for (const [folder, id] of [['skill-source-governance', 'skill-source-governance'], ['context-evolution-protocol', 'context-evolution-protocol']]) {
-      const skillFile = path.join(repoRoot, 'skills', folder, 'SKILL.md');
+  it('active internal skills keep their canonical folder and frontmatter name', () => {
+    for (const id of ['docs-style', 'plan-and-handoff', 'verification-router']) {
+      const skillFile = path.join(repoRoot, 'skills', id, 'SKILL.md');
       expect(fs.existsSync(skillFile)).toBe(true);
       const body = fs.readFileSync(skillFile, 'utf8');
       expect(body).toMatch(new RegExp(`^name: ${id}$`, 'm'));
@@ -194,5 +198,41 @@ describe('native skill routing', () => {
     // 3. Neutral prompt without explicit selection routes no presentation skills (Lock 1)
     const neutralIds = routeSkills({ prompt: 'Create a PowerPoint presentation' }, repoRoot).map((r) => r.id);
     expect(neutralIds).not.toContain('slides');
+  });
+
+  describe('Gate B: capability inference and authority boundaries', () => {
+    it('does not activate database capability when SQL is mentioned in an email or report request', () => {
+      const caps = inferCapabilities('Viết email báo cáo tiến độ công việc tuần này cho sếp, có nhắc qua tối ưu SQL');
+      expect(caps).not.toContain('database.query');
+    });
+
+    it('does not activate database capability under explicit negation', () => {
+      const caps1 = inferCapabilities('Viết module đăng ký không cần SQL hay database');
+      expect(caps1).not.toContain('database.query');
+
+      const caps2 = inferCapabilities('Build a static landing page without postgres or sql');
+      expect(caps2).not.toContain('database.query');
+    });
+
+    it('does not activate database capability purely from prompt SQL keywords', () => {
+      const caps = inferCapabilities('SELECT * FROM users WHERE active = 1');
+      expect(caps).not.toContain('database.query');
+    });
+
+    it('does not activate database capability purely from schema presence in repository facts', () => {
+      const caps = inferCapabilities('Update layout', { manifests: [], packages: [], frameworks: [], schemas: ['schema.prisma'], changed_files: [] });
+      expect(caps).not.toContain('database.query');
+    });
+
+    it('activates capabilities deterministically from structured facts and affectedScope', () => {
+      const caps = inferCapabilities('Viết tính năng mới', undefined, { stacks: ['postgres'] });
+      expect(caps).toContain('database.query');
+    });
+
+    it('respects structured requestedCapabilities directly', () => {
+      const caps = inferCapabilities('Neutral prompt', undefined, undefined, ['database.query', 'browser.verify']);
+      expect(caps).toContain('database.query');
+      expect(caps).toContain('browser.verify');
+    });
   });
 });

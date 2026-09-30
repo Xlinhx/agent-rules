@@ -26,10 +26,10 @@ Analyze what makes the design feel complex or cluttered:
    - **Feature creep**: Too many options, actions, or paths forward
 
 2. **Find the essence**:
-   - What's the primary user goal? (There should be ONE)
-   - What's actually necessary vs nice-to-have?
-   - What can be removed, hidden, or combined?
-   - What's the 20% that delivers 80% of value?
+   - What are the primary workflow and key user goals?
+   - What essential domain capabilities and business logic must be preserved?
+   - What redundant presentation, visual noise, or duplicate controls can be eliminated?
+   - What secondary actions can be cleanly tucked behind progressive disclosure without breaking user workflows?
 
 If any of these are unclear from the codebase, do not guess. STOP and use Codex's structured user-input/question tool when available; if unavailable, ask directly in chat to clarify what you cannot infer.
 
@@ -39,23 +39,23 @@ If any of these are unclear from the codebase, do not guess. STOP and use Codex'
 
 Create a ruthless editing strategy:
 
-- **Core purpose**: What's the ONE thing this should accomplish?
-- **Essential elements**: What's truly necessary to achieve that purpose?
-- **Progressive disclosure**: What can be hidden until needed?
-- **Consolidation opportunities**: What can be combined or integrated?
+- **Core purpose**: What is the core workflow this interface delivers?
+- **Essential elements**: What controls, information, and business actions are necessary to achieve that purpose?
+- **Progressive disclosure**: What secondary details can be disclosed contextually rather than cluttering primary scan paths?
+- **Consolidation opportunities**: What duplicate forms, buttons, or wrapper containers can be merged?
 
-**IMPORTANT**: Simplification is hard. It requires saying no to good ideas to make room for great execution. Be ruthless.
+**IMPORTANT**: Simplification is hard. It requires distinguishing essential domain capability from cosmetic clutter. Focus on removing noise, not business value.
 
 ## Simplify the Design
 
 Systematically remove complexity across these dimensions:
 
 ### Information Architecture
-- **Reduce scope**: Remove secondary actions, optional features, redundant information
-- **Progressive disclosure**: Hide complexity behind clear entry points (accordions, modals, step-through flows)
-- **Combine related actions**: Merge similar buttons, consolidate forms, group related content
-- **Clear hierarchy**: ONE primary action, few secondary actions, everything else tertiary or hidden
-- **Remove redundancy**: If it's said elsewhere, don't repeat it here
+- **Clarify presentation**: Eliminate visual redundancy and decorative clutter; preserve essential domain capabilities, business logic, secondary actions, and optional features.
+- **Progressive disclosure**: Organize complex options behind clear, accessible entry points (collapsible sections, menus, contextual flows) rather than deleting required capabilities.
+- **Combine related actions**: Merge overlapping buttons, consolidate fragmented forms, and group related controls logically.
+- **Clear hierarchy**: Prominent primary action, accessible secondary actions, and logical grouping for domain tools.
+- **Remove redundancy**: Eliminate repeated text, duplicate status indicators, and redundant navigation elements.
 
 ### Visual Simplification
 - **Reduce color palette**: Use 1-2 colors plus neutrals, not 5-7 colors
@@ -100,6 +100,9 @@ Systematically remove complexity across these dimensions:
 - Remove information users need to make decisions
 - Eliminate hierarchy completely (some things should stand out)
 - Oversimplify complex domains (match complexity to actual task complexity)
+- Forcibly compress multi-capability business or domain tools into artificial single-purpose minimalist templates
+- Delete secondary actions, power-user shortcuts, or domain features under the pretext of simplification
+- Force an Apple-like or consumer-minimalist aesthetic onto interfaces with deliberate high-density, analytical, or branded requirements
 
 ## Verify Simplification
 

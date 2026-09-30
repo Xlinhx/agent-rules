@@ -45,8 +45,8 @@ describe('native turn router', () => {
   it('forwards requested mode to skill routing', () => {
     expect(routeNativeTurn(request({ prompt: 'Continue with the accepted task', requested_mode: 'plan' })).capsule.skills.map((skill) => skill.id)).toContain('plan-and-handoff');
     // execute mode routes no generic skill (Lock 1); explicit skills still win
-    const execute = routeNativeTurn(request({ prompt: 'Continue with the accepted task', requested_mode: 'execute', explicit: { skills: ['schema-migration'] } })).capsule.skills.map((skill) => skill.id);
-    expect(execute).toContain('schema-migration');
+    const execute = routeNativeTurn(request({ prompt: 'Continue with the accepted task', requested_mode: 'execute', explicit: { skills: ['database-migrations'] } })).capsule.skills.map((skill) => skill.id);
+    expect(execute).toContain('database-migrations');
     expect(execute).not.toContain('finish-to-completion');
     const qa = routeNativeTurn(request({ prompt: 'Continue with the accepted task', requested_mode: 'qa' })).capsule.skills.map((skill) => skill.id);
     expect(qa[0]).toBe('verification-router');
@@ -97,6 +97,15 @@ describe('native turn router', () => {
     expect(turn3.skills.map((s) => s.id)).toContain('polish');
     expect(turn3.skills.map((s) => s.id)).not.toContain('quieter');
     expect(turn3.context.rendered).toContain('## Skill: polish');
+  });
+
+  it('forwards requested_capabilities into integrations deterministically', () => {
+    const capsule = routeNativeTurn(request({
+      turn_id: 'turn-caps',
+      prompt: 'Execute migrations and check DB',
+      requested_capabilities: ['database.query'],
+    })).capsule;
+    expect(capsule.integrations.some((entry) => entry.capability === 'database.query')).toBe(true);
   });
 });
 

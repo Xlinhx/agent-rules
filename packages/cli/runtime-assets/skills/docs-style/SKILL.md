@@ -41,31 +41,27 @@ README là bộ mặt của dự án, cần trả lời nhanh 6 câu hỏi:
 
 ---
 
-## 3. Cấu trúc thư mục `/docs`
+## 3. Cấu trúc tài liệu (Theo nhu cầu người đọc — Diátaxis)
 
-Tổ chức tài liệu theo nhu cầu thực tế của người đọc, không tạo các file trống rỗng:
+Tổ chức tài liệu linh hoạt theo nhu cầu thực tế của người đọc, phân định rõ 4 góc độ (không ép buộc một skeleton cứng nhắc nếu không cần thiết):
 
-- **Ứng dụng / Dịch vụ (Full Product / Backend / Web)**:
-  - `docs/architecture.md`: Kiến trúc tổng quan, boundaries, data flow.
-  - `docs/api-contracts.md`: Chi tiết routes, events, payload schemas (nếu không dùng OpenAPI/Swagger tự sinh).
-  - `docs/operations.md`: Cấu hình production, deployment, migrations, monitoring, runbooks.
-- **Thư viện / Tooling**:
-  - `docs/getting-started.md`: Hướng dẫn tích hợp.
-  - `docs/api-reference.md`: Chi tiết public API.
+- **Tutorial (Học tập)**: Bài học từng bước cho người mới bắt đầu, đi từ con số 0 đến một ví dụ chạy được.
+- **How-to Guide (Giải quyết vấn đề)**: Các bước hướng dẫn theo kịch bản vận hành thực tế (setup môi trường, deploy, migrate dữ liệu, runbook sự cố).
+- **Reference (Tra cứu kỹ thuật)**: Thông số kỹ thuật, API contracts, CLI flags, cấu hình schemas; bảo toàn nguyên vẹn URL và path public.
+- **Explanation (Giải thích kiến trúc)**: Bối cảnh thiết kế, boundaries, data flow và các quyết định đánh đổi (tradeoffs).
 
 ---
 
 ## 4. Hình ảnh & Visuals (Thực dụng, không hình thức)
 
-- **Khi có UI hoặc CLI trực quan**: Đính kèm ảnh chụp màn hình hoặc terminal cast khi khả thi và giúp người đọc dễ hình dung giao diện/kết quả.
-- **Không ép buộc cứng nhắc**: Nếu môi trường chạy không có browser, thiếu headless display, hoặc đang trong giai đoạn dev backend/headless, không cần dừng lại ép người dùng cung cấp ảnh. Ưu tiên diagrams (Mermaid) và text output chuẩn xác.
+- **Khi có UI hoặc CLI trực quan**: Đính kèm ảnh chụp màn hình hoặc terminal output khi khả thi và giúp người đọc dễ hình dung kết quả.
+- **Không ép buộc cứng nhắc**: Nếu môi trường headless hoặc đang phát triển logic nền tảng, không dừng lại đòi hỏi ảnh; ưu tiên diagrams (Mermaid) và text output chuẩn xác.
 - Lưu trữ asset tài liệu trong `docs/assets/` với tên file rõ nghĩa.
 
 ---
 
-## 5. Dọn dẹp tài liệu cũ (Docs Cleanup)
+## 5. Kiểm tra an toàn và dọn dẹp tài liệu cũ
 
-Khi tái cấu trúc tài liệu dự án:
-- Gom các file markdown rải rác ở root vào `docs/` nếu hợp lý.
-- Xóa bỏ các ghi chú migration đã hoàn thành từ lâu, log debug tạm, task artifacts tạm sau khi đã giữ lại các thông tin kỹ thuật quan trọng vào docs chính thức.
-- Tuyệt đối không xóa tài liệu nếu chưa đọc kỹ nội dung.
+- **Kiểm chứng an toàn (Safe Verification)**: Mọi lệnh CLI, URL và file path nêu trong tài liệu phải được kiểm chứng an toàn (dry-run, syntax check, hoặc inspect source). Không đưa các lệnh có side-effect phá hủy mà không cảnh báo.
+- **Bảo toàn nội dung vận hành**: Giữ nguyên các URL/path public và thông số vận hành đang phục vụ người dùng.
+- **Dọn dẹp có trách nhiệm**: Tuyệt đối không xóa tài liệu cũ nếu chưa đọc kỹ nội dung. Chỉ xóa các log debug tạm hoặc ghi chú quá độ sau khi đã hợp nhất các thông tin kỹ thuật cốt lõi vào tài liệu chính thức.

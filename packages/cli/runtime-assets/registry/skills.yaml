@@ -11,10 +11,12 @@ skills:
     network: none
     side_effects: []
     update_policy: manual_review
-    failure_target: repeated misunderstanding or drift between canonical and projected behavior
-    removal_condition: remove when canonical placement and stale-authority cleanup
-      are fully mechanized
     platform_scope: repo-local
+    status_reason: Migrated to repo maintainer documentation and automated CLI/audit checks
+    failure_target: modifying rules or context without safety gates, evidence, or regression
+      prevention
+    removal_condition: retire when host models reliably maintain rule integrity and context
+      without manual governance
   - id: docs-style
     origin: internal
     role: process
@@ -40,6 +42,8 @@ skills:
     network: none
     side_effects: []
     update_policy: manual_review
+    supersedes:
+      - brainstorming
     failure_target: cross-session implementers needing unstated planner decisions or
       losing transition constraints
     removal_condition: remove when every host exports equivalent cold-start plan and
@@ -49,45 +53,45 @@ skills:
     role: process
     activation: implicit
     compatibility: {}
-    lifecycle: active
+    lifecycle: retired
     trust_tier: owner-approved
     trust_basis: canonical internal procedure, owner-approved
     network: none
     side_effects: []
     update_policy: manual_review
-    failure_target: external or current claims decided from weak, stale or
-      contradictory sources
-    removal_condition: remove when host-native research enforces source ranking,
-      contradiction and stop conditions
+    status_reason: Superseded by upstream deep-research with source tracing and
+      contradiction resolution
+    superseded_by:
+      - deep-research
   - id: schema-migration
     origin: internal
     role: process
     activation: implicit
     compatibility: {}
-    lifecycle: active
+    lifecycle: retired
     trust_tier: owner-approved
     trust_basis: canonical internal procedure, owner-approved
     network: none
     side_effects: []
     update_policy: manual_review
-    failure_target: schema changes without upgrade, compatibility, rollback and data-loss proof
-    removal_condition: remove when selected database skills cover the same
-      cross-stack safety contract
+    status_reason: Superseded by upstream database-migrations covering
+      expand-contract, concurrent operations and cross-stack migrations
+    superseded_by:
+      - database-migrations
   - id: security-review
     origin: internal
     role: process
     activation: implicit
     compatibility: {}
-    lifecycle: active
+    lifecycle: retired
     trust_tier: owner-approved
     trust_basis: canonical internal procedure, owner-approved
     network: none
     side_effects: []
     update_policy: manual_review
-    failure_target: changed threat surfaces shipping without boundary-specific
-      security evidence
-    removal_condition: remove when upstream security procedures cover routing and
-      proof across supported stacks
+    status_reason: Superseded by upstream differential-review for differential security review
+    superseded_by:
+      - differential-review
   - id: verification-router
     origin: internal
     role: process
@@ -113,11 +117,12 @@ skills:
     network: none
     side_effects: []
     update_policy: manual_review
-    failure_target: external skill provenance, permissions, license or updates
-      becoming untraceable
-    removal_condition: remove when a trusted native package manager provides exact
-      equivalent governance and rollback
     platform_scope: repo-local
+    status_reason: Migrated to repo maintainer documentation and automated CLI/audit checks
+    failure_target: adopting external skills without license review, security vetting, or
+      content hash integrity
+    removal_condition: retire when all external skills are automatically verified by package
+      manager provenance
   - id: frontend-design
     origin: upstream
     role: design
@@ -401,6 +406,8 @@ skills:
       regressions, scope creep, or broken contracts
     removal_condition: replace when host-native differential review procedures
       provide equivalent invariant checking
+    supersedes:
+      - security-review
   - id: supply-chain-risk-auditor
     origin: upstream
     role: auditor
@@ -740,21 +747,13 @@ skills:
     side_effects: []
     update_policy: manual_review
   - id: slides
-    origin: upstream
+    origin: internal
     role: domain
     activation: implicit
     compatibility: {}
     lifecycle: active
-    upstream:
-      repository: https://github.com/openai/skills
-      source_path: skills/.curated/slides
-      commit: e6afb0d74cc75d220df2faf3dd6c635c2dc6a108
-      tree: d27336ee4ce4fa5705a3fe4472dd005104dd315e
-      license: Apache-2.0
-      license_evidence: skills/slides/LICENSE.txt (Apache-2.0, same-commit review)
-      content_hash: 86484fd3a98d9940aec0b98b9e7c21767136488e689bfeefc829c90de42e6d07
-    trust_tier: pinned-upstream
-    trust_basis: licensed Apache-2.0; exact-pinned by content hash 86484fd3a98d
+    trust_tier: owner-approved
+    trust_basis: canonical internal procedure, owner-approved
     network: read
     side_effects:
       - filesystem.write
@@ -769,8 +768,7 @@ skills:
       - bài thuyết trình
       - tạo slide
       - pitch deck
-    failure_target: presentation generation without editable PPTX verification or
-      overflow checks
+    failure_target: presentation generation without visual references, narrative editing, editable PPTX canvas bounds, or real rendered verification
     removal_condition: replace when a superior native presentation workflow proves
       higher fidelity at equal context cost
   - id: 3dviz-pro-max
@@ -1060,7 +1058,8 @@ skills:
     compatibility: {}
     lifecycle: active
     trust_tier: owner-approved
-    trust_basis: derived from pbakaus/impeccable (Apache-2.0), maintained internally for calm design balance
+    trust_basis: derived from pbakaus/impeccable (Apache-2.0), maintained internally
+      for calm design balance
     network: none
     side_effects: []
     update_policy: manual_review
@@ -1084,7 +1083,8 @@ skills:
     compatibility: {}
     lifecycle: active
     trust_tier: owner-approved
-    trust_basis: derived from pbakaus/impeccable (Apache-2.0), maintained internally for UI simplification
+    trust_basis: derived from pbakaus/impeccable (Apache-2.0), maintained internally
+      for UI simplification
     network: none
     side_effects: []
     update_policy: manual_review
@@ -1106,7 +1106,8 @@ skills:
     compatibility: {}
     lifecycle: active
     trust_tier: owner-approved
-    trust_basis: derived from pbakaus/impeccable (Apache-2.0), refactored internally under Dual-Strength Doctrine
+    trust_basis: derived from pbakaus/impeccable (Apache-2.0), refactored internally
+      under Dual-Strength Doctrine
     network: none
     side_effects: []
     update_policy: manual_review
@@ -1131,7 +1132,8 @@ skills:
     compatibility: {}
     lifecycle: active
     trust_tier: owner-approved
-    trust_basis: derived from pbakaus/impeccable (Apache-2.0), maintained internally for pre-ship micro-alignment
+    trust_basis: derived from pbakaus/impeccable (Apache-2.0), maintained internally
+      for pre-ship micro-alignment
     network: none
     side_effects: []
     update_policy: manual_review
@@ -1146,4 +1148,126 @@ skills:
       baselines, unhandled hover/active states, or rough edges
     removal_condition: replace when host-native polish linters catch all
       micro-alignment defects automatically
-
+  - id: deep-research
+    origin: upstream
+    role: process
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    supersedes:
+      - researcher
+    upstream:
+      repository: https://github.com/arjunprabhulal/agent-skills
+      source_path: skills/research/deep-research
+      commit: 42dd24080fce6d731d00e2a1134f398c3da4171b
+      tree: c36dd0bf0c3d8f98b404217a4af32ff01b800513
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: 9c52e0f6f7cf772e0d4c6ca6e52bde6f6bf58a40c026907b209e9faf96a26a44
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash 9c52e0f6f7cf
+    network: read
+    side_effects: []
+    update_policy: manual_review
+  - id: database-migrations
+    origin: upstream
+    role: domain
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    supersedes:
+      - schema-migration
+    upstream:
+      repository: https://github.com/affaan-m/ECC
+      source_path: skills/database-migrations
+      commit: d30588f90a82e49e3d4c18c072c9f1e9f1c294f6
+      tree: b0acdc0e55cafeeef965a66c6827dedb240a8cd9
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: 89f207af2450c3a3b3d64f7dead173504c4a210dbfa84568cf7487b4a50371cb
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash 89f207af2450
+    network: none
+    side_effects: []
+    update_policy: manual_review
+    requires:
+      - verification-router
+  - id: brainstorming
+    origin: upstream
+    role: process
+    activation: implicit
+    compatibility: {}
+    lifecycle: retired
+    upstream:
+      repository: https://github.com/obra/superpowers
+      source_path: skills/brainstorming
+      commit: 8ca22dba9a94f28898bbce59f2537ff4d87c747d
+      tree: 03d4c6657cd20ba0fce9d270fc688150bd191c3b
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: d5f1db282c54444307ec3ccc132bd3d7e130168cbf6da4bf4a96be4399d4c4ca
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash d5f1db282c54
+    network: none
+    side_effects: []
+    update_policy: manual_review
+    status_reason: Retired due to uninstalled writing-plans dependency and spec ceremony; intent exploration integrated into plan-and-handoff
+    superseded_by:
+      - plan-and-handoff
+  - id: test-driven-development
+    origin: upstream
+    role: process
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/obra/superpowers
+      source_path: skills/test-driven-development
+      commit: 8ca22dba9a94f28898bbce59f2537ff4d87c747d
+      tree: 847144cf0824095922c0d4875648b9fa74877e1a
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: 8e8772822d25e4dfc9295cf4526c6251a10458c7417ac50c4b42e5d9fc91e0b0
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash 8e8772822d25
+    network: none
+    side_effects: []
+    update_policy: manual_review
+  - id: verification-before-completion
+    origin: upstream
+    role: verifier
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/obra/superpowers
+      source_path: skills/verification-before-completion
+      commit: 8ca22dba9a94f28898bbce59f2537ff4d87c747d
+      tree: a4cb0b69aaefeab540947a7f1642bdaad810e37a
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: d8a53168f152b6163bd3447f7d4c20b6b4cddf6bd907f9aa5856b514c032db0e
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash b529822bdac4
+    network: none
+    side_effects: []
+    update_policy: manual_review
+  - id: receiving-code-review
+    origin: upstream
+    role: process
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/obra/superpowers
+      source_path: skills/receiving-code-review
+      commit: 8ca22dba9a94f28898bbce59f2537ff4d87c747d
+      tree: b5e154fc3ec7a6a0b1e710eebacc2168620cc428
+      license: MIT
+      license_evidence: registry/skills.yaml (MIT, same-commit review)
+      content_hash: e5dd23be2d93f751c8b28d647c4b139754aedfe75648cd8e1100e47f5da0c3c5
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash e5dd23be2d93
+    network: none
+    side_effects: []
+    update_policy: manual_review

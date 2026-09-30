@@ -82,11 +82,4 @@ may be required, but the harness does not choose the reviewer or model.
   freshness claim. Do not create verification packets, phase artifacts, raw
   artifact stores or evidence history by default.
 
-Missing source truth or an unavailable required environment is BLOCKED/NEEDS_USER,
-not an invented pass.
-
-For security/data/migration, major UI/refactor, repeated failures or another
-high-cost irreversible claim, an owner/accepted plan may require a fresh-context
-reviewer. Give that reviewer the outcome, baseline, locks, final diff,
-acceptance and actual proof—not the implementer's self-evaluation. Review is
-conditional and the owner selects the model; never create a mandatory worker.
+For security/data/migration, major UI/refactor, or high-risk claims, review must be grounded in the raw diff, acceptance criteria, and fresh verification proof. Proof actively verifies that raw prompt negative constraints, blacklists, and positive requirements are strictly honored. The harness never selects a model, creates worker tiers, or invents role handoffs.

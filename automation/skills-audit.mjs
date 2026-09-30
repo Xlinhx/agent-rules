@@ -40,6 +40,56 @@ const SKILL_LIST_MAX_CHARS = 32000;
 // external-skills/registry.json was removed only after this parity passed).
 function estimatedTokens(text) { return Math.ceil(text.replace(/\r\n?/g, '\n').length / 3.6); }
 
+const textExtensions = new Set(['.c', '.cc', '.cfg', '.conf', '.cpp', '.css', '.csv', '.graphql', '.h', '.hcl', '.html', '.ini', '.java', '.js', '.json', '.jsx', '.md', '.mjs', '.mts', '.py', '.rb', '.rs', '.sh', '.sql', '.source', '.toml', '.ts', '.tsx', '.txt', '.xml', '.yaml', '.yml']);
+const textBasenames = new Set(['LICENSE', 'NOTICE', 'README']);
+
+function textCategory(folder, file) {
+  const relative = path.relative(folder, file).replace(/\\/g, '/');
+  const buffer = fs.readFileSync(file);
+  const basename = path.basename(relative);
+  const extension = path.extname(basename).toLowerCase();
+  const textCandidate = textExtensions.has(extension) || textBasenames.has(basename.toUpperCase()) || buffer.subarray(0, 2).toString('utf8') === '#!';
+  if (!textCandidate || buffer.includes(0)) return { category: 'binary_asset', bytes: buffer.length, chars: 0 };
+  const chars = buffer.toString('utf8').replace(/\r\n?/g, '\n').length;
+  if (relative === 'SKILL.md') return { category: 'skill_body', bytes: buffer.length, chars };
+  if (/^(reference|references|agents)\//.test(relative)) return { category: 'reference', bytes: buffer.length, chars };
+  if (/^scripts\//.test(relative)) return { category: 'script', bytes: buffer.length, chars };
+  return { category: 'supporting_text', bytes: buffer.length, chars };
+}
+
+function measureSkill(folder, bodyChars) {
+  const files = [];
+  const walk = (dir) => {
+    try {
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        if (entry.isDirectory()) walk(path.join(dir, entry.name));
+        else files.push(path.join(dir, entry.name));
+      }
+    } catch {}
+  };
+  walk(folder);
+  const costs = files.map((item) => textCategory(folder, item));
+  const charsFor = (category) => costs.filter((item) => item.category === category).reduce((sum, item) => sum + item.chars, 0);
+  const filesFor = (category) => costs.filter((item) => item.category === category).length;
+  const skillBodyChars = bodyChars ?? charsFor('skill_body');
+  const referenceChars = charsFor('reference');
+  const scriptChars = charsFor('script');
+  const supportingTextChars = charsFor('supporting_text');
+  const binaryAssetBytes = costs.filter((item) => item.category === 'binary_asset').reduce((sum, item) => sum + item.bytes, 0);
+  return {
+    skillBodyChars,
+    skill_body_tokens: Math.ceil(skillBodyChars / 3.6),
+    reference_tokens: Math.ceil(referenceChars / 3.6),
+    body_reference_tokens: Math.ceil((skillBodyChars + referenceChars) / 3.6),
+    script_text_tokens: Math.ceil(scriptChars / 3.6),
+    supporting_text_tokens: Math.ceil(supportingTextChars / 3.6),
+    text_loadable_files: costs.length - filesFor('binary_asset'),
+    binary_asset_files: filesFor('binary_asset'),
+    binary_asset_bytes: binaryAssetBytes,
+  };
+}
+
+
 const result = {
   schema: 'agent-rules/skills-audit/v1',
   ok: true,
@@ -216,6 +266,27 @@ if (!fs.existsSync(registryFile)) {
     result.status = 'PARTIAL';
     result.issues.push(`effective task catalog exceeds the character budget (${effectiveChars} > ${SKILL_LIST_MAX_CHARS})`);
   }
+
+
+  const implicit = (doc.skills ?? []).filter((s) => s.lifecycle === 'active' && s.activation === 'implicit');
+  result.implicit_activation = implicit.map((skill) => {
+    const folder = path.join(root, 'skills', skill.id);
+    const file = path.join(folder, 'SKILL.md');
+    let bodyChars = 0;
+    try { bodyChars = fs.readFileSync(file, 'utf8').length; } catch {}
+    const measured = measureSkill(folder, bodyChars);
+    return { id: skill.id, ...measured };
+  });
+
+  const explicit = (doc.skills ?? []).filter((s) => s.lifecycle === 'active' && s.activation === 'explicit-only');
+  result.explicit_contracts = explicit.map((skill) => {
+    const folder = path.join(root, 'skills', skill.id);
+    const file = path.join(folder, 'SKILL.md');
+    let bodyChars = 0;
+    try { bodyChars = fs.readFileSync(file, 'utf8').length; } catch {}
+    const measured = measureSkill(folder, bodyChars);
+    return { id: skill.id, role: skill.role, ...measured };
+  });
 
   result.counts = {
     total: doc.skills?.length ?? 0,

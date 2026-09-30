@@ -1,8 +1,8 @@
 ---
 name: plan-and-handoff
-description: "Multi-part work, native Plan Mode, portable/pasted plans, cross-host handoffs, resumable work."
+description: "Clarify intent, explore requirements, plan multi-part work on host-native progress, portable plans, and cross-host handoffs without shadow ledgers."
 metadata:
-  signals: "plan, plan mode, handoff, cross-host, portable plan, pasted plan, resumable work, executable plan, /goal"
+  signals: "plan, plan mode, handoff, brainstorm, requirements, cross-host, portable plan, pasted plan, resumable work, executable plan, /goal"
   excludes: "single obvious fix, pure q&a"
   priority: "70"
   platform_scope: "all"
@@ -10,10 +10,10 @@ metadata:
 
 # Plan and Handoff
 
-Use the host's native plan/progress surface. Agent Rules may mirror only the
-accepted active plan and compact frontier under its owned `.agent/current`
-state; do not create tickets, history, worker hierarchy, model policy, raw
-evidence store, or PASS-grant workflow.
+Use the host's native plan/progress surface. Do not create shadow plans, tickets,
+history ledgers, worker hierarchies, model tiers, raw evidence dumps, or
+PASS-grant workflows. When a portable plan is explicitly requested by the user,
+produce a clean, self-contained markdown document.
 
 ## Constraint-complete plan contract
 
@@ -124,29 +124,18 @@ pivot.
 
 ## Explore → Distill → Commit
 
-For architecture, migration, replacement, destructive, major redesign or
-high-uncertainty work, explore source, runtime, alternatives, hidden consumers
-and contradictions before locking the plan. Distill only confirmed facts,
-material assumptions, options/tradeoffs, evidence anchors and owner decisions.
-Commit the compact outcome, constraints, preservation, slices, proof and reopen
-conditions; do not hand research dumps or dead ends to the implementer.
+Before locking a plan or modifying code, clarify user intent and explore the problem space:
+- Ask clarifying questions early on underspecified requirements, key workflows, or ambiguous constraints.
+- Explore 2-3 design alternatives, tradeoffs, and non-obvious failure modes for high-uncertainty or architectural work.
+- Confirm direction with the user before committing to major modifications or irreversible changes.
 
-Critical work considers at least two materially different approaches, prefers
-the safer reversible option when outcome fit is comparable, names a
-five-dimensional code/behavior/data/operational/user-visible impact map, and
-asks which counterexample could make the plan wrong. Obvious local fixes bypass
-this ceremony.
+Distill only confirmed facts, material constraints, options/tradeoffs, evidence anchors, and locked decisions.
+Commit the compact outcome, constraints, preservation, slices, proof, and stop conditions. Do not dump raw search logs or exploratory dead ends into the implementation frontier. Obvious local fixes bypass this exploration ceremony.
 
 ## Active frontier and context quarantine
 
-When the Agent Rules task-state surface is available, mirror the accepted plan
-and compact frontier in its owned `.agent/current` state. Update only after a
-material decision, proof, blocker or slice transition. Before handoff or known
-compaction, record proved work, current slice, open assumptions, do-not-repeat,
-exact next action and stop condition; after resume, reconcile them with source
-and proof bindings before continuing.
+Track active execution strictly on the host-native plan/progress surface. Update the native progress after each material decision, verified proof, blocker, or slice transition. Keep plans proportional to task complexity: simple tasks use minimal linear steps; complex cross-seam tasks use clear dependency slices.
 
-Subagents default to zero. Use at most two, without recursion, only when the
-owner/accepted plan permits genuinely independent exploration. Each returns
-Findings, Evidence, Implication and Open uncertainty; raw searches and logs do
-not enter the parent context. Never parallelize implementation of shared seams.
+Before handoff or known compaction, ensure the native state records proved work, current slice, open assumptions, do-not-repeat, exact next action, and stop condition; after resume, reconcile them with source and proof bindings before continuing.
+
+Subagents default to zero. Use at most two, without recursion, only when the owner/accepted plan permits genuinely independent exploration. Each returns Findings, Evidence, Implication and Open uncertainty; raw searches and logs do not enter the parent context. Never parallelize implementation of shared seams.

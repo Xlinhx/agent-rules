@@ -3,7 +3,7 @@ name: quieter
 description: Tones down visually aggressive or overstimulating designs, reducing intensity while preserving quality and impact.
 metadata:
   signals: "quieter, làm dịu giao diện, chói quá, bớt rối, calm design, tone down, quá lòe loẹt"
-  excludes: "complete redesign, brand identity overhaul, slides, backend reviews"
+  excludes: "complete redesign, brand identity overhaul, slides, slide decks, presentations, backend reviews, high-density domain data views"
   priority: "50"
   platform_scope: "all"
 ---
@@ -16,7 +16,7 @@ Quiet design is harder than bold design. Subtlety needs precision. Reduce visual
 
 Persuade + Experience: "quieter" means more restrained palette, more whitespace, more typographic air. Drama is reduced, not eliminated; the POV stays intact.
 
-Operate + Read: "quieter" means reducing visual noise. Fewer background accents, flatter cards, less color, less motion. The tool should disappear more completely into the task.
+Operate + Read: "quieter" means reducing visual noise. Fewer background accents, flatter cards, less color, less motion. The tool should disappear more completely into the task. For domain or developer tools, preserve essential data density and business capabilities; do not force consumer minimalism or Apple-style aesthetics onto domain interfaces.
 
 ---
 
@@ -96,6 +96,9 @@ Systematically reduce intensity across these dimensions:
 - Eliminate all personality (maintain character through refinement)
 - Sacrifice usability for aesthetics (functional elements still need clear affordances)
 - Make everything small and light (some anchors needed)
+- Use as default slide deck reviewer or force presentation slides into muted web-UI templates
+- Strip essential data density or power-user controls from enterprise or domain tools
+- Force an Apple-like aesthetic or uniform layout onto products with established brand identities
 
 ## Verify Quality
 

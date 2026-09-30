@@ -21,7 +21,6 @@
     "skills:check-drift": "node automation/skills-check-updates.mjs --offline",
     "skills:check-updates": "node automation/skills-check-updates.mjs",
     "skills:sync": "node automation/skills-sync.mjs",
-    "skills:eval": "node automation/skill-eval.mjs",
     "harness:audit": "node automation/context-integrity.mjs",
     "ci:quality": "npm run build && npm run check && npm run test",
     "verify:all": "node automation/verify-all.mjs",

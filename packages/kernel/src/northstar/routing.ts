@@ -26,6 +26,7 @@ export interface NativeRouteInput {
   readonly activeProjectScope?: string | null;
   readonly affectedScope?: AffectedScope;
   readonly repositoryFacts?: RepositoryFacts;
+  readonly requestedCapabilities?: readonly string[];
 }
 export interface RouteResult { readonly skills: readonly SkillRoute[]; readonly capabilities: readonly string[]; readonly providers: Readonly<Record<string, string | null>>; readonly suppressed: readonly { id: string; reason: string }[] }
 
@@ -164,15 +165,39 @@ export function routeSkills(input: NativeRouteInput, root: string): SkillRoute[]
   });
 }
 
-export function inferCapabilities(prompt: string, _facts?: RepositoryFacts, affectedScope?: AffectedScope): string[] {
-  const text = `${prompt} ${(affectedScope?.runtime_surfaces ?? []).join(' ')} ${(affectedScope?.stacks ?? []).join(' ')}`;
+export function inferCapabilities(
+  _prompt: string,
+  facts?: RepositoryFacts,
+  affectedScope?: AffectedScope,
+  requestedCapabilities?: readonly string[]
+): string[] {
   const capabilities = ['filesystem.read', 'filesystem.write', 'code.search', 'shell.exec', 'git.read'];
-  if (/\b(browser|playwright|e2e|visual|frontend|css|tsx|jsx|react|next|vue|svelte)\b/i.test(text)) capabilities.push('browser.verify');
-  if (/\b(console|network|devtools|cdp|browser debug)\b/i.test(text)) capabilities.push('browser.debug');
-  if (/\b(documentation|docs?|external api|release notes|changelog|latest)\b/i.test(text)) capabilities.push('docs.lookup');
-  if (/\b(database|postgres|prisma|supabase|sql|drizzle)\b/i.test(text)) capabilities.push('database.query');
-  if (/\b(logs?|runtime error|diagnostic)\b/i.test(text)) capabilities.push('runtime.logs');
-  if (/\b(blender|3d|gltf|glb|three\.?js|polycount|mesh|rigging|armature|uv[ -]?unwrap)\b/i.test(text)) capabilities.push('modeling.3d', 'asset.3d.audit');
+
+  if (requestedCapabilities && requestedCapabilities.length > 0) {
+    capabilities.push(...requestedCapabilities);
+  }
+
+  const surfaces = affectedScope?.runtime_surfaces ?? [];
+  const stacks = affectedScope?.stacks ?? [];
+  const frameworks = facts?.frameworks ?? [];
+
+  if (surfaces.some((s) => ['browser', 'playwright', 'web', 'dom'].includes(s)) || frameworks.some((f) => ['react', 'next', 'vue', 'svelte'].includes(f))) {
+    capabilities.push('browser.verify');
+  }
+  if (surfaces.includes('devtools') || surfaces.includes('console')) {
+    capabilities.push('browser.debug');
+  }
+  // Stacks or structured requested capabilities define database capability; repository schema presence alone does not grant DB access.
+  if (stacks.some((s) => ['postgres', 'prisma', 'supabase', 'sql', 'drizzle'].includes(s))) {
+    capabilities.push('database.query');
+  }
+  if (stacks.some((s) => ['blender', 'threejs', '3d'].includes(s))) {
+    capabilities.push('modeling.3d', 'asset.3d.audit');
+  }
+  if (surfaces.includes('runtime_logs') || surfaces.includes('diagnostics')) {
+    capabilities.push('runtime.logs');
+  }
+
   return [...new Set(capabilities)];
 }
 
@@ -188,7 +213,7 @@ export class CapabilityBroker {
     const knownProviders = new Set(this.providers.map((provider) => provider.id));
     const unknown = [...explicitProviders].filter((provider) => !knownProviders.has(provider));
     if (unknown.length) throw new Error(`unknown explicit capability provider(s): ${unknown.join(', ')}`);
-    const capabilities = inferCapabilities(input.prompt, input.repositoryFacts, input.affectedScope);
+    const capabilities = inferCapabilities(input.prompt, input.repositoryFacts, input.affectedScope, input.requestedCapabilities);
     const providers: Record<string, string | null> = {};
     const suppressed: { id: string; reason: string }[] = [];
     for (const capability of capabilities) {
