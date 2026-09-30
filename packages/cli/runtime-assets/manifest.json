@@ -5,11 +5,11 @@
   "files": [
     {
       "path": "generated/context-graph.json",
-      "sha256": "222cf8493faf4321c88da8a5bbaa3013076c725729ac516fdefbb795a6c04613"
+      "sha256": "6e7a5339719375260ba021fad57e1f88a1c209c0178a5a508e809da69703b3f7"
     },
     {
       "path": "generated/runtime-build/antigravity/manifest.json",
-      "sha256": "1908c2b1c8f672aa54c7428a64b04383fcc0ada6ec8c2a49fdd844e7dcea6d4f"
+      "sha256": "fba35c49ed5d5fae8d25c13d5a93f1296e132b498848529f2d0a121f8ab22da1"
     },
     {
       "path": "generated/runtime-build/antigravity/rules/00-intent-scope-safety.md",
@@ -17,7 +17,7 @@
     },
     {
       "path": "generated/runtime-build/antigravity/rules/10-execution-planning-delegation.md",
-      "sha256": "6b384aace373a13ba5457b937c484e6b517dce721c783558e14b3dcb62d24f8f"
+      "sha256": "f9a1325b8735606f359e720d39e99d343b05e4da18e795d317429d202c0bafdd"
     },
     {
       "path": "generated/runtime-build/antigravity/rules/20-proof-outcome.md",
@@ -33,7 +33,7 @@
     },
     {
       "path": "generated/runtime-build/antigravity/rules/antigravity-overlay.md",
-      "sha256": "2616a667a34b3484693f8682b7b033fdbaf63d6e855e876debeefc1601a9dcb3"
+      "sha256": "8e88db73872d551279515a954450a7bd893c234ecf6b6bebda2c13cc0348e33c"
     },
     {
       "path": "generated/runtime-build/antigravity/rules/manifest.yaml",
@@ -49,7 +49,7 @@
     },
     {
       "path": "generated/runtime-build/claude/manifest.json",
-      "sha256": "35c902f5ce317234133690a9c8c39178d557edc1df7ee93c7eb7ec5a70e98879"
+      "sha256": "7e7694c0be1949a612f8ff34ab6ca9e7fcb3257cdcf560f5bc90aea998494c6d"
     },
     {
       "path": "generated/runtime-build/claude/rules/00-intent-scope-safety.md",
@@ -57,7 +57,7 @@
     },
     {
       "path": "generated/runtime-build/claude/rules/10-execution-planning-delegation.md",
-      "sha256": "6b384aace373a13ba5457b937c484e6b517dce721c783558e14b3dcb62d24f8f"
+      "sha256": "f9a1325b8735606f359e720d39e99d343b05e4da18e795d317429d202c0bafdd"
     },
     {
       "path": "generated/runtime-build/claude/rules/20-proof-outcome.md",
@@ -89,7 +89,7 @@
     },
     {
       "path": "generated/runtime-build/codex/manifest.json",
-      "sha256": "17ff8ed3e9e267af712f4c2d22ae2c8f2498715b41830513e1456dba1e1d24d8"
+      "sha256": "b9262b14b56ea7e63032d75479ceff2d052f4418bed616ed069b415b48c82c1a"
     },
     {
       "path": "generated/runtime-build/codex/rules/00-intent-scope-safety.md",
@@ -97,7 +97,7 @@
     },
     {
       "path": "generated/runtime-build/codex/rules/10-execution-planning-delegation.md",
-      "sha256": "6b384aace373a13ba5457b937c484e6b517dce721c783558e14b3dcb62d24f8f"
+      "sha256": "f9a1325b8735606f359e720d39e99d343b05e4da18e795d317429d202c0bafdd"
     },
     {
       "path": "generated/runtime-build/codex/rules/20-proof-outcome.md",
@@ -129,7 +129,7 @@
     },
     {
       "path": "generated/runtime-build/command-code/manifest.json",
-      "sha256": "e0b3bd5f9cd583ff03060b49a13ef1df218b65d56210df770828ac22ab78130a"
+      "sha256": "cd7840c449b1caaca7dac2b8ea68c3981245e219d2f816d07057ec0f32bb974d"
     },
     {
       "path": "generated/runtime-build/command-code/rules/00-intent-scope-safety.md",
@@ -137,7 +137,7 @@
     },
     {
       "path": "generated/runtime-build/command-code/rules/10-execution-planning-delegation.md",
-      "sha256": "6b384aace373a13ba5457b937c484e6b517dce721c783558e14b3dcb62d24f8f"
+      "sha256": "f9a1325b8735606f359e720d39e99d343b05e4da18e795d317429d202c0bafdd"
     },
     {
       "path": "generated/runtime-build/command-code/rules/20-proof-outcome.md",
@@ -165,7 +165,7 @@
     },
     {
       "path": "generated/runtime-build/cursor/manifest.json",
-      "sha256": "eb467a6803ef2e4ed3640d1b4e99d5ad013e936e5724fce69a339064c6db22be"
+      "sha256": "263768e7e4ec1f93cbb033a2a0b5fb56478488080e4f958c82d83cd42960374c"
     },
     {
       "path": "generated/runtime-build/cursor/rules/00-intent-scope-safety.md",
@@ -173,7 +173,7 @@
     },
     {
       "path": "generated/runtime-build/cursor/rules/10-execution-planning-delegation.md",
-      "sha256": "6b384aace373a13ba5457b937c484e6b517dce721c783558e14b3dcb62d24f8f"
+      "sha256": "f9a1325b8735606f359e720d39e99d343b05e4da18e795d317429d202c0bafdd"
     },
     {
       "path": "generated/runtime-build/cursor/rules/20-proof-outcome.md",
@@ -205,7 +205,7 @@
     },
     {
       "path": "generated/runtime-build/deepseek-harness/manifest.json",
-      "sha256": "65be8fe0a7ce3f9b4b213b22066db686fff1c97cee3fd029ce4ce77db09856e9"
+      "sha256": "1ce3d19c47b57cbbb2e47e196015a5febcc102e86015b00e917184c9b2f2df06"
     },
     {
       "path": "generated/runtime-build/deepseek-harness/rules/00-intent-scope-safety.md",
@@ -213,7 +213,7 @@
     },
     {
       "path": "generated/runtime-build/deepseek-harness/rules/10-execution-planning-delegation.md",
-      "sha256": "6b384aace373a13ba5457b937c484e6b517dce721c783558e14b3dcb62d24f8f"
+      "sha256": "f9a1325b8735606f359e720d39e99d343b05e4da18e795d317429d202c0bafdd"
     },
     {
       "path": "generated/runtime-build/deepseek-harness/rules/20-proof-outcome.md",
@@ -241,7 +241,7 @@
     },
     {
       "path": "generated/runtime-build/grok/manifest.json",
-      "sha256": "b9823403c954de880e0d513e81a33855f7293e75ca3981151b5d53727e258b21"
+      "sha256": "2b5b4c0342275d638a8ecf8305dc9ac5d3736432f52538ceb2ca1f73cc4f977b"
     },
     {
       "path": "generated/runtime-build/grok/rules/00-intent-scope-safety.md",
@@ -249,7 +249,7 @@
     },
     {
       "path": "generated/runtime-build/grok/rules/10-execution-planning-delegation.md",
-      "sha256": "6b384aace373a13ba5457b937c484e6b517dce721c783558e14b3dcb62d24f8f"
+      "sha256": "f9a1325b8735606f359e720d39e99d343b05e4da18e795d317429d202c0bafdd"
     },
     {
       "path": "generated/runtime-build/grok/rules/20-proof-outcome.md",
@@ -281,7 +281,7 @@
     },
     {
       "path": "generated/runtime-build/omp/manifest.json",
-      "sha256": "5638360f52e2ac4928abde1ebe6582fc1e717f9b1707e2264f4755c58ff5ec33"
+      "sha256": "323798fd6e8264c444304c0b7f69f47b415ecbcc77ff8abe921ee8b4d90c78dc"
     },
     {
       "path": "generated/runtime-build/omp/rules/00-intent-scope-safety.md",
@@ -289,7 +289,7 @@
     },
     {
       "path": "generated/runtime-build/omp/rules/10-execution-planning-delegation.md",
-      "sha256": "6b384aace373a13ba5457b937c484e6b517dce721c783558e14b3dcb62d24f8f"
+      "sha256": "f9a1325b8735606f359e720d39e99d343b05e4da18e795d317429d202c0bafdd"
     },
     {
       "path": "generated/runtime-build/omp/rules/20-proof-outcome.md",
@@ -321,7 +321,7 @@
     },
     {
       "path": "generated/runtime-build/opencode/manifest.json",
-      "sha256": "555d2f8461f390570dd04f9d4eb0a36ca669fba1c80a7d0ceb898be0d53dc326"
+      "sha256": "d91ccd6013a4fb9a5dcf8a11cb7c5211c9ddf143a038d3ffc0df6d73a21dbfc6"
     },
     {
       "path": "generated/runtime-build/opencode/rules/00-intent-scope-safety.md",
@@ -329,7 +329,7 @@
     },
     {
       "path": "generated/runtime-build/opencode/rules/10-execution-planning-delegation.md",
-      "sha256": "6b384aace373a13ba5457b937c484e6b517dce721c783558e14b3dcb62d24f8f"
+      "sha256": "f9a1325b8735606f359e720d39e99d343b05e4da18e795d317429d202c0bafdd"
     },
     {
       "path": "generated/runtime-build/opencode/rules/20-proof-outcome.md",
@@ -677,7 +677,7 @@
     },
     {
       "path": "platforms/antigravity/antigravity-overlay.md",
-      "sha256": "2616a667a34b3484693f8682b7b033fdbaf63d6e855e876debeefc1601a9dcb3"
+      "sha256": "8e88db73872d551279515a954450a7bd893c234ecf6b6bebda2c13cc0348e33c"
     },
     {
       "path": "platforms/claude/adapter.ts",
@@ -2997,7 +2997,7 @@
     },
     {
       "path": "rules/10-execution-planning-delegation.md",
-      "sha256": "6b384aace373a13ba5457b937c484e6b517dce721c783558e14b3dcb62d24f8f"
+      "sha256": "f9a1325b8735606f359e720d39e99d343b05e4da18e795d317429d202c0bafdd"
     },
     {
       "path": "rules/20-proof-outcome.md",
@@ -8580,5 +8580,5 @@
       "sha256": "a6c67c1900064347c2a329990dd3c555657c51c3ec53b259a08aa01a2c26139a"
     }
   ],
-  "manifest_sha256": "5c10c2bc16595338557aa6c375058e174c1a510698f7faef0d82754441cfbdda"
+  "manifest_sha256": "70a00380ba057bef7d18322446a82520fb6aee59a2d3fe7900ba9f06729aca1f"
 }

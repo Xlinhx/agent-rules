@@ -3,7 +3,7 @@
 **Ngày thực hiện:** 2026-09-30  
 **Repository:** `P:\agent-rules`  
 **Phiên bản / Release:** 2.0.0 (Candidate Final - Verified)  
-**Trạng thái nghiệm thu:** **PASS** (Host Precedence Resolved, Real Execution Proved, Transparent Synthetic Telemetry, 9 Hosts Synced)
+**Trạng thái nghiệm thu:** **PASS** (Cross-Host Rules Established, Delegation Distinction Clarified, 9 Hosts Synced)
 
 ---
 
@@ -40,41 +40,45 @@ Các điều chỉnh được thực hiện tối giản, tôn trọng tuyệt �
 | `verification-router` | `skills/verification-router/SKILL.md` | Giới hạn phạm vi ở việc chọn bằng chứng theo phạm vi, khẳng định và rủi ro; ủy thác provider cho host | Tránh việc một kỹ năng cố gắng định tuyến MCP/provider vốn là nhiệm vụ của hạ tầng runtime. |
 | Quy tắc ngữ cảnh | `rules/30-context-skill-mcp.md` | Gỡ bỏ ràng buộc cứng nhắc "tách turn" khi review | Cho phép agent tự động tuần tự chuyển pha từ thiết kế -> code -> kiểm thử trong cùng phiên làm việc. |
 | Duy trì trạng thái | `rules/40-maintainer.md` | Loại bỏ việc ép buộc lưu file `.agent/current` | Sử dụng bề mặt tiến độ native của từng host (Antigravity plan/task, Cursor progress), không tạo shadow ledger. |
-| Antigravity Overlay | `platforms/antigravity/antigravity-overlay.md` | Khẳng định quyền tối thượng của host: Đơn model sở hữu end-to-end (xóa economy/expert); Native progress authority (xóa ledger và execute pivot); Áp dụng auto-waiver cho checkpoints của slide-maker | Khắc phục triệt để mâu thuẫn vận hành giữa rules và hướng dẫn upstream (`executing-plans:330, 357`, `slide-maker:161`). |
+| Quy chuẩn đa host | `rules/10-execution-planning-delegation.md` | Đặt chính sách dùng chung cho cả 9 host: Vòng đời tự chủ không execute pivot, tiến độ native không shadow text ledger, auto-waiver cho checkpoints; phân định rõ delegation vs model switching; yêu cầu trung thực self-review | Giải quyết tận gốc yêu cầu đa host tại lớp rules dùng chung thay vì phân mảnh hoặc nhân bản riêng từng host. |
+| Antigravity Overlay | `platforms/antigravity/antigravity-overlay.md` | Tinh gọn chỉ giữ ánh xạ công cụ riêng của host: Runtime path, native browser/MCP, ánh xạ delegation sang `invoke_subagent` khi workflow yêu cầu | Không cấm delegation; bảo đảm `requesting-code-review` và `subagent-driven-development` hoạt động đúng vai trò khi host hỗ trợ. |
 | Kernel Native Router | `packages/kernel/src/northstar/routing.ts` | Điều hướng chế độ lập kế hoạch deterministically sang `writing-plans` | Bảo đảm tính nhất quán trong các bài kiểm tra turn router của kernel. |
 
 ---
 
-## 3. Cơ chế hoạt động & Giải quyết mâu thuẫn chỉ dẫn vận hành
+## 3. Cơ chế hoạt động & Phân định Delegation đa host
 
-Để đảm bảo tính tự chủ và nhất quán, hệ thống phân định rõ phân cấp thẩm quyền: **Host Overlay & Rules sở hữu cơ chế vận hành, Upstream Skills cung cấp quy trình chuyên môn bất biến.**
+Hệ thống thiết lập phân cấp thẩm quyền chuẩn mực: **Canonical Rules (`rules/10`) định nghĩa chính sách chung cho toàn bộ 9 host, Host Overlay chỉ thực hiện ánh xạ công cụ cục bộ.**
 
-| Vấn đề xung đột | Chỉ dẫn trong Upstream Skill | Cơ chế Host Precedence (Antigravity Overlay) | Kết quả áp dụng thực tế |
-|---|---|---|---|
-| **Phân tầng Model & Reviewer** | `executing-plans:357` yêu cầu dispatch subagent / "most capable model" cho reviewer | **Single Model Ownership:** Model do người dùng chọn chịu trách nhiệm toàn bộ các pha (plan, code, review). Không chia economy/expert. | Review được thực hiện trực tiếp bởi model hiện tại trong cùng session mà không đổi model hay tạo worker tier. |
-| **Theo dõi tiến độ & Execute Pivot** | `executing-plans:330` dùng ledger text file; overlay cũ yêu cầu "wait for execute pivot" | **Native Progress Authority:** Dùng tiến độ native của Antigravity (plan artifacts, task tracking). Slices chạy tự chủ tuần tự. | Không tạo shadow ledger, không gián đoạn bắt người dùng xác nhận "execute pivot" giả tạo. |
-| **Checkpoints trong Slide-maker** | `slide-maker:161` đặt 🔴 CHECKPOINT dừng chờ người dùng confirm | **Per-deck Auto Waiver:** Tự động ghi nhận `content.checkpoint` và `design_plan.checkpoint` vào `.deck-gates.json`. | Checkpoints hiển thị minh bạch trong chat nhưng không chặn tiến trình render/lint/critic tự động. |
+| Chủ đề | Chính sách dùng chung đa host (`rules/10`) | Ánh xạ tại Antigravity Overlay (`platforms/antigravity`) |
+|---|---|---|
+| **Tiến độ Native & Vòng lặp tự chủ** | Theo dõi trực tiếp trên bề mặt native của host (không tạo file shadow ledger text như `executing-plans:330`). Thực thi tuần tự các lát cắt từ thiết kế -> code -> test mà không dừng chờ "execute pivot" giả tạo. | Plan artifacts định tuyến qua `writing-plans` và `executing-plans`. Tiến độ hiển thị qua native plan/task surface. |
+| **Checkpoints tự động hóa** | Áp dụng cơ chế per-deck auto-waiver đã có trong spec của `slide-maker`: tự động ghi nhận metadata vào `.deck-gates.json`, trình bày checkpoint minh bạch trong chat mà không dừng luồng chờ prompt. | Hưởng trọn vẹn chính sách từ `rules/10`, không cần lặp lại trong overlay. |
+| **Phân tầng Model (Model Tiers)** | Không tự đổi model hoặc dựng tầng model (không economy/expert). Model do người dùng chọn sở hữu phiên làm việc end-to-end. | Hưởng trọn vẹn chính sách từ `rules/10`. |
+| **Subagent Delegation** | **Cho phép delegation** khi workflow yêu cầu (`subagent-driven-development`, `requesting-code-review`), người dùng cho phép và công cụ host hỗ trợ native subagents. Mặc định subagents bằng không khi không có nhu cầu phân tán. | Ánh xạ native delegation sang công cụ `invoke_subagent`. Cho phép gọi subagent reviewer độc lập khi cần. |
+| **Tính trung thực trong Review** | Khi chạy trong phiên đơn (inline execution) hoặc khi host không có công cụ subagent, tự review (self-review) mã nguồn nhưng **phải báo cáo trung thực là self-review**, tuyệt đối không ngụy xưng là review độc lập. | Khi không gọi subagent, thực hiện self-review và ghi nhận rõ ràng là self-review trong báo cáo. |
 
 ---
 
 ## 4. Chứng minh thực tế qua việc áp dụng chuỗi Superpowers mới
 
-Thay vì một ví dụ giả định, toàn bộ đợt cập nhật sửa lỗi vận hành này đã được thực hiện bằng chính chuỗi kỹ năng Superpowers:
+Toàn bộ quy trình chuẩn hóa chính sách đa host và tinh gọn overlay đã được thực hiện bằng chính chuỗi kỹ năng Superpowers trong phiên làm việc này:
 
 1. **Pha 1 - Đọc kỹ năng & Lập kế hoạch (`writing-plans`):**
    - Đã đọc: [`skills/writing-plans/SKILL.md`](file:///P:/agent-rules/skills/writing-plans/SKILL.md).
-   - Artifact sinh ra: [`docs/superpowers/plans/2026-09-30-host-preferences-and-reporting-refinement.md`](file:///P:/agent-rules/docs/superpowers/plans/2026-09-30-host-preferences-and-reporting-refinement.md) phân rã 6 tasks cụ thể, xác định rõ files sửa đổi, test kiểm chứng và tiêu chí nghiệm thu.
+   - Artifact sinh ra: [`docs/superpowers/plans/2026-09-30-host-preferences-and-reporting-refinement.md`](file:///P:/agent-rules/docs/superpowers/plans/2026-09-30-host-preferences-and-reporting-refinement.md) phân rã nhiệm vụ cụ thể, ràng buộc token budget (1200-1600 tokens) và tiêu chí nghiệm thu.
 2. **Pha 2 - Thực thi từng lát cắt (`executing-plans`):**
    - Đã đọc: [`skills/executing-plans/SKILL.md`](file:///P:/agent-rules/skills/executing-plans/SKILL.md).
-   - Task 1: Cập nhật [`platforms/antigravity/antigravity-overlay.md`](file:///P:/agent-rules/platforms/antigravity/antigravity-overlay.md) thiết lập host precedence.
-   - Task 2: Chỉnh sửa `build_general_deck.py` minh bạch hóa dữ liệu giả định, render lại slides.
-   - Task 3: Chạy `npm run build` để đóng gói runtime-assets và compile TypeScript.
-   - Task 4: Chạy kiểm thử mục tiêu `npm test -w packages/cli -- test/host-adapters-contract.test.ts` (8/8 tests PASS) và `npm run skills:audit` (PASS).
+   - Đưa chính sách dùng chung lên [`rules/10-execution-planning-delegation.md`](file:///P:/agent-rules/rules/10-execution-planning-delegation.md).
+   - Tinh gọn [`platforms/antigravity/antigravity-overlay.md`](file:///P:/agent-rules/platforms/antigravity/antigravity-overlay.md) chỉ giữ ánh xạ công cụ và `invoke_subagent`.
+   - Biên dịch và đóng gói runtime assets (`npm run build`).
 3. **Pha 3 - Thẩm định mã nguồn (`requesting-code-review`):**
    - Đã đọc: [`skills/requesting-code-review/SKILL.md`](file:///P:/agent-rules/skills/requesting-code-review/SKILL.md).
-   - Đánh giá diff: Xác nhận vendor skills không bị sửa đổi, 0 byte delta trên `profiles/5fedu/`, cơ chế overlay giải quyết dứt điểm mâu thuẫn model tiers và text ledger.
+   - Rà soát diff: Bảo toàn 100% vendor skills, 0 byte delta trên `profiles/5fedu/`, thỏa mãn đầy đủ các biểu thức regex của `test-global-behavior.mjs`.
 4. **Pha 4 - Nghiệm thu bằng chứng thực tế:**
-   - Kết quả test máy chủ: 8/8 test cases của host adapter contract đạt 100%. Không có lỗi hồi quy.
+   - `node automation/test-global-behavior.mjs`: **11/11 checks PASS**.
+   - `npm run skills:audit`: **PASS** (1,249 rules tokens, an toàn trong ngân sách 800-1200 / hard max 1600; 49 active skills).
+   - `npm test -w packages/cli -- test/host-adapters-contract.test.ts`: **8/8 tests PASS** (27s).
 
 ---
 
@@ -140,4 +144,4 @@ Cả 9 host đều được đồng bộ và xác nhận readback thành công v
 
 ### Bảo toàn & Kiểm thử:
 - **`profiles/5fedu/`:** Đảm bảo **0 bytes modified** (hoàn toàn nguyên vẹn).
-- **Targeted Tests:** `npm test -w packages/cli -- test/host-adapters-contract.test.ts` (8/8 passed), `npm run check` (typecheck clean), `npm run skills:audit` (clean 49 active skills).
+- **Targeted Tests:** `test-global-behavior.mjs` (11/11 passed), `host-adapters-contract.test.ts` (8/8 passed), `npm run check` (typecheck clean), `npm run skills:audit` (clean 49 active skills, 1249 tokens).
