@@ -69,13 +69,13 @@ describe('native skill routing', () => {
   });
 
   it('routes explicit skills even when the prompt text is neutral', () => {
-    const ids = routeSkills({ prompt: 'Unrelated neutral wording', explicitSkills: ['plan-and-handoff'] }, repoRoot).map((r) => r.id);
-    expect(ids).toContain('plan-and-handoff');
+    const ids = routeSkills({ prompt: 'Unrelated neutral wording', explicitSkills: ['task-decomposer'] }, repoRoot).map((r) => r.id);
+    expect(ids).toContain('task-decomposer');
   });
 
-  it('uses requested mode deterministically (plan → plan-and-handoff)', () => {
+  it('uses requested mode deterministically (plan → task-decomposer)', () => {
     const ids = routeSkills({ prompt: 'Continue with the accepted task', requestedMode: 'plan' }, repoRoot).map((r) => r.id);
-    expect(ids).toContain('plan-and-handoff');
+    expect(ids).toContain('task-decomposer');
     expect(ids).not.toContain('verification-router');
   });
 
@@ -130,7 +130,8 @@ describe('native skill routing', () => {
     for (const slug of [
       'finish-to-completion', 'database-stack', 'frontend-composition', 'mobile-composition',
       'infra-devops-composition', 'browser-qa', 'ui-taste', 'master-image-generation', 'qa-skills', 'quality',
-      'security-review', 'schema-migration', 'researcher'
+      'security-review', 'schema-migration', 'researcher', 'plan-and-handoff', 'slides',
+      'context-evolution-protocol', 'skill-source-governance'
     ]) {
       expect(active).not.toContain(slug);
       expect(fs.existsSync(path.join(repoRoot, 'skills', slug, 'SKILL.md'))).toBe(false);
@@ -138,7 +139,7 @@ describe('native skill routing', () => {
   });
 
   it('active internal skills keep their canonical folder and frontmatter name', () => {
-    for (const id of ['docs-style', 'plan-and-handoff', 'verification-router']) {
+    for (const id of ['docs-style', 'verification-router']) {
       const skillFile = path.join(repoRoot, 'skills', id, 'SKILL.md');
       expect(fs.existsSync(skillFile)).toBe(true);
       const body = fs.readFileSync(skillFile, 'utf8');
@@ -185,9 +186,9 @@ describe('native skill routing', () => {
   });
 
   it('routes explicit presentation skills and handles dependency requirements deterministically', () => {
-    // 1. Explicit slides routes slides alone
-    const basicIds = routeSkills({ prompt: '', explicitSkills: ['slides'] }, repoRoot).map((r) => r.id);
-    expect(basicIds).toEqual(['slides']);
+    // 1. Explicit slide-maker routes slide-maker alone
+    const basicIds = routeSkills({ prompt: '', explicitSkills: ['slide-maker'] }, repoRoot).map((r) => r.id);
+    expect(basicIds).toEqual(['slide-maker']);
 
     // 2. Synthetic fixture testing dependency pulling
     const fixtureRoot = fixtureGraph({ 'parent-skill': ['child-skill'], 'child-skill': [] });
@@ -197,7 +198,7 @@ describe('native skill routing', () => {
 
     // 3. Neutral prompt without explicit selection routes no presentation skills (Lock 1)
     const neutralIds = routeSkills({ prompt: 'Create a PowerPoint presentation' }, repoRoot).map((r) => r.id);
-    expect(neutralIds).not.toContain('slides');
+    expect(neutralIds).not.toContain('slide-maker');
   });
 
   describe('Gate B: capability inference and authority boundaries', () => {

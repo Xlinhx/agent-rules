@@ -64,7 +64,8 @@ describe('static host projector contracts', () => {
       await installer.install('omp', { backupDir: first.backupDir });
       expect(fs.readFileSync(path.join(agentDir, 'AGENTS.md'), 'utf8')).toContain('agent-rules:managed:omp');
       expect(fs.existsSync(path.join(agentDir, 'skills'))).toBe(true);
-      expect(fs.existsSync(path.join(agentDir, 'skills', 'plan-and-handoff', 'SKILL.md'))).toBe(true);
+      expect(fs.existsSync(path.join(agentDir, 'skills', 'task-decomposer', 'SKILL.md'))).toBe(true);
+      expect(fs.existsSync(path.join(agentDir, 'skills', 'plan-and-handoff'))).toBe(false);
       expect(fs.existsSync(path.join(agentDir, 'skills', 'skill-source-governance'))).toBe(false);
       expect(fs.existsSync(path.join(agentDir, 'extensions', 'agent-rules.ts'))).toBe(false);
       expect(fs.existsSync(path.join(agentDir, 'agent-rules-runtime'))).toBe(false);

@@ -121,10 +121,16 @@ const repoPath = new URL(pin.repository).pathname.replace(/^\/+/, '').replace(/\
 // Tolerates GitHub API rate limits by falling back to a shallow git fetch.
 let treeHash = 'TBD';
 let treeEntries = null;
+const githubHeaders = {
+  Accept: 'application/vnd.github+json',
+  'User-Agent': 'agent-rules-sync/1.0',
+};
+const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
+if (token) githubHeaders.Authorization = `Bearer ${token}`;
 const apiOk = (status) => status === 200;
 try {
   const treeRes = await fetch(`https://api.github.com/repos/${repoPath}/git/trees/${pin.commit}?recursive=1`, {
-    headers: { Accept: 'application/vnd.github+json' },
+    headers: githubHeaders,
     redirect: 'manual',
     signal: AbortSignal.timeout(60_000),
   });
@@ -172,7 +178,11 @@ try {
         fail(`path-safety step: unsupported git entry type ${entry.type} for ${rel} (submodule/symlink not materializable)`);
       }
       const abs = copyStagedEntry(rel, false);
-      const raw = await fetch(`https://raw.githubusercontent.com/${repoPath}/${pin.commit}/${entry.path}`, { redirect: 'manual', signal: AbortSignal.timeout(60_000) });
+      const raw = await fetch(`https://raw.githubusercontent.com/${repoPath}/${pin.commit}/${entry.path}`, {
+        headers: githubHeaders,
+        redirect: 'manual',
+        signal: AbortSignal.timeout(60_000),
+      });
       if (raw.status >= 300 && raw.status < 400) throw new Error(`blob redirect rejected (${raw.status}) for ${entry.path}`);
       if (!raw.ok) throw new Error(`blob download failed (HTTP ${raw.status}) for ${entry.path}`);
       fs.mkdirSync(path.dirname(abs), { recursive: true });

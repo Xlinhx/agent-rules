@@ -27,7 +27,7 @@ try {
   await check('canonical rules support explicit portable handoff without worker/ticket theater', () => {
     const execution = fs.readFileSync(path.join(root, 'rules/10-execution-planning-delegation.md'), 'utf8');
     const outcome = fs.readFileSync(path.join(root, 'rules/20-proof-outcome.md'), 'utf8');
-    const planSkill = fs.readFileSync(path.join(root, 'skills/plan-and-handoff/SKILL.md'), 'utf8');
+    const planSkill = fs.readFileSync(path.join(root, 'skills/task-decomposer/SKILL.md'), 'utf8');
     const verificationSkill = fs.readFileSync(path.join(root, 'skills/verification-router/SKILL.md'), 'utf8');
     const agents = fs.readFileSync(path.join(root, 'AGENTS.md'), 'utf8');
     const readme = fs.readFileSync(path.join(root, 'README.md'), 'utf8');
@@ -42,35 +42,22 @@ try {
     assert.match(execution, /Pending unblocked acceptance is PARTIAL/i);
     assert.match(execution, /never selects a model/i);
     assert.match(execution, /Subagents default to zero/i);
-    assert.match(planSkill, /Constraint-complete plan contract/i);
-    assert.match(planSkill, /Autonomy envelope/i);
-    assert.match(planSkill, /Five contracts/i);
-    assert.match(planSkill, /OWNER_DECISION/i);
-    assert.match(planSkill, /SOURCE_DISCOVERABLE/i);
-    assert.match(planSkill, /IMPLEMENTATION_LOCAL/i);
-    assert.match(planSkill, /EXTERNAL_BLOCKER/i);
-    assert.match(planSkill, /choose files and[\s\S]*symbols/i);
-    assert.match(planSkill, /internal design/i);
-    assert.match(planSkill, /necessary local refactors/i);
-    assert.match(planSkill, /equivalent command/i);
-    assert.match(planSkill, /Source identity/i);
-    assert.match(planSkill, /Domain closure/i);
-    assert.match(planSkill, /Reference closure/i);
-    assert.match(planSkill, /Slice delta/i);
-    assert.match(planSkill, /return `NEEDS_USER`/i);
+    assert.match(planSkill, /Task Decomposer/i);
+    assert.match(planSkill, /acceptance criteria/i);
+    assert.match(planSkill, /tracer-bullet vertical slices/i);
+    assert.match(planSkill, /Map Dependencies/i);
+    assert.match(planSkill, /Test Strategy/i);
+    assert.match(planSkill, /Flag Risks/i);
     assert.match(verificationSkill, /focused execution aid/i);
     assert.match(verificationSkill, /Change-kind proof/i);
     assert.match(verificationSkill, /active import, route, consumer or runtime/i);
     assert.match(outcome, /Model prose never creates PASS/i);
-    assert.match(planSkill, /Explore → Distill → Commit/i);
-    assert.match(planSkill, /Active frontier and context quarantine/i);
     assert.doesNotMatch(execution, /one focused recheck/i);
-    assert.doesNotMatch(planSkill, /exact proof command/i);
     assert.doesNotMatch(verificationSkill, /machine-readable verification plan/i);
     assert.doesNotMatch(verificationSkill, /Human residual packet/i);
     assert.doesNotMatch(verificationSkill, /mandatory independent verifier/i);
     // Retired aliases are gone (no duplicate authority, no wrapper reachability).
-    for (const retired of ['finish-to-completion', 'ui-taste', 'frontend-composition', 'database-stack', 'mobile-composition', 'infra-devops-composition', 'browser-qa', 'master-image-generation', 'qa-skills', 'quality']) {
+    for (const retired of ['finish-to-completion', 'ui-taste', 'frontend-composition', 'database-stack', 'mobile-composition', 'infra-devops-composition', 'browser-qa', 'master-image-generation', 'qa-skills', 'quality', 'plan-and-handoff', 'slides', 'context-evolution-protocol', 'skill-source-governance']) {
       assert.equal(fs.existsSync(path.join(root, 'skills', retired, 'SKILL.md')), false, `${retired} must be retired (no alias retained)`);
     }
     assert.doesNotMatch(agents, /owns planning and implementation end to end/i);
@@ -93,7 +80,7 @@ try {
     }
     // 'impeccable' monolithic skill has been replaced by pbakaus atomic skills (polish, critique, quieter, distill)
     assert.equal(fs.existsSync(path.join(root, 'skills/polish/SKILL.md')), true, 'polish successor must be materialized');
-    for (const upstream of ['playwright-cli', 'expo-overview', 'systematic-debugging', 'design-taste-frontend', 'image-to-code']) assert.equal(fs.existsSync(path.join(root, 'skills', upstream, 'SKILL.md')), true, `${upstream} must be materialized under its exact upstream name`);
+    for (const upstream of ['playwright-cli', 'expo-overview', 'systematic-debugging', 'design-taste-frontend', 'image-to-code', 'task-decomposer', 'slide-maker']) assert.equal(fs.existsSync(path.join(root, 'skills', upstream, 'SKILL.md')), true, `${upstream} must be materialized under its exact upstream name`);
     assert.equal(fs.existsSync(path.join(root, '.agent', 'history')), false, 'active task state must not create history');
   });
 

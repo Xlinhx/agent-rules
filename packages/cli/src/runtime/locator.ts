@@ -48,6 +48,10 @@ export function resolvePackageRoot(): string {
 }
 
 export function resolveRuntimeAssetsRoot(): string {
+  if (process.env.NODE_ENV === "test") {
+    const testRepo = process.env.AGENT_RULES_REPOSITORY_ROOT ?? TEST_REPOSITORY_ROOT;
+    if (testRepo) return path.resolve(testRepo);
+  }
   const packed = path.join(packageRootFromModule(), "runtime-assets");
   if (hasPackedAssets(packageRootFromModule())) return packed;
   const testRoot = testOnlySourceRoot();

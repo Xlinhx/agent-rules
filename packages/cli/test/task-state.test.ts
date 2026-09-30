@@ -2,10 +2,39 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { describe, expect, it } from 'vitest';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import YAML from 'yaml';
 import { taskCommand } from '../src/commands/task.js';
 import { resolveRuntimeAssetsRoot } from '../src/runtime/locator.js';
 import { TASK_START_SCHEMA, deriveMinimalPlanContract, type TaskStartInput, type ProofStrength } from '@initforge/agent-rules-kernel/northstar/task-state.js';
+
+const realSource = path.resolve(import.meta.dirname, '../../..');
+const fixtureAssets = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-rules-task-fixture-assets-'));
+const prevRepoRoot = process.env.AGENT_RULES_REPOSITORY_ROOT;
+
+beforeAll(() => {
+  fs.cpSync(path.join(realSource, 'registry'), path.join(fixtureAssets, 'registry'), { recursive: true });
+  fs.cpSync(path.join(realSource, 'rules'), path.join(fixtureAssets, 'rules'), { recursive: true });
+  fs.cpSync(path.join(realSource, 'platforms'), path.join(fixtureAssets, 'platforms'), { recursive: true });
+  fs.mkdirSync(path.join(fixtureAssets, 'skills', 'fixture-explicit-a'), { recursive: true });
+  fs.writeFileSync(path.join(fixtureAssets, 'skills', 'fixture-explicit-a', 'SKILL.md'), '---\nname: fixture-explicit-a\ndescription: test fixture a\n---\n# fixture-explicit-a\n');
+  fs.mkdirSync(path.join(fixtureAssets, 'skills', 'fixture-explicit-b'), { recursive: true });
+  fs.writeFileSync(path.join(fixtureAssets, 'skills', 'fixture-explicit-b', 'SKILL.md'), '---\nname: fixture-explicit-b\ndescription: test fixture b\n---\n# fixture-explicit-b\n');
+  const regPath = path.join(fixtureAssets, 'registry', 'skills.yaml');
+  const reg = YAML.parse(fs.readFileSync(regPath, 'utf8'));
+  reg.skills.push(
+    { id: 'fixture-explicit-a', origin: 'internal', role: 'process', activation: 'explicit-only', compatibility: {}, lifecycle: 'active', trust_tier: 'owner-approved', trust_basis: 'test fixture', network: 'none', side_effects: [], update_policy: 'manual_review', failure_target: 'fixture failure target a', removal_condition: 'fixture removal condition a' },
+    { id: 'fixture-explicit-b', origin: 'internal', role: 'process', activation: 'explicit-only', compatibility: {}, lifecycle: 'active', trust_tier: 'owner-approved', trust_basis: 'test fixture', network: 'none', side_effects: [], update_policy: 'manual_review', failure_target: 'fixture failure target b', removal_condition: 'fixture removal condition b' }
+  );
+  fs.writeFileSync(regPath, YAML.stringify(reg));
+  process.env.AGENT_RULES_REPOSITORY_ROOT = fixtureAssets;
+});
+
+afterAll(() => {
+  if (prevRepoRoot === undefined) delete process.env.AGENT_RULES_REPOSITORY_ROOT;
+  else process.env.AGENT_RULES_REPOSITORY_ROOT = prevRepoRoot;
+  fs.rmSync(fixtureAssets, { recursive: true, force: true });
+});
 
 function repo(): string {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-rules-task-'));
@@ -130,10 +159,10 @@ describe('project-local task state', () => {
 
   it('projects only selected explicit skills to the repository-local host surface', () => {
     const root = repo();
-    const result = taskCommand('start', { root, host: 'codex', input: input('browser', ['skill-source-governance']) });
+    const result = taskCommand('start', { root, host: 'codex', input: input('browser', ['fixture-explicit-a']) });
     expect(result.exitCode).toBe(0);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'skill-source-governance', 'SKILL.md'))).toBe(true);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'impeccable', 'SKILL.md'))).toBe(false);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'fixture-explicit-a', 'SKILL.md'))).toBe(true);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'unselected-fixture', 'SKILL.md'))).toBe(false);
   });
 
   it('does not create a repository-local surface for implicit-only selection', () => {
@@ -148,26 +177,26 @@ describe('project-local task state', () => {
 
   it('selecting Prisma skills does not project UI/browser skills', () => {
     const root = repo();
-    expect(taskCommand('start', { root, host: 'codex', input: input('db', ['skill-source-governance']) }).exitCode).toBe(0);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'skill-source-governance', 'SKILL.md'))).toBe(true);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'context-evolution-protocol'))).toBe(false);
+    expect(taskCommand('start', { root, host: 'codex', input: input('db', ['fixture-explicit-a']) }).exitCode).toBe(0);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'fixture-explicit-a', 'SKILL.md'))).toBe(true);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'fixture-explicit-b'))).toBe(false);
   });
   it('task update replaces selected explicit skills transactionally', () => {
     const root = repo();
-    expect(taskCommand('start', { root, host: 'codex', input: input('first', ['skill-source-governance']) }).exitCode).toBe(0);
+    expect(taskCommand('start', { root, host: 'codex', input: input('first', ['fixture-explicit-a']) }).exitCode).toBe(0);
     const state = JSON.parse(fs.readFileSync(path.join(root, '.agent', 'current', 'state.json'), 'utf8'));
     state.revision += 1;
-    state.selected_skill_ids = ['context-evolution-protocol'];
+    state.selected_skill_ids = ['fixture-explicit-b'];
     state.decisions = [{ id: 'SKILL-SELECTION-1', decision: 'Use systematic debugging', reason: 'Current accepted debugging scope requires root-cause procedure', reopen_if: [] }];
     const updated = taskCommand('update', { root, host: 'codex', input: state });
     expect(updated.exitCode, updated.message).toBe(0);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'skill-source-governance'))).toBe(false);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'context-evolution-protocol', 'SKILL.md'))).toBe(true);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'fixture-explicit-a'))).toBe(false);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'fixture-explicit-b', 'SKILL.md'))).toBe(true);
   });
 
   it('task update to implicit-only removes the owned projection surface', () => {
     const root = repo();
-    expect(taskCommand('start', { root, host: 'codex', input: input('first', ['skill-source-governance']) }).exitCode).toBe(0);
+    expect(taskCommand('start', { root, host: 'codex', input: input('first', ['fixture-explicit-a']) }).exitCode).toBe(0);
     const state = JSON.parse(fs.readFileSync(path.join(root, '.agent', 'current', 'state.json'), 'utf8'));
     state.revision += 1;
     state.selected_skill_ids = ['verification-router'];
@@ -185,59 +214,59 @@ describe('project-local task state', () => {
     const user = path.join(root, '.agents', 'skills', 'user-owned');
     fs.mkdirSync(user, { recursive: true });
     fs.writeFileSync(path.join(user, 'SKILL.md'), 'user');
-    expect(taskCommand('start', { root, host: 'codex', input: input('browser', ['skill-source-governance']) }).exitCode).toBe(0);
-    expect(taskCommand('start', { root, host: 'codex', input: input('debug', ['context-evolution-protocol']) }).exitCode).toBe(0);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'skill-source-governance'))).toBe(false);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'context-evolution-protocol', 'SKILL.md'))).toBe(true);
+    expect(taskCommand('start', { root, host: 'codex', input: input('browser', ['fixture-explicit-a']) }).exitCode).toBe(0);
+    expect(taskCommand('start', { root, host: 'codex', input: input('debug', ['fixture-explicit-b']) }).exitCode).toBe(0);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'fixture-explicit-a'))).toBe(false);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'fixture-explicit-b', 'SKILL.md'))).toBe(true);
     const state = JSON.parse(fs.readFileSync(path.join(root, '.agent', 'current', 'state.json'), 'utf8')) as { task_id: string };
     expect(taskCommand('close', { root, taskId: state.task_id }).exitCode).toBe(0);
     expect(fs.existsSync(user)).toBe(true);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'context-evolution-protocol'))).toBe(false);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'fixture-explicit-b'))).toBe(false);
   });
 
   it('fails closed on a same-name different-hash collision', () => {
     const root = repo();
-    const collision = path.join(root, '.agents', 'skills', 'skill-source-governance');
+    const collision = path.join(root, '.agents', 'skills', 'fixture-explicit-a');
     fs.mkdirSync(collision, { recursive: true });
     fs.writeFileSync(path.join(collision, 'SKILL.md'), 'different');
-    const result = taskCommand('start', { root, host: 'codex', input: input('browser', ['skill-source-governance']) });
+    const result = taskCommand('start', { root, host: 'codex', input: input('browser', ['fixture-explicit-a']) });
     expect(result.exitCode).not.toBe(0);
     expect(result.message).toMatch(/NEEDS_USER/);
   });
 
   it('reuses an identical unowned task-local skill without taking ownership', () => {
     const root = repo();
-    const target = path.join(root, '.agents', 'skills', 'skill-source-governance');
+    const target = path.join(root, '.agents', 'skills', 'fixture-explicit-a');
     fs.mkdirSync(path.dirname(target), { recursive: true });
-    fs.cpSync(path.join(resolveRuntimeAssetsRoot(), 'skills', 'skill-source-governance'), target, { recursive: true });
-    expect(taskCommand('start', { root, host: 'codex', input: input('browser', ['skill-source-governance']) }).exitCode).toBe(0);
+    fs.cpSync(path.join(resolveRuntimeAssetsRoot(), 'skills', 'fixture-explicit-a'), target, { recursive: true });
+    expect(taskCommand('start', { root, host: 'codex', input: input('browser', ['fixture-explicit-a']) }).exitCode).toBe(0);
     const state = JSON.parse(fs.readFileSync(path.join(root, '.agent', 'current', 'state.json'), 'utf8'));
     expect(state.projected_skill_ids).toEqual([]);
-    expect(state.skill_projection.reused_skill_ids).toEqual(['skill-source-governance']);
+    expect(state.skill_projection.reused_skill_ids).toEqual(['fixture-explicit-a']);
     expect(taskCommand('close', { root, taskId: state.task_id }).exitCode).toBe(0);
     expect(fs.existsSync(path.join(target, 'SKILL.md'))).toBe(true);
   });
 
   it('restores the previous projection when a new plan state fails validation', () => {
     const root = repo();
-    expect(taskCommand('start', { root, host: 'codex', input: input('old', ['skill-source-governance']) }).exitCode).toBe(0);
-    const broken = input('new', ['context-evolution-protocol']);
+    expect(taskCommand('start', { root, host: 'codex', input: input('old', ['fixture-explicit-a']) }).exitCode).toBe(0);
+    const broken = input('new', ['fixture-explicit-b']);
     broken.state.status = 'PASS';
     expect(taskCommand('start', { root, host: 'codex', input: broken }).exitCode).not.toBe(0);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'skill-source-governance', 'SKILL.md'))).toBe(true);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'context-evolution-protocol'))).toBe(false);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'fixture-explicit-a', 'SKILL.md'))).toBe(true);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'fixture-explicit-b'))).toBe(false);
   });
 
   it('reports unsupported when a host has no repository-local skill surface', () => {
     const root = repo();
-    const result = taskCommand('start', { root, host: 'command-code', input: input('browser', ['skill-source-governance']) });
+    const result = taskCommand('start', { root, host: 'command-code', input: input('browser', ['fixture-explicit-a']) });
     expect(result.exitCode).toBe(0);
     const state = JSON.parse(fs.readFileSync(path.join(root, '.agent', 'current', 'state.json'), 'utf8')) as { status: string; blockers: Array<{ id: string; reason: string; affected_slices: string[] }>; skill_projection: { status: string } };
     expect(state.status).toBe('PARTIAL');
     expect(state.skill_projection.status).toBe('UNSUPPORTED');
     expect(state.blockers).toContainEqual(expect.objectContaining({ id: 'SKILL-PROJECTION-UNSUPPORTED', affected_slices: ['S1'] }));
     expect(state.blockers.find((entry) => entry.id === 'SKILL-PROJECTION-UNSUPPORTED')?.reason).toMatch(/no repository-local skill surface.*no global fallback/i);
-    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'context-evolution-protocol'))).toBe(false);
+    expect(fs.existsSync(path.join(root, '.agents', 'skills', 'fixture-explicit-b'))).toBe(false);
   });
 
   it('rejects task update that alters acceptance claim or required strength', () => {

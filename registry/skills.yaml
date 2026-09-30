@@ -5,18 +5,14 @@ skills:
     role: process
     activation: explicit-only
     compatibility: {}
-    lifecycle: active
+    lifecycle: retired
     trust_tier: owner-approved
     trust_basis: canonical internal procedure, owner-approved
     network: none
     side_effects: []
     update_policy: manual_review
     platform_scope: repo-local
-    status_reason: Migrated to repo maintainer documentation and automated CLI/audit checks
-    failure_target: modifying rules or context without safety gates, evidence, or regression
-      prevention
-    removal_condition: retire when host models reliably maintain rule integrity and context
-      without manual governance
+    status_reason: Migrated mechanical responsibilities to maintainer tooling (automation/skills-audit.mjs) and maintainer loop documentation
   - id: docs-style
     origin: internal
     role: process
@@ -29,25 +25,23 @@ skills:
     side_effects: []
     update_policy: manual_review
     failure_target: documentation that does not reflect real source or owner quality standards
-    removal_condition: replace when an approved upstream skill proves equal
-      source-grounded quality at lower context cost
+    removal_condition: replace when an approved upstream skill proves equal source-grounded quality at lower context cost
   - id: plan-and-handoff
     origin: internal
     role: process
     activation: implicit
     compatibility: {}
-    lifecycle: active
+    lifecycle: retired
     trust_tier: owner-approved
     trust_basis: canonical internal procedure, owner-approved
     network: none
     side_effects: []
     update_policy: manual_review
+    status_reason: Superseded by upstream task-decomposer from Mathews-Tom/armory for dependency-mapped vertical slice planning
     supersedes:
       - brainstorming
-    failure_target: cross-session implementers needing unstated planner decisions or
-      losing transition constraints
-    removal_condition: remove when every host exports equivalent cold-start plan and
-      frontier contracts
+    superseded_by:
+      - task-decomposer
   - id: researcher
     origin: internal
     role: process
@@ -59,8 +53,7 @@ skills:
     network: none
     side_effects: []
     update_policy: manual_review
-    status_reason: Superseded by upstream deep-research with source tracing and
-      contradiction resolution
+    status_reason: Superseded by upstream deep-research with source tracing and contradiction resolution
     superseded_by:
       - deep-research
   - id: schema-migration
@@ -74,8 +67,7 @@ skills:
     network: none
     side_effects: []
     update_policy: manual_review
-    status_reason: Superseded by upstream database-migrations covering
-      expand-contract, concurrent operations and cross-stack migrations
+    status_reason: Superseded by upstream database-migrations covering expand-contract, concurrent operations and cross-stack migrations
     superseded_by:
       - database-migrations
   - id: security-review
@@ -104,25 +96,20 @@ skills:
     side_effects: []
     update_policy: manual_review
     failure_target: proof that is too weak, stale, excessive or unrelated to the changed claim
-    removal_condition: remove when host-native proof selection and reduction are
-      equivalently fail-closed
+    removal_condition: remove when host-native proof selection and reduction are equivalently fail-closed
   - id: skill-source-governance
     origin: internal
     role: process
     activation: explicit-only
     compatibility: {}
-    lifecycle: active
+    lifecycle: retired
     trust_tier: owner-approved
     trust_basis: canonical internal procedure, owner-approved
     network: none
     side_effects: []
     update_policy: manual_review
     platform_scope: repo-local
-    status_reason: Migrated to repo maintainer documentation and automated CLI/audit checks
-    failure_target: adopting external skills without license review, security vetting, or
-      content hash integrity
-    removal_condition: retire when all external skills are automatically verified by package
-      manager provenance
+    status_reason: Migrated mechanical responsibilities to maintainer tooling (automation/skills-audit.mjs) and maintainer loop documentation
   - id: frontend-design
     origin: upstream
     role: design
@@ -177,10 +164,8 @@ skills:
       - điều hướng expo
       - stack router expo
       - expo deep link
-    failure_target: broken mobile navigation stacks, improper layout nesting, or
-      failed deep links in Expo Router
-    removal_condition: replace when host-native mobile workflows provide equivalent
-      Expo file-based routing procedures
+    failure_target: broken mobile navigation stacks, improper layout nesting, or failed deep links in Expo Router
+    removal_condition: replace when host-native mobile workflows provide equivalent Expo file-based routing procedures
   - id: expo-native-ui
     origin: upstream
     role: domain
@@ -208,10 +193,8 @@ skills:
       - giao diện expo
       - expo safe area
       - expo status bar
-    failure_target: inconsistent cross-platform mobile UI, broken safe areas, or
-      unoptimized re-renders in Expo applications
-    removal_condition: replace when host-native mobile procedures provide equivalent
-      Expo UI component guidance
+    failure_target: inconsistent cross-platform mobile UI, broken safe areas, or unoptimized re-renders in Expo applications
+    removal_condition: replace when host-native mobile procedures provide equivalent Expo UI component guidance
   - id: expo-upgrade
     origin: upstream
     role: domain
@@ -238,10 +221,8 @@ skills:
       - nâng cấp expo
       - update expo sdk
       - expo sdk version
-    failure_target: failed Expo SDK upgrades, broken dependency mismatches, or
-      deprecated native module invocations
-    removal_condition: replace when host-native mobile tools provide equivalent
-      automated Expo SDK migration validation
+    failure_target: failed Expo SDK upgrades, broken dependency mismatches, or deprecated native module invocations
+    removal_condition: replace when host-native mobile tools provide equivalent automated Expo SDK migration validation
   - id: react-native-best-practices
     origin: upstream
     role: domain
@@ -261,10 +242,8 @@ skills:
     network: read
     side_effects: []
     update_policy: manual_review
-    failure_target: unprofiled frame drops, JS-thread blocking, memory leaks, or
-      unoptimized lists in React Native apps
-    removal_condition: replace when host-native mobile workflows provide equivalent
-      React Native performance profiling
+    failure_target: unprofiled frame drops, JS-thread blocking, memory leaks, or unoptimized lists in React Native apps
+    removal_condition: replace when host-native mobile workflows provide equivalent React Native performance profiling
     signals:
       - react native
       - react-native
@@ -304,10 +283,8 @@ skills:
       - supabase auth
       - pgvector supabase
       - realtime supabase
-    failure_target: unprotected Supabase tables lacking Row Level Security, leaky
-      service-role keys, or slow PostgreSQL queries
-    removal_condition: replace when host-native database procedures provide
-      equivalent Supabase and PostgreSQL best practices
+    failure_target: unprotected Supabase tables lacking Row Level Security, leaky service-role keys, or slow PostgreSQL queries
+    removal_condition: replace when host-native database procedures provide equivalent Supabase and PostgreSQL best practices
   - id: prisma-client-api
     origin: upstream
     role: domain
@@ -335,10 +312,8 @@ skills:
       - truy vấn prisma
       - prisma findMany
       - prisma transaction
-    failure_target: unoptimized N+1 queries, unindexed filters, or unsafe
-      transaction boundaries when using Prisma Client
-    removal_condition: replace when host-native database procedures provide
-      equivalent Prisma type-safety and query optimization
+    failure_target: unoptimized N+1 queries, unindexed filters, or unsafe transaction boundaries when using Prisma Client
+    removal_condition: replace when host-native database procedures provide equivalent Prisma type-safety and query optimization
   - id: prisma-cli
     origin: upstream
     role: domain
@@ -366,10 +341,8 @@ skills:
       - migrate db prisma
       - schema.prisma
       - prisma db push
-    failure_target: destructive database migrations, out-of-sync Prisma schemas, or
-      unversioned production schema drift
-    removal_condition: replace when host-native schema migration tools provide
-      equivalent Prisma migration safety
+    failure_target: destructive database migrations, out-of-sync Prisma schemas, or unversioned production schema drift
+    removal_condition: replace when host-native schema migration tools provide equivalent Prisma migration safety
   - id: differential-review
     origin: upstream
     role: auditor
@@ -402,10 +375,8 @@ skills:
       - rà soát code
       - code review
       - diff audit
-    failure_target: merging pull requests or code changes with unintended
-      regressions, scope creep, or broken contracts
-    removal_condition: replace when host-native differential review procedures
-      provide equivalent invariant checking
+    failure_target: merging pull requests or code changes with unintended regressions, scope creep, or broken contracts
+    removal_condition: replace when host-native differential review procedures provide equivalent invariant checking
     supersedes:
       - security-review
   - id: supply-chain-risk-auditor
@@ -440,10 +411,8 @@ skills:
       - dependency security
       - rủi ro thư viện
       - package vulnerability
-    failure_target: introducing unvetted, vulnerable, or malicious third-party
-      dependencies into the project repository
-    removal_condition: replace when host-native package managers provide equivalent
-      zero-trust provenance scanning
+    failure_target: introducing unvetted, vulnerable, or malicious third-party dependencies into the project repository
+    removal_condition: replace when host-native package managers provide equivalent zero-trust provenance scanning
   - id: exploratory-testing
     origin: upstream
     role: auditor
@@ -479,10 +448,8 @@ skills:
       - permission matrix
       - kiểm tra bảo mật quyền
       - corner case
-    failure_target: shipping features with untested edge cases, broken permission
-      boundaries, or invalid state transitions
-    removal_condition: replace when host-native exploratory testing procedures
-      equivalently cover edge case matrices
+    failure_target: shipping features with untested edge cases, broken permission boundaries, or invalid state transitions
+    removal_condition: replace when host-native exploratory testing procedures equivalently cover edge case matrices
   - id: test-strategy
     origin: upstream
     role: process
@@ -511,10 +478,8 @@ skills:
       - integration test
       - kế hoạch kiểm thử
       - test case
-    failure_target: excessive or ritualistic testing that slows development without
-      reducing risk or catching real regressions
-    removal_condition: replace when a superior native test strategy skill proves
-      higher precision at equal context cost
+    failure_target: excessive or ritualistic testing that slows development without reducing risk or catching real regressions
+    removal_condition: replace when a superior native test strategy skill proves higher precision at equal context cost
   - id: image-to-code
     origin: upstream
     role: design
@@ -542,10 +507,8 @@ skills:
       - clone giao diện ảnh
       - dựng code từ ảnh
       - figma screenshot
-    failure_target: inaccurate, distorted, or non-responsive UI implementations from
-      design mockups or screenshots
-    removal_condition: replace when a superior native visual-to-code skill proves
-      higher fidelity at equal context cost
+    failure_target: inaccurate, distorted, or non-responsive UI implementations from design mockups or screenshots
+    removal_condition: replace when a superior native visual-to-code skill proves higher fidelity at equal context cost
   - id: playwright-cli
     origin: upstream
     role: verifier
@@ -573,10 +536,8 @@ skills:
       - kiểm thử trình duyệt
       - e2e test
       - browser test script
-    failure_target: flaky or blind browser automation tests without assertions,
-      video/trace recordings, or deterministic waits
-    removal_condition: replace when host-native browser automation testing provides
-      equivalent headless and headed coverage
+    failure_target: flaky or blind browser automation tests without assertions, video/trace recordings, or deterministic waits
+    removal_condition: replace when host-native browser automation testing provides equivalent headless and headed coverage
   - id: expo-overview
     origin: upstream
     role: domain
@@ -604,10 +565,8 @@ skills:
       - tổng quan expo
       - expo config
       - app.json expo
-    failure_target: misconfigured Expo projects, invalid EAS build settings, or poor
-      initial mobile architectural layout
-    removal_condition: replace when host-native mobile workflows provide equivalent
-      Expo architectural baseline coverage
+    failure_target: misconfigured Expo projects, invalid EAS build settings, or poor initial mobile architectural layout
+    removal_condition: replace when host-native mobile workflows provide equivalent Expo architectural baseline coverage
   - id: systematic-debugging
     origin: upstream
     role: process
@@ -646,10 +605,8 @@ skills:
       - root cause
       - truy vết lỗi
       - systematic debugging
-    failure_target: unprincipled trial-and-error debugging, guessing root causes,
-      and creating regressions without isolated reproduction
-    removal_condition: replace when a superior native debugging skill proves higher
-      resolution at equal context cost
+    failure_target: unprincipled trial-and-error debugging, guessing root causes, and creating regressions without isolated reproduction
+    removal_condition: replace when a superior native debugging skill proves higher resolution at equal context cost
   - id: design-taste-frontend
     origin: upstream
     role: design
@@ -751,26 +708,16 @@ skills:
     role: domain
     activation: implicit
     compatibility: {}
-    lifecycle: active
+    lifecycle: retired
     trust_tier: owner-approved
     trust_basis: canonical internal procedure, owner-approved
     network: read
     side_effects:
       - filesystem.write
     update_policy: manual_review
-    signals:
-      - powerpoint
-      - pptx
-      - slides
-      - slide deck
-      - presentation
-      - làm slide
-      - bài thuyết trình
-      - tạo slide
-      - pitch deck
-    failure_target: presentation generation without visual references, narrative editing, editable PPTX canvas bounds, or real rendered verification
-    removal_condition: replace when a superior native presentation workflow proves
-      higher fidelity at equal context cost
+    status_reason: Superseded by upstream slide-maker from addsumtech/slides_maker for native editable PPTX generation and lint/review loop
+    superseded_by:
+      - slide-maker
   - id: 3dviz-pro-max
     origin: upstream
     role: domain
@@ -803,10 +750,8 @@ skills:
       - dựng hình 3d
       - 3d scene
       - 3d model
-    failure_target: 3D scene construction or edits with generic or hallucinated
-      spatial models, broken rigs, or ungrounded physics
-    removal_condition: replace when a superior native 3D visualization skill proves
-      higher fidelity at equal context cost
+    failure_target: 3D scene construction or edits with generic or hallucinated spatial models, broken rigs, or ungrounded physics
+    removal_condition: replace when a superior native 3D visualization skill proves higher fidelity at equal context cost
   - id: apple-design
     origin: upstream
     role: design
@@ -838,10 +783,8 @@ skills:
       - chuyển động mượt
       - hiệu ứng apple
       - animation vật lý
-    failure_target: sluggish, non-interruptible animations, frame drops, or
-      unphysical UI transitions
-    removal_condition: replace when a superior native fluid motion skill proves
-      higher fidelity at equal context cost
+    failure_target: sluggish, non-interruptible animations, frame drops, or unphysical UI transitions
+    removal_condition: replace when a superior native fluid motion skill proves higher fidelity at equal context cost
   - id: animation-vocabulary
     origin: upstream
     role: domain
@@ -868,10 +811,8 @@ skills:
       - what is it called
       - animation term
       - motion glossary
-    failure_target: misidentifying animation names or failing to provide standard
-      motion terminology to designers
-    removal_condition: replace when host-native design tools provide equivalent
-      animation naming discovery
+    failure_target: misidentifying animation names or failing to provide standard motion terminology to designers
+    removal_condition: replace when host-native design tools provide equivalent animation naming discovery
   - id: emil-design-eng
     origin: upstream
     role: design
@@ -899,10 +840,8 @@ skills:
       - tinh chỉnh giao diện
       - giao diện đỉnh cao
       - design taste
-    failure_target: amateurish UI layouts, sloppy alignment, or missing invisible
-      interaction details
-    removal_condition: replace when a superior design engineering skill proves
-      higher craft resolution
+    failure_target: amateurish UI layouts, sloppy alignment, or missing invisible interaction details
+    removal_condition: replace when a superior design engineering skill proves higher craft resolution
   - id: review-animations
     origin: upstream
     role: auditor
@@ -929,10 +868,8 @@ skills:
       - kiểm tra chuyển động
       - animation performance
       - motion craft
-    failure_target: shipping sluggish, uncalibrated, or unnecessary animations that
-      degrade user experience
-    removal_condition: replace when static analysis rules catch all motion craft
-      violations automatically
+    failure_target: shipping sluggish, uncalibrated, or unnecessary animations that degrade user experience
+    removal_condition: replace when static analysis rules catch all motion craft violations automatically
   - id: agent-browser
     origin: upstream
     role: verifier
@@ -959,10 +896,8 @@ skills:
       - kiểm tra web live
       - browser proof
       - tự động hóa trình duyệt
-    failure_target: ungrounded UI assertions without live headless browser execution
-      and DOM verification
-    removal_condition: replace when host-native browser agents provide equivalent
-      persistent browser automation
+    failure_target: ungrounded UI assertions without live headless browser execution and DOM verification
+    removal_condition: replace when host-native browser agents provide equivalent persistent browser automation
   - id: tailwind-design-system
     origin: upstream
     role: domain
@@ -989,10 +924,8 @@ skills:
       - tailwind tokens
       - hệ thống tailwind
       - theme tailwind
-    failure_target: unstructured CSS utility sprawl, broken Tailwind v4 theme
-      configuration, or arbitrary class chaos
-    removal_condition: replace when host-native CSS tools provide equivalent
-      Tailwind token governance
+    failure_target: unstructured CSS utility sprawl, broken Tailwind v4 theme configuration, or arbitrary class chaos
+    removal_condition: replace when host-native CSS tools provide equivalent Tailwind token governance
   - id: oklch-skill
     origin: upstream
     role: design
@@ -1019,10 +952,8 @@ skills:
       - phối màu
       - color contrast oklch
       - bảng màu
-    failure_target: perceptually unbalanced color palettes, unreadable contrasts
-      across light/dark modes, or muddy color ramps
-    removal_condition: replace when host-native design tools provide equivalent
-      perceptual color space calculation
+    failure_target: perceptually unbalanced color palettes, unreadable contrasts across light/dark modes, or muddy color ramps
+    removal_condition: replace when host-native design tools provide equivalent perceptual color space calculation
   - id: extract-design-system
     origin: upstream
     role: domain
@@ -1048,8 +979,7 @@ skills:
       - trích xuất design token
       - starter tokens
       - extract tokens
-    failure_target: manual and inconsistent extraction of design tokens from
-      incumbent codebases or reference URLs
+    failure_target: manual and inconsistent extraction of design tokens from incumbent codebases or reference URLs
     removal_condition: replace when host-native design token extractors prove higher precision
   - id: quieter
     origin: internal
@@ -1058,8 +988,7 @@ skills:
     compatibility: {}
     lifecycle: active
     trust_tier: owner-approved
-    trust_basis: derived from pbakaus/impeccable (Apache-2.0), maintained internally
-      for calm design balance
+    trust_basis: derived from pbakaus/impeccable (Apache-2.0), maintained internally for calm design balance
     network: none
     side_effects: []
     update_policy: manual_review
@@ -1073,8 +1002,7 @@ skills:
       - quá lòe loẹt
       - overstimulated ui
       - giảm tải visual
-    failure_target: failing to restrain aggressive, overstimulating UI while
-      preserving functional character and brand identity
+    failure_target: failing to restrain aggressive, overstimulating UI while preserving functional character and brand identity
     removal_condition: replace when a superior UI calming procedure proves higher fidelity
   - id: distill
     origin: internal
@@ -1083,8 +1011,7 @@ skills:
     compatibility: {}
     lifecycle: active
     trust_tier: owner-approved
-    trust_basis: derived from pbakaus/impeccable (Apache-2.0), maintained internally
-      for UI simplification
+    trust_basis: derived from pbakaus/impeccable (Apache-2.0), maintained internally for UI simplification
     network: none
     side_effects: []
     update_policy: manual_review
@@ -1095,10 +1022,8 @@ skills:
       - strip visual clutter
       - strip complexity
       - tối giản giao diện thừa
-    failure_target: complex, cluttered interfaces with redundant widgets, competing
-      calls-to-action, and diluted user focus
-    removal_condition: replace when a superior UI simplification skill proves higher
-      clarity at equal context cost
+    failure_target: complex, cluttered interfaces with redundant widgets, competing calls-to-action, and diluted user focus
+    removal_condition: replace when a superior UI simplification skill proves higher clarity at equal context cost
   - id: critique
     origin: internal
     role: auditor
@@ -1106,8 +1031,7 @@ skills:
     compatibility: {}
     lifecycle: active
     trust_tier: owner-approved
-    trust_basis: derived from pbakaus/impeccable (Apache-2.0), refactored internally
-      under Dual-Strength Doctrine
+    trust_basis: derived from pbakaus/impeccable (Apache-2.0), refactored internally under Dual-Strength Doctrine
     network: none
     side_effects: []
     update_policy: manual_review
@@ -1121,10 +1045,8 @@ skills:
       - review thiết kế
       - xem hộ giao diện
       - anti-slop check
-    failure_target: unprincipled visual reviews lacking structured heuristic
-      scoring, actionable remediation, or clear prioritization
-    removal_condition: replace when host-native design review tools provide
-      equivalent heuristic scoring
+    failure_target: unprincipled visual reviews lacking structured heuristic scoring, actionable remediation, or clear prioritization
+    removal_condition: replace when host-native design review tools provide equivalent heuristic scoring
   - id: polish
     origin: internal
     role: design
@@ -1132,8 +1054,7 @@ skills:
     compatibility: {}
     lifecycle: active
     trust_tier: owner-approved
-    trust_basis: derived from pbakaus/impeccable (Apache-2.0), maintained internally
-      for pre-ship micro-alignment
+    trust_basis: derived from pbakaus/impeccable (Apache-2.0), maintained internally for pre-ship micro-alignment
     network: none
     side_effects: []
     update_policy: manual_review
@@ -1144,10 +1065,8 @@ skills:
       - rà soát chi tiết
       - pre-ship polish
       - làm mượt visual
-    failure_target: shipping UI with uneven padding, misaligned typography
-      baselines, unhandled hover/active states, or rough edges
-    removal_condition: replace when host-native polish linters catch all
-      micro-alignment defects automatically
+    failure_target: shipping UI with uneven padding, misaligned typography baselines, unhandled hover/active states, or rough edges
+    removal_condition: replace when host-native polish linters catch all micro-alignment defects automatically
   - id: deep-research
     origin: upstream
     role: process
@@ -1271,3 +1190,73 @@ skills:
     network: none
     side_effects: []
     update_policy: manual_review
+  - id: task-decomposer
+    origin: upstream
+    role: process
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/Mathews-Tom/armory
+      source_path: skills/task-decomposer
+      commit: ca902da10b1ec95702c2869fb9c04d8a9a387c55
+      tree: df05be4d98f6a2e23d2b3c3fbff0efff9d9cd43a
+      license: MIT
+      license_evidence: LICENSE
+      content_hash: ef3404ddc0f0c6b7933ffed42525bfbd61b4acdbd7eb2f5cba9407c555cca5a0
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash ef3404ddc0f0
+    network: read
+    side_effects: []
+    update_policy: manual_review
+    signals:
+      - plan
+      - planning
+      - task breakdown
+      - task decomposition
+      - phased implementation
+      - vertical slices
+      - kế hoạch
+      - chia việc
+      - decomposing
+      - acceptance criteria
+      - dependencies
+    supersedes:
+      - plan-and-handoff
+    failure_target: unstructured or un-sliced feature execution without dependency mapping, acceptance criteria, edge case enumeration, or test strategy
+    removal_condition: replace when a superior upstream planning workflow proves higher precision at equal context cost
+  - id: slide-maker
+    origin: upstream
+    role: domain
+    activation: implicit
+    compatibility: {}
+    lifecycle: active
+    upstream:
+      repository: https://github.com/addsumtech/slides_maker
+      source_path: skills/slide-maker
+      commit: 9fbe0a79dec27751f3a0f5a63426037a7b905cd8
+      tree: b8b8ac0341495cc4c380b8e4406f853213f01163
+      license: MIT
+      license_evidence: LICENSE
+      content_hash: c500d8dffb0b8746af456d95995078fb6abe23facaac51f986580ad1c3f28357
+    trust_tier: pinned-upstream
+    trust_basis: licensed MIT; exact-pinned by content hash c500d8dffb0b
+    network: read
+    side_effects:
+      - filesystem.write
+    update_policy: manual_review
+    signals:
+      - powerpoint
+      - pptx
+      - slides
+      - slide deck
+      - presentation
+      - làm slide
+      - bài thuyết trình
+      - tạo slide
+      - pitch deck
+      - slide-maker
+    supersedes:
+      - slides
+    failure_target: slide decks with unedited templates, low contrast, text clipping, missing visual hierarchy, or unverified presentation bounds
+    removal_condition: replace when a higher-fidelity native presentation workflow proves higher precision and broader template coverage at equal context cost

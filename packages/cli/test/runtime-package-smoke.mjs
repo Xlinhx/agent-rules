@@ -121,7 +121,7 @@ try {
   assert.equal(fs.existsSync(path.join(home, '.agent-rules', 'runtime')), false);
 
   const installedAgents = path.join(runtimeTarget, 'AGENTS.md');
-  const installedSkill = path.join(home, '.agents', 'skills', 'plan-and-handoff', 'SKILL.md');
+  const installedSkill = path.join(home, '.agents', 'skills', 'task-decomposer', 'SKILL.md');
   const agentsBytes = await fsp.readFile(installedAgents);
   const skillBytes = await fsp.readFile(installedSkill);
   const movedPackage = `${installedRoot}.moved`;
