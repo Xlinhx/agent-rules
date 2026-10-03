@@ -13,7 +13,7 @@ Skill Dependency Graph và nguyên lý phân định ranh giới:
   3. Verification Gate: Tồn tại phép đo trung gian có thể thay đổi hướng đi kỹ thuật (WebGL scene → GPU profile → optimize).
   4. Context Saturation Gate: Tổng context của các kỹ năng vượt ngân sách an toàn → cắt tỉa hoặc nạp luân chuyển theo giai đoạn.
   5. Blast-Radius Gate: Tránh gộp tái cấu trúc kiến trúc diện rộng với vi chỉnh chi tiết cục bộ trong cùng một lượt sửa đổi.
-  6. Dynamic Progression: Cho phép nạp thêm skill khi ngữ cảnh hoặc giai đoạn chuyển dịch; không khóa cứng inventory một lần làm giới hạn chuyên môn của cả phiên.
+- Dynamic Progression: Luân chuyển và nạp thêm kỹ năng theo từng chặng công việc theo quy định tại rule 10; không khóa cứng inventory một lần làm giới hạn chuyên môn của cả phiên.
 
 SKILL.md owns exact skill content, name and description. `registry/skills.yaml`
 owns provenance, role, activation, dependencies, conflicts and lifecycle.

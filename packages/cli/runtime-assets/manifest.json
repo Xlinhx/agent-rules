@@ -5,11 +5,11 @@
   "files": [
     {
       "path": "generated/context-graph.json",
-      "sha256": "6e7a5339719375260ba021fad57e1f88a1c209c0178a5a508e809da69703b3f7"
+      "sha256": "69bb16b0fe5ace6b985957a741d43cd550bb4c458bf83dd347e103379366a91c"
     },
     {
       "path": "generated/runtime-build/antigravity/manifest.json",
-      "sha256": "fba35c49ed5d5fae8d25c13d5a93f1296e132b498848529f2d0a121f8ab22da1"
+      "sha256": "9ac7a308ee68715291f410b8b441d63f0b7788a8924a7438b22aeb91dbc9a8ea"
     },
     {
       "path": "generated/runtime-build/antigravity/rules/00-intent-scope-safety.md",
@@ -17,7 +17,7 @@
     },
     {
       "path": "generated/runtime-build/antigravity/rules/10-execution-planning-delegation.md",
-      "sha256": "f9a1325b8735606f359e720d39e99d343b05e4da18e795d317429d202c0bafdd"
+      "sha256": "ef2379810174b5719051918d5bb8150369cd45611ed5230a47d486f7d8e8955d"
     },
     {
       "path": "generated/runtime-build/antigravity/rules/20-proof-outcome.md",
@@ -25,7 +25,7 @@
     },
     {
       "path": "generated/runtime-build/antigravity/rules/30-context-skill-mcp.md",
-      "sha256": "ccac8f2ebde761c24bc4dbeae001b991100c89fd97ca94259452fb277480d2a3"
+      "sha256": "832385c459dd0c17841f4767f969c449559925f22f7f001938dd9b4aeb52dd3d"
     },
     {
       "path": "generated/runtime-build/antigravity/rules/40-maintainer.md",
@@ -49,7 +49,7 @@
     },
     {
       "path": "generated/runtime-build/claude/manifest.json",
-      "sha256": "7e7694c0be1949a612f8ff34ab6ca9e7fcb3257cdcf560f5bc90aea998494c6d"
+      "sha256": "bc7b9f57d87393af032a29ab0759a3b5c494e67f3ac7ef0cfdab888635f5b003"
     },
     {
       "path": "generated/runtime-build/claude/rules/00-intent-scope-safety.md",
@@ -57,7 +57,7 @@
     },
     {
       "path": "generated/runtime-build/claude/rules/10-execution-planning-delegation.md",
-      "sha256": "f9a1325b8735606f359e720d39e99d343b05e4da18e795d317429d202c0bafdd"
+      "sha256": "ef2379810174b5719051918d5bb8150369cd45611ed5230a47d486f7d8e8955d"
     },
     {
       "path": "generated/runtime-build/claude/rules/20-proof-outcome.md",
@@ -65,7 +65,7 @@
     },
     {
       "path": "generated/runtime-build/claude/rules/30-context-skill-mcp.md",
-      "sha256": "ccac8f2ebde761c24bc4dbeae001b991100c89fd97ca94259452fb277480d2a3"
+      "sha256": "832385c459dd0c17841f4767f969c449559925f22f7f001938dd9b4aeb52dd3d"
     },
     {
       "path": "generated/runtime-build/claude/rules/40-maintainer.md",
@@ -89,7 +89,7 @@
     },
     {
       "path": "generated/runtime-build/codex/manifest.json",
-      "sha256": "b9262b14b56ea7e63032d75479ceff2d052f4418bed616ed069b415b48c82c1a"
+      "sha256": "de3f13e7e1b1cb401dfa3ce691fef44352a8c7e3dc07f520b7f66f17f7333b66"
     },
     {
       "path": "generated/runtime-build/codex/rules/00-intent-scope-safety.md",
@@ -97,7 +97,7 @@
     },
     {
       "path": "generated/runtime-build/codex/rules/10-execution-planning-delegation.md",
-      "sha256": "f9a1325b8735606f359e720d39e99d343b05e4da18e795d317429d202c0bafdd"
+      "sha256": "ef2379810174b5719051918d5bb8150369cd45611ed5230a47d486f7d8e8955d"
     },
     {
       "path": "generated/runtime-build/codex/rules/20-proof-outcome.md",
@@ -105,7 +105,7 @@
     },
     {
       "path": "generated/runtime-build/codex/rules/30-context-skill-mcp.md",
-      "sha256": "ccac8f2ebde761c24bc4dbeae001b991100c89fd97ca94259452fb277480d2a3"
+      "sha256": "832385c459dd0c17841f4767f969c449559925f22f7f001938dd9b4aeb52dd3d"
     },
     {
       "path": "generated/runtime-build/codex/rules/40-maintainer.md",
@@ -129,7 +129,7 @@
     },
     {
       "path": "generated/runtime-build/command-code/manifest.json",
-      "sha256": "cd7840c449b1caaca7dac2b8ea68c3981245e219d2f816d07057ec0f32bb974d"
+      "sha256": "9aae41d3f75cd51c6ab8b2a96e46eb9b39daa76c03bb4ed7fdcd34aeae9822d1"
     },
     {
       "path": "generated/runtime-build/command-code/rules/00-intent-scope-safety.md",
@@ -137,7 +137,7 @@
     },
     {
       "path": "generated/runtime-build/command-code/rules/10-execution-planning-delegation.md",
-      "sha256": "f9a1325b8735606f359e720d39e99d343b05e4da18e795d317429d202c0bafdd"
+      "sha256": "ef2379810174b5719051918d5bb8150369cd45611ed5230a47d486f7d8e8955d"
     },
     {
       "path": "generated/runtime-build/command-code/rules/20-proof-outcome.md",
@@ -145,7 +145,7 @@
     },
     {
       "path": "generated/runtime-build/command-code/rules/30-context-skill-mcp.md",
-      "sha256": "ccac8f2ebde761c24bc4dbeae001b991100c89fd97ca94259452fb277480d2a3"
+      "sha256": "832385c459dd0c17841f4767f969c449559925f22f7f001938dd9b4aeb52dd3d"
     },
     {
       "path": "generated/runtime-build/command-code/rules/40-maintainer.md",
@@ -165,7 +165,7 @@
     },
     {
       "path": "generated/runtime-build/cursor/manifest.json",
-      "sha256": "263768e7e4ec1f93cbb033a2a0b5fb56478488080e4f958c82d83cd42960374c"
+      "sha256": "1f547434a4680b0c68c99be94684f2b55831252ff7ba7b3da852a16bf7b7bc51"
     },
     {
       "path": "generated/runtime-build/cursor/rules/00-intent-scope-safety.md",
@@ -173,7 +173,7 @@
     },
     {
       "path": "generated/runtime-build/cursor/rules/10-execution-planning-delegation.md",
-      "sha256": "f9a1325b8735606f359e720d39e99d343b05e4da18e795d317429d202c0bafdd"
+      "sha256": "ef2379810174b5719051918d5bb8150369cd45611ed5230a47d486f7d8e8955d"
     },
     {
       "path": "generated/runtime-build/cursor/rules/20-proof-outcome.md",
@@ -181,7 +181,7 @@
     },
     {
       "path": "generated/runtime-build/cursor/rules/30-context-skill-mcp.md",
-      "sha256": "ccac8f2ebde761c24bc4dbeae001b991100c89fd97ca94259452fb277480d2a3"
+      "sha256": "832385c459dd0c17841f4767f969c449559925f22f7f001938dd9b4aeb52dd3d"
     },
     {
       "path": "generated/runtime-build/cursor/rules/40-maintainer.md",
@@ -205,7 +205,7 @@
     },
     {
       "path": "generated/runtime-build/deepseek-harness/manifest.json",
-      "sha256": "1ce3d19c47b57cbbb2e47e196015a5febcc102e86015b00e917184c9b2f2df06"
+      "sha256": "995fa324a2b35db021cc8b3039d026485caf3ec4419935e86fc7c84cc2177a35"
     },
     {
       "path": "generated/runtime-build/deepseek-harness/rules/00-intent-scope-safety.md",
@@ -213,7 +213,7 @@
     },
     {
       "path": "generated/runtime-build/deepseek-harness/rules/10-execution-planning-delegation.md",
-      "sha256": "f9a1325b8735606f359e720d39e99d343b05e4da18e795d317429d202c0bafdd"
+      "sha256": "ef2379810174b5719051918d5bb8150369cd45611ed5230a47d486f7d8e8955d"
     },
     {
       "path": "generated/runtime-build/deepseek-harness/rules/20-proof-outcome.md",
@@ -221,7 +221,7 @@
     },
     {
       "path": "generated/runtime-build/deepseek-harness/rules/30-context-skill-mcp.md",
-      "sha256": "ccac8f2ebde761c24bc4dbeae001b991100c89fd97ca94259452fb277480d2a3"
+      "sha256": "832385c459dd0c17841f4767f969c449559925f22f7f001938dd9b4aeb52dd3d"
     },
     {
       "path": "generated/runtime-build/deepseek-harness/rules/40-maintainer.md",
@@ -241,7 +241,7 @@
     },
     {
       "path": "generated/runtime-build/grok/manifest.json",
-      "sha256": "2b5b4c0342275d638a8ecf8305dc9ac5d3736432f52538ceb2ca1f73cc4f977b"
+      "sha256": "6aaa26e4200be21e797a23747b491f23e6be93297d255d0c6953ab3563bdc219"
     },
     {
       "path": "generated/runtime-build/grok/rules/00-intent-scope-safety.md",
@@ -249,7 +249,7 @@
     },
     {
       "path": "generated/runtime-build/grok/rules/10-execution-planning-delegation.md",
-      "sha256": "f9a1325b8735606f359e720d39e99d343b05e4da18e795d317429d202c0bafdd"
+      "sha256": "ef2379810174b5719051918d5bb8150369cd45611ed5230a47d486f7d8e8955d"
     },
     {
       "path": "generated/runtime-build/grok/rules/20-proof-outcome.md",
@@ -257,7 +257,7 @@
     },
     {
       "path": "generated/runtime-build/grok/rules/30-context-skill-mcp.md",
-      "sha256": "ccac8f2ebde761c24bc4dbeae001b991100c89fd97ca94259452fb277480d2a3"
+      "sha256": "832385c459dd0c17841f4767f969c449559925f22f7f001938dd9b4aeb52dd3d"
     },
     {
       "path": "generated/runtime-build/grok/rules/40-maintainer.md",
@@ -281,7 +281,7 @@
     },
     {
       "path": "generated/runtime-build/omp/manifest.json",
-      "sha256": "323798fd6e8264c444304c0b7f69f47b415ecbcc77ff8abe921ee8b4d90c78dc"
+      "sha256": "cb545e735819615a3cb6fdc0f3afc05880bfcfd098d8739f0e733a8b7805374a"
     },
     {
       "path": "generated/runtime-build/omp/rules/00-intent-scope-safety.md",
@@ -289,7 +289,7 @@
     },
     {
       "path": "generated/runtime-build/omp/rules/10-execution-planning-delegation.md",
-      "sha256": "f9a1325b8735606f359e720d39e99d343b05e4da18e795d317429d202c0bafdd"
+      "sha256": "ef2379810174b5719051918d5bb8150369cd45611ed5230a47d486f7d8e8955d"
     },
     {
       "path": "generated/runtime-build/omp/rules/20-proof-outcome.md",
@@ -297,7 +297,7 @@
     },
     {
       "path": "generated/runtime-build/omp/rules/30-context-skill-mcp.md",
-      "sha256": "ccac8f2ebde761c24bc4dbeae001b991100c89fd97ca94259452fb277480d2a3"
+      "sha256": "832385c459dd0c17841f4767f969c449559925f22f7f001938dd9b4aeb52dd3d"
     },
     {
       "path": "generated/runtime-build/omp/rules/40-maintainer.md",
@@ -321,7 +321,7 @@
     },
     {
       "path": "generated/runtime-build/opencode/manifest.json",
-      "sha256": "d91ccd6013a4fb9a5dcf8a11cb7c5211c9ddf143a038d3ffc0df6d73a21dbfc6"
+      "sha256": "d169559701c463a58b84c4ef09e4515535cd257c9442aa0f692f3c1182ac3ea3"
     },
     {
       "path": "generated/runtime-build/opencode/rules/00-intent-scope-safety.md",
@@ -329,7 +329,7 @@
     },
     {
       "path": "generated/runtime-build/opencode/rules/10-execution-planning-delegation.md",
-      "sha256": "f9a1325b8735606f359e720d39e99d343b05e4da18e795d317429d202c0bafdd"
+      "sha256": "ef2379810174b5719051918d5bb8150369cd45611ed5230a47d486f7d8e8955d"
     },
     {
       "path": "generated/runtime-build/opencode/rules/20-proof-outcome.md",
@@ -337,7 +337,7 @@
     },
     {
       "path": "generated/runtime-build/opencode/rules/30-context-skill-mcp.md",
-      "sha256": "ccac8f2ebde761c24bc4dbeae001b991100c89fd97ca94259452fb277480d2a3"
+      "sha256": "832385c459dd0c17841f4767f969c449559925f22f7f001938dd9b4aeb52dd3d"
     },
     {
       "path": "generated/runtime-build/opencode/rules/40-maintainer.md",
@@ -2997,7 +2997,7 @@
     },
     {
       "path": "rules/10-execution-planning-delegation.md",
-      "sha256": "f9a1325b8735606f359e720d39e99d343b05e4da18e795d317429d202c0bafdd"
+      "sha256": "ef2379810174b5719051918d5bb8150369cd45611ed5230a47d486f7d8e8955d"
     },
     {
       "path": "rules/20-proof-outcome.md",
@@ -3005,7 +3005,7 @@
     },
     {
       "path": "rules/30-context-skill-mcp.md",
-      "sha256": "ccac8f2ebde761c24bc4dbeae001b991100c89fd97ca94259452fb277480d2a3"
+      "sha256": "832385c459dd0c17841f4767f969c449559925f22f7f001938dd9b4aeb52dd3d"
     },
     {
       "path": "rules/40-maintainer.md",
@@ -8580,5 +8580,5 @@
       "sha256": "a6c67c1900064347c2a329990dd3c555657c51c3ec53b259a08aa01a2c26139a"
     }
   ],
-  "manifest_sha256": "70a00380ba057bef7d18322446a82520fb6aee59a2d3fe7900ba9f06729aca1f"
+  "manifest_sha256": "f42d867854525e8d9aa66f9aedc6f2e421fefee1ae8c6433d5befbf75bcd69c4"
 }

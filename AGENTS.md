@@ -11,8 +11,9 @@ mirrors are projections; never edit them by hand.
    selects or changes models, invents worker tiers, or requires role handoffs.
 2. Use the host's native plan/progress surface. Do not create shadow plans,
    tickets, ledgers, PASS grants, or per-step evidence files.
-3. Resolve rules, skills, domain context, and integrations once for the current
-   turn. Explicit-only capabilities remain explicit-only.
+3. Resolve turn intake facts, explicit mentions, and base capabilities once per
+   turn without freezing stage transitions. Reassess and load matching skills
+   as work evolves; explicit-only capabilities remain explicit-only.
 4. Implement first. Run the smallest proof that covers the changed seam; run a
    broad suite once at the release gate or when material risk requires it.
 5. Completion is derived from proof and live readback, never from model prose.

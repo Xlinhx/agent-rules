@@ -56,8 +56,14 @@ function isOwnedBackupDirectory(backupDir: string, host: HostId): boolean {
     const file = path.join(backupDir, name);
     if (!fs.existsSync(file)) continue;
     try {
-      const parsed = JSON.parse(fs.readFileSync(file, 'utf8')) as { schema?: string; host?: string };
-      if (parsed.schema === schema && (!parsed.host || parsed.host === host)) return true;
+      const parsed = JSON.parse(fs.readFileSync(file, 'utf8')) as { schema?: string; host?: string; platform?: string };
+      if (parsed.schema === schema && (!parsed.host || parsed.host === host || parsed.platform === host)) return true;
+    } catch { return false; }
+  }
+  const skillProjectionsDir = path.join(backupDir, 'skill-projections');
+  if (fs.existsSync(skillProjectionsDir)) {
+    try {
+      return fs.statSync(skillProjectionsDir).isDirectory();
     } catch { return false; }
   }
   return false;
@@ -419,7 +425,7 @@ export class NativeInstaller {
         const isNonFileInstruction = rawInstr.includes('bundle') || rawInstr.includes('mods') || rawInstr.includes('/rules') || rawInstr.endsWith('rules') || rawInstr.endsWith('rules/');
 
         const profileMarkers = compiledSkills.profiles.map((id) => `<!-- agent-rules:profile:${id} -->`).join('\n');
-        const managed = `<!-- agent-rules:managed:${host} BEGIN (do not edit manually) -->\n# Agent Rules — ${host} native (global)\nThis self-contained static projection is owned by agent-rules and is bound to candidate ${computeCandidateFingerprint().slice(0, 12)}.\n${profileMarkers}\n\n${compiledRules}\n\nAt task intake, resolve explicit skill mentions and deterministic repository facts once through native skill discovery. If advanced routing is unavailable, continue with these base rules; never ask the user to run a router.\n<!-- agent-rules:managed:${host} END -->\n`;
+        const managed = `<!-- agent-rules:managed:${host} BEGIN (do not edit manually) -->\n# Agent Rules — ${host} native (global)\nThis self-contained static projection is owned by agent-rules and is bound to candidate ${computeCandidateFingerprint().slice(0, 12)}.\n${profileMarkers}\n\n${compiledRules}\n\nAt task intake, resolve explicit skill mentions and deterministic repository facts once through native skill discovery without freezing stage transitions. If advanced routing is unavailable, continue with these base rules; never ask the user to run a router.\n<!-- agent-rules:managed:${host} END -->\n`;
 
         if ((host === 'grok' || host === 'cursor') && instrPath) {
           fs.mkdirSync(instrPath, { recursive: true });
