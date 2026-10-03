@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { describe, expect, it } from 'vitest';
-import { NativeInstaller } from '../src/services/native-installer.js';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { NativeInstaller, isOwnedBackupDirectory } from '../src/services/native-installer.js';
 import { resolveOmpAgentHome } from '../src/native/omp.js';
 import { expandNativePath } from '../src/native/probe.js';
 import { getHostIds, getNativeContract, getAllNativeContracts, getHostSupport } from '@initforge/agent-rules-kernel/northstar/host-registry.js';
@@ -137,5 +137,121 @@ describe('static host projector contracts', () => {
       fs.rmSync(agentDir, { recursive: true, force: true });
     }
   }, 30_000);
+});
+
+describe('isOwnedBackupDirectory', () => {
+  let tempDir: string;
+
+  beforeEach(() => {
+    tempDir = fs.mkdtempSync(path.join(process.cwd(), '.backup-ownership-test-'));
+  });
+
+  afterEach(() => {
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  });
+
+  it('rejects nonexistent directory or empty directory', () => {
+    expect(isOwnedBackupDirectory(path.join(tempDir, 'nonexistent'), 'codex')).toBe(false);
+    expect(isOwnedBackupDirectory(tempDir, 'codex')).toBe(false);
+  });
+
+  it('rejects directory with skill-projections subdirectory but no receipt', () => {
+    fs.mkdirSync(path.join(tempDir, 'skill-projections'), { recursive: true });
+    expect(isOwnedBackupDirectory(tempDir, 'codex')).toBe(false);
+  });
+
+  it('rejects receipt belonging to another platform', () => {
+    fs.writeFileSync(
+      path.join(tempDir, '.skill-projection-backup.json'),
+      JSON.stringify({ schema: 'agent-rules/skill-projection-backup/v1', platform: 'claude' }),
+      'utf8',
+    );
+    expect(isOwnedBackupDirectory(tempDir, 'codex')).toBe(false);
+  });
+
+  it('rejects receipt with conflicting host and platform fields', () => {
+    fs.writeFileSync(
+      path.join(tempDir, '.skill-projection-backup.json'),
+      JSON.stringify({
+        schema: 'agent-rules/skill-projection-backup/v1',
+        host: 'claude',
+        platform: 'codex',
+      }),
+      'utf8',
+    );
+    // Checking for codex -> host 'claude' contradicts
+    expect(isOwnedBackupDirectory(tempDir, 'codex')).toBe(false);
+    // Checking for claude -> platform 'codex' contradicts
+    expect(isOwnedBackupDirectory(tempDir, 'claude')).toBe(false);
+  });
+
+  it('rejects receipt with invalid JSON or wrong schema', () => {
+    fs.writeFileSync(path.join(tempDir, '.native-backup.json'), '{ not valid json', 'utf8');
+    expect(isOwnedBackupDirectory(tempDir, 'cursor')).toBe(false);
+
+    fs.writeFileSync(
+      path.join(tempDir, '.native-backup.json'),
+      JSON.stringify({ schema: 'unrelated/backup/v1', host: 'cursor' }),
+      'utf8',
+    );
+    expect(isOwnedBackupDirectory(tempDir, 'cursor')).toBe(false);
+  });
+
+  it('rejects dedicated receipt checked for wrong host', () => {
+    fs.writeFileSync(
+      path.join(tempDir, '.dsh-backup.json'),
+      JSON.stringify({ schema: 'agent-rules/dsh-backup/v1', home: '/test' }),
+      'utf8',
+    );
+    expect(isOwnedBackupDirectory(tempDir, 'cursor')).toBe(false);
+    expect(isOwnedBackupDirectory(tempDir, 'deepseek-harness')).toBe(true);
+  });
+
+  it('accepts valid skill-projection backup matching target host', () => {
+    fs.writeFileSync(
+      path.join(tempDir, '.skill-projection-backup.json'),
+      JSON.stringify({ schema: 'agent-rules/skill-projection-backup/v1', platform: 'codex' }),
+      'utf8',
+    );
+    expect(isOwnedBackupDirectory(tempDir, 'codex')).toBe(true);
+  });
+
+  it('accepts valid native backup matching target host', () => {
+    fs.writeFileSync(
+      path.join(tempDir, '.native-backup.json'),
+      JSON.stringify({ schema: 'agent-rules/native-backup/v1', host: 'cursor' }),
+      'utf8',
+    );
+    expect(isOwnedBackupDirectory(tempDir, 'cursor')).toBe(true);
+  });
+
+  it('accepts directory with multiple valid receipts matching same host', () => {
+    fs.writeFileSync(
+      path.join(tempDir, '.native-backup.json'),
+      JSON.stringify({ schema: 'agent-rules/native-backup/v1', host: 'cursor' }),
+      'utf8',
+    );
+    fs.writeFileSync(
+      path.join(tempDir, '.skill-projection-backup.json'),
+      JSON.stringify({ schema: 'agent-rules/skill-projection-backup/v1', platform: 'cursor' }),
+      'utf8',
+    );
+    expect(isOwnedBackupDirectory(tempDir, 'cursor')).toBe(true);
+  });
+
+  it('rejects directory if one receipt matches host but another marker belongs to another host', () => {
+    fs.writeFileSync(
+      path.join(tempDir, '.native-backup.json'),
+      JSON.stringify({ schema: 'agent-rules/native-backup/v1', host: 'cursor' }),
+      'utf8',
+    );
+    fs.writeFileSync(
+      path.join(tempDir, '.skill-projection-backup.json'),
+      JSON.stringify({ schema: 'agent-rules/skill-projection-backup/v1', platform: 'claude' }),
+      'utf8',
+    );
+    expect(isOwnedBackupDirectory(tempDir, 'cursor')).toBe(false);
+    expect(isOwnedBackupDirectory(tempDir, 'claude')).toBe(false);
+  });
 });
 

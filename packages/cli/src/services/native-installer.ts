@@ -44,29 +44,48 @@ interface NativeBackupManifest {
   entries: NativeBackupEntry[];
 }
 
-function isOwnedBackupDirectory(backupDir: string, host: HostId): boolean {
+export function isOwnedBackupDirectory(backupDir: string, host: HostId): boolean {
+  if (!fs.existsSync(backupDir)) return false;
+  try {
+    if (!fs.statSync(backupDir).isDirectory()) return false;
+  } catch {
+    return false;
+  }
+
   const markers = [
-    ['.native-backup.json', 'agent-rules/native-backup/v1'],
-    ['.dsh-backup.json', 'agent-rules/dsh-backup/v1'],
-    ['.command-code-backup.json', 'agent-rules/command-code-backup/v1'],
-    ['omp-runtime-backup.json', 'agent-rules/omp-backup/v1'],
-    ['.skill-projection-backup.json', 'agent-rules/skill-projection-backup/v1'],
+    { name: '.native-backup.json', schema: 'agent-rules/native-backup/v1' },
+    { name: '.dsh-backup.json', schema: 'agent-rules/dsh-backup/v1', dedicatedHost: 'deepseek-harness' as HostId },
+    { name: '.command-code-backup.json', schema: 'agent-rules/command-code-backup/v1', dedicatedHost: 'command-code' as HostId },
+    { name: 'omp-runtime-backup.json', schema: 'agent-rules/omp-backup/v1', dedicatedHost: 'omp' as HostId },
+    { name: '.skill-projection-backup.json', schema: 'agent-rules/skill-projection-backup/v1' },
   ] as const;
-  for (const [name, schema] of markers) {
-    const file = path.join(backupDir, name);
+
+  let foundOwnedReceipt = false;
+  for (const marker of markers) {
+    const file = path.join(backupDir, marker.name);
     if (!fs.existsSync(file)) continue;
     try {
-      const parsed = JSON.parse(fs.readFileSync(file, 'utf8')) as { schema?: string; host?: string; platform?: string };
-      if (parsed.schema === schema && (!parsed.host || parsed.host === host || parsed.platform === host)) return true;
-    } catch { return false; }
+      const parsed = JSON.parse(fs.readFileSync(file, 'utf8')) as { schema?: string; host?: string; platform?: string } | null;
+      if (!parsed || typeof parsed !== 'object') return false;
+      if (parsed.schema !== marker.schema) return false;
+
+      // Both host and platform, if specified, must not contradict the expected host.
+      if (parsed.host && parsed.host !== host) return false;
+      if (parsed.platform && parsed.platform !== host) return false;
+
+      // Positive proof: must be dedicated to this host, or explicitly specify this host/platform.
+      const matchesDedicated = 'dedicatedHost' in marker && marker.dedicatedHost === host;
+      const matchesHost = parsed.host === host;
+      const matchesPlatform = parsed.platform === host;
+
+      if (!matchesDedicated && !matchesHost && !matchesPlatform) return false;
+      foundOwnedReceipt = true;
+    } catch {
+      return false;
+    }
   }
-  const skillProjectionsDir = path.join(backupDir, 'skill-projections');
-  if (fs.existsSync(skillProjectionsDir)) {
-    try {
-      return fs.statSync(skillProjectionsDir).isDirectory();
-    } catch { return false; }
-  }
-  return false;
+
+  return foundOwnedReceipt;
 }
 
 function prepareNativeBackupDirectory(backupDir: string, host: HostId): void {
