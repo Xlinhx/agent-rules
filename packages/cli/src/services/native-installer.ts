@@ -73,12 +73,14 @@ export function isOwnedBackupDirectory(backupDir: string, host: HostId): boolean
       if (parsed.host && parsed.host !== host) return false;
       if (parsed.platform && parsed.platform !== host) return false;
 
-      // Positive proof: must be dedicated to this host, or explicitly specify this host/platform.
-      const matchesDedicated = 'dedicatedHost' in marker && marker.dedicatedHost === host;
-      const matchesHost = parsed.host === host;
-      const matchesPlatform = parsed.platform === host;
+      // Dedicated receipts are strictly bound to their dedicated host.
+      if ('dedicatedHost' in marker) {
+        if (marker.dedicatedHost !== host) return false;
+      } else {
+        // Non-dedicated receipts must explicitly specify the target host or platform.
+        if (parsed.host !== host && parsed.platform !== host) return false;
+      }
 
-      if (!matchesDedicated && !matchesHost && !matchesPlatform) return false;
       foundOwnedReceipt = true;
     } catch {
       return false;

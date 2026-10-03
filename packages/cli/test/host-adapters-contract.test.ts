@@ -207,6 +207,23 @@ describe('isOwnedBackupDirectory', () => {
     expect(isOwnedBackupDirectory(tempDir, 'deepseek-harness')).toBe(true);
   });
 
+  it('rejects dedicated receipt even if payload has injected foreign host property', () => {
+    fs.writeFileSync(
+      path.join(tempDir, '.dsh-backup.json'),
+      JSON.stringify({ schema: 'agent-rules/dsh-backup/v1', host: 'cursor' }),
+      'utf8',
+    );
+    expect(isOwnedBackupDirectory(tempDir, 'cursor')).toBe(false);
+    expect(isOwnedBackupDirectory(tempDir, 'deepseek-harness')).toBe(false);
+
+    fs.writeFileSync(
+      path.join(tempDir, '.command-code-backup.json'),
+      JSON.stringify({ schema: 'agent-rules/command-code-backup/v1', host: 'cursor' }),
+      'utf8',
+    );
+    expect(isOwnedBackupDirectory(tempDir, 'cursor')).toBe(false);
+  });
+
   it('accepts valid skill-projection backup matching target host', () => {
     fs.writeFileSync(
       path.join(tempDir, '.skill-projection-backup.json'),
